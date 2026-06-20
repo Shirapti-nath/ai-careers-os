@@ -1,57 +1,57 @@
-/* Resume template engine — 3 categories, 9 distinct layouts */
+/* Resume template engine — each layout has unique HTML structure & typography */
 window.RESUME_TEMPLATES = {
   'student-campus': {
     id: 'student-campus', name: 'Campus Fresh', category: 'student',
-    desc: 'Centered header — ideal for internships and campus placements.',
-    ats: 96, accent: '#4f46e5', layout: 'student-campus',
+    desc: 'Centered indigo header — built for internships and campus hiring.',
+    ats: 96, layout: 'campus',
     order: ['summary', 'education', 'projects', 'experience', 'skills']
   },
   'student-sidebar': {
     id: 'student-sidebar', name: 'Portfolio Sidebar', category: 'student',
-    desc: 'Purple sidebar with skills & contact — great for CS students.',
-    ats: 93, accent: '#7c3aed', layout: 'student-sidebar',
-    order: ['summary', 'education', 'projects', 'experience', 'skills']
+    desc: 'Purple sidebar rail with skills — perfect for CS portfolios.',
+    ats: 93, layout: 'sidebar',
+    order: ['education', 'projects', 'experience']
   },
   'student-projects': {
     id: 'student-projects', name: 'Project Spotlight', category: 'student',
-    desc: 'Bold header with project-first layout for portfolio-heavy profiles.',
-    ats: 91, accent: '#0891b2', layout: 'student-projects',
+    desc: 'Teal banner header with card-style project blocks.',
+    ats: 91, layout: 'projects',
     order: ['summary', 'projects', 'education', 'experience', 'skills']
   },
   'pro-corporate': {
     id: 'pro-corporate', name: 'Corporate Standard', category: 'professional',
-    desc: 'Classic navy sections — trusted by recruiters across industries.',
-    ats: 97, accent: '#0f172a', layout: 'pro-corporate',
+    desc: 'Navy section bars and uppercase name — recruiter-approved.',
+    ats: 97, layout: 'corporate',
     order: ['summary', 'experience', 'education', 'projects', 'skills']
   },
   'pro-split': {
     id: 'pro-split', name: 'Modern Split', category: 'professional',
-    desc: 'Blue sidebar with experience-forward layout for 2–5 years.',
-    ats: 94, accent: '#0ea5e9', layout: 'pro-split',
-    order: ['summary', 'experience', 'education', 'projects', 'skills']
+    desc: 'Oswald headline + sky-blue sidebar for 2–5 year pros.',
+    ats: 94, layout: 'split',
+    order: ['summary', 'experience', 'education', 'projects']
   },
   'pro-slate': {
     id: 'pro-slate', name: 'Clean Slate', category: 'professional',
-    desc: 'Minimal whitespace design — lets achievements speak clearly.',
-    ats: 95, accent: '#374151', layout: 'pro-slate',
+    desc: 'Oversized name, whisper-thin section labels, max whitespace.',
+    ats: 95, layout: 'slate',
     order: ['summary', 'experience', 'skills', 'education', 'projects']
   },
   'exec-dark': {
     id: 'exec-dark', name: 'Executive Dark', category: 'executive',
-    desc: 'Bold dark header with gold accents for senior leadership roles.',
-    ats: 92, accent: '#f59e0b', layout: 'exec-dark',
-    order: ['summary', 'experience', 'education', 'skills', 'projects']
+    desc: 'Playfair serif on black header with gold section rules.',
+    ats: 92, layout: 'execdark',
+    order: ['experience', 'education', 'skills', 'projects']
   },
   'exec-timeline': {
     id: 'exec-timeline', name: 'Senior Timeline', category: 'executive',
-    desc: 'Green timeline accents — optimized for 8+ years experience.',
-    ats: 93, accent: '#059669', layout: 'exec-timeline',
+    desc: 'Monospace section labels with green timeline rail.',
+    ats: 93, layout: 'timeline',
     order: ['summary', 'experience', 'skills', 'education', 'projects']
   },
   'exec-classic': {
     id: 'exec-classic', name: 'Distinguished Classic', category: 'executive',
-    desc: 'Serif typography with formal layout for director-level roles.',
-    ats: 90, accent: '#1c1917', layout: 'exec-classic',
+    desc: 'Libre Baskerville serif — formal layout for director roles.',
+    ats: 90, layout: 'classic',
     order: ['summary', 'experience', 'education', 'skills', 'projects']
   }
 };
@@ -65,16 +65,13 @@ function esc(s) {
 
 function getResumeFormData() {
   function g(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-  var email = g('b-email'), phone = g('b-phone'), loc = g('b-location');
-  var li = g('b-linkedin'), gh = g('b-github');
-  var contactParts = [email, phone, loc, li, gh].filter(Boolean);
+  var contactParts = [g('b-email'), g('b-phone'), g('b-location'), g('b-linkedin'), g('b-github')].filter(Boolean);
   var bullets = g('b-bullets');
   var bulletsHTML = bullets
     ? bullets.split('\n').filter(function (b) { return b.trim(); }).map(function (b) {
         return '<div>• ' + esc(b.replace(/^•\s*/, '')) + '</div>';
       }).join('')
     : '';
-
   return {
     name: g('b-name') || 'Your Name',
     contact: contactParts.join(' | ') || 'your@email.com | City',
@@ -88,154 +85,212 @@ function getResumeFormData() {
   };
 }
 
-function blockEducation(d) {
+/* ── Content blocks ── */
+function eduBlock(d) {
   if (!d.degree) return '<div class="rt-muted">Add your education details above</div>';
-  return '<div style="display:flex;justify-content:space-between;font-weight:600;">' + esc(d.degree) +
-    '<span style="font-weight:400;color:#64748b;">' + esc(d.yr) + '</span></div>' +
-    '<div class="rt-muted">' + esc(d.inst) + (d.cgpa ? ' · CGPA: ' + esc(d.cgpa) : '') + '</div>' +
-    (d.course ? '<div class="rt-body" style="margin-top:2px;">' + esc(d.course) + '</div>' : '');
+  return '<div style="display:flex;justify-content:space-between;font-weight:700;">' + esc(d.degree) +
+    '<span style="font-weight:500;color:#64748b;font-size:9.5px;">' + esc(d.yr) + '</span></div>' +
+    '<div class="rt-muted">' + esc(d.inst) + (d.cgpa ? ' · CGPA ' + esc(d.cgpa) : '') + '</div>' +
+    (d.course ? '<div class="rt-body" style="margin-top:3px;">' + esc(d.course) + '</div>' : '');
 }
 
-function blockExperience(d) {
+function expBlock(d, timeline) {
   if (!d.jt) return '<div class="rt-muted">Add your experience above</div>';
   var dates = d.start + (d.end ? ' – ' + d.end : '');
-  return '<div style="display:flex;justify-content:space-between;font-weight:600;">' + esc(d.jt) +
-    '<span style="font-weight:400;color:#64748b;">' + esc(dates) + '</span></div>' +
-    '<div class="rt-muted" style="margin-bottom:4px;">' + esc(d.comp) + '</div>' +
+  var inner = '<div style="display:flex;justify-content:space-between;font-weight:700;">' + esc(d.jt) +
+    '<span style="font-weight:500;color:#64748b;font-size:9.5px;">' + esc(dates) + '</span></div>' +
+    '<div class="rt-muted" style="margin:2px 0 5px;">' + esc(d.comp) + '</div>' +
     '<div class="rt-body">' + d.bulletsHTML + '</div>';
+  return timeline ? '<div class="rt-timeline-entry">' + inner + '</div>' : inner;
 }
 
-function blockProjects(d, chips) {
+function projBlock(d, card, chips) {
   if (!d.p1) return '<div class="rt-muted">Add your projects above</div>';
-  var stack = d.p1s ? ' <span class="rt-muted">· ' + esc(d.p1s) + '</span>' : '';
   var chipsHTML = chips && d.p1s
-    ? d.p1s.split(',').map(function (s) {
-        return '<span class="rt-chip">' + esc(s.trim()) + '</span>';
-      }).join('')
+    ? d.p1s.split(',').map(function (s) { return '<span class="rt-chip">' + esc(s.trim()) + '</span>'; }).join('')
     : '';
-  return '<div style="font-weight:600;">' + esc(d.p1) + (chips ? '' : stack) + '</div>' +
-    (chipsHTML ? '<div style="margin:6px 0 4px;">' + chipsHTML + '</div>' : '') +
-    (d.p1d ? '<div class="rt-body" style="margin-top:2px;">' + esc(d.p1d) + '</div>' : '') +
-    (d.p1l ? '<div style="color:#6366f1;font-size:9px;">' + esc(d.p1l) + '</div>' : '');
+  var inner = '<div style="font-weight:700;font-size:11px;">' + esc(d.p1) + '</div>' +
+    (chipsHTML ? '<div style="margin:6px 0 4px;">' + chipsHTML + '</div>' :
+      (d.p1s ? '<div class="rt-muted" style="font-size:9px;margin:2px 0;">' + esc(d.p1s) + '</div>' : '')) +
+    (d.p1d ? '<div class="rt-body">' + esc(d.p1d) + '</div>' : '') +
+    (d.p1l ? '<div style="color:#0284c7;font-size:9px;margin-top:3px;">' + esc(d.p1l) + '</div>' : '');
+  return card ? '<div class="rt-card">' + inner + '</div>' : inner;
 }
 
-function blockSkills(d) {
+function skillsBlock(d) {
   var html = '';
-  if (d.lang) html += '<div><span style="font-weight:600;">Languages:</span> ' + esc(d.lang) + '</div>';
-  if (d.fw) html += '<div><span style="font-weight:600;">Frameworks:</span> ' + esc(d.fw) + '</div>';
-  if (d.tools) html += '<div><span style="font-weight:600;">Tools:</span> ' + esc(d.tools) + '</div>';
-  if (d.certs) html += '<div style="margin-top:4px;"><span style="font-weight:600;">Certifications:</span> ' + esc(d.certs.replace(/\n/g, ' | ')) + '</div>';
+  if (d.lang) html += '<div><b>Languages</b> · ' + esc(d.lang) + '</div>';
+  if (d.fw) html += '<div><b>Frameworks</b> · ' + esc(d.fw) + '</div>';
+  if (d.tools) html += '<div><b>Tools</b> · ' + esc(d.tools) + '</div>';
+  if (d.certs) html += '<div style="margin-top:4px;"><b>Certs</b> · ' + esc(d.certs.replace(/\n/g, ', ')) + '</div>';
   return html || '<div class="rt-muted">Add your skills above</div>';
 }
 
-function sec(title, body) {
-  return '<div class="rt-sec"><div class="rt-sec-title">' + title + '</div><div class="rt-sec-body">' + body + '</div></div>';
+function summaryBlock(d) {
+  return d.summary
+    ? '<p class="rt-body">' + esc(d.summary) + '</p>'
+    : '<p class="rt-muted">Add a brief summary above</p>';
 }
 
-function sectionsMap(d, tpl) {
-  var chips = tpl.layout === 'student-projects';
-  return {
-    summary: d.summary
-      ? sec('Professional Summary', '<p class="rt-body">' + esc(d.summary) + '</p>')
-      : sec('Professional Summary', '<p class="rt-muted">Add a brief summary above</p>'),
-    education: sec('Education', blockEducation(d)),
-    experience: sec('Experience', blockExperience(d)),
-    projects: sec('Projects', blockProjects(d, chips)),
-    skills: sec('Skills', blockSkills(d))
+function section(h, body) {
+  return '<div class="rt-sec"><div class="rt-sec-h">' + h + '</div>' + body + '</div>';
+}
+
+/* ── Per-template renderers ── */
+function renderCampus(d, tpl) {
+  var parts = {
+    summary: section('Professional Summary', summaryBlock(d)),
+    education: section('Education', eduBlock(d)),
+    projects: section('Projects', projBlock(d, false, false)),
+    experience: section('Experience', expBlock(d, false)),
+    skills: section('Skills & Certifications', skillsBlock(d))
   };
+  return '<div class="rt-t-campus">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+    '<div class="rt-head-rule"></div>' +
+    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '</div>';
 }
 
-function renderOrderedSections(d, tpl) {
-  var map = sectionsMap(d, tpl);
-  return tpl.order.map(function (k) { return map[k]; }).join('');
+function renderSidebar(d) {
+  return '<div class="rt-t-sidebar">' +
+    '<div class="rt-rail">' +
+      '<div class="rt-name">' + esc(d.name) + '</div>' +
+      '<div class="rt-contact">' + esc(d.contact).replace(/\s*\|\s*/g, '<br>') + '</div>' +
+      '<div class="rt-sec-h">Technical Skills</div>' +
+      '<div class="rt-body">' + skillsBlock(d) + '</div>' +
+      (d.summary ? '<div class="rt-sec-h">About</div><div class="rt-body">' + esc(d.summary) + '</div>' : '') +
+    '</div>' +
+    '<div class="rt-main">' +
+      section('Education', eduBlock(d)) +
+      section('Projects', projBlock(d, true, true)) +
+      section('Experience', expBlock(d, false)) +
+    '</div></div>';
 }
+
+function renderProjects(d, tpl) {
+  var parts = {
+    summary: section('About Me', summaryBlock(d)),
+    projects: section('Featured Projects', projBlock(d, true, true)),
+    education: section('Education', eduBlock(d)),
+    experience: section('Experience', expBlock(d, false)),
+    skills: section('Skills', skillsBlock(d))
+  };
+  return '<div class="rt-t-projects">' +
+    '<div class="rt-banner"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div></div>' +
+    '<div class="rt-inner">' + tpl.order.map(function (k) { return parts[k]; }).join('') + '</div></div>';
+}
+
+function renderCorporate(d, tpl) {
+  var parts = {
+    summary: section('Executive Summary', summaryBlock(d)),
+    experience: section('Professional Experience', expBlock(d, false)),
+    education: section('Education', eduBlock(d)),
+    projects: section('Key Projects', projBlock(d, false, false)),
+    skills: section('Core Competencies', skillsBlock(d))
+  };
+  return '<div class="rt-t-corporate">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+    '<div class="rt-rule"></div>' +
+    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '</div>';
+}
+
+function renderSplit(d) {
+  return '<div class="rt-t-split">' +
+    '<div class="rt-rail">' +
+      '<div class="rt-name">' + esc(d.name) + '</div>' +
+      '<div class="rt-contact">' + esc(d.contact).replace(/\s*\|\s*/g, '<br>') + '</div>' +
+      '<div class="rt-sec-h">Core Skills</div><div class="rt-body">' + skillsBlock(d) + '</div>' +
+    '</div>' +
+    '<div class="rt-main">' +
+      (d.summary ? section('Profile', summaryBlock(d)) : '') +
+      section('Experience', expBlock(d, false)) +
+      section('Education', eduBlock(d)) +
+      section('Projects', projBlock(d, false, false)) +
+    '</div></div>';
+}
+
+function renderSlate(d, tpl) {
+  var parts = {
+    summary: section('Summary', summaryBlock(d)),
+    experience: section('Experience', expBlock(d, false)),
+    skills: section('Skills', skillsBlock(d)),
+    education: section('Education', eduBlock(d)),
+    projects: section('Projects', projBlock(d, false, false))
+  };
+  return '<div class="rt-t-slate">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '</div>';
+}
+
+function renderExecDark(d, tpl) {
+  var parts = {
+    experience: section('Leadership Experience', expBlock(d, false)),
+    education: section('Education', eduBlock(d)),
+    skills: section('Expertise', skillsBlock(d)),
+    projects: section('Strategic Initiatives', projBlock(d, false, false))
+  };
+  return '<div class="rt-t-execdark">' +
+    '<div class="rt-head">' +
+      '<div class="rt-name">' + esc(d.name) + '</div>' +
+      '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+      (d.summary ? '<div class="rt-tagline">' + esc(d.summary) + '</div>' : '') +
+    '</div>' +
+    '<div class="rt-inner">' + tpl.order.map(function (k) { return parts[k]; }).join('') + '</div></div>';
+}
+
+function renderTimeline(d, tpl) {
+  var parts = {
+    summary: section('// profile', summaryBlock(d)),
+    experience: section('// career', expBlock(d, true)),
+    skills: section('// expertise', skillsBlock(d)),
+    education: section('// education', eduBlock(d)),
+    projects: section('// projects', projBlock(d, false, false))
+  };
+  return '<div class="rt-t-timeline">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '</div>';
+}
+
+function renderClassic(d, tpl) {
+  var parts = {
+    summary: section('Professional Summary', summaryBlock(d)),
+    experience: section('Professional Experience', expBlock(d, false)),
+    education: section('Education', eduBlock(d)),
+    skills: section('Areas of Expertise', skillsBlock(d)),
+    projects: section('Notable Projects', projBlock(d, false, false))
+  };
+  return '<div class="rt-t-classic">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
+    '<div class="rt-ornament">— ✦ —</div>' +
+    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '</div>';
+}
+
+var RENDERERS = {
+  campus: renderCampus,
+  sidebar: renderSidebar,
+  projects: renderProjects,
+  corporate: renderCorporate,
+  split: renderSplit,
+  slate: renderSlate,
+  execdark: renderExecDark,
+  timeline: renderTimeline,
+  classic: renderClassic
+};
 
 function renderResumeHTML(data, templateId) {
   var tpl = RESUME_TEMPLATES[templateId] || RESUME_TEMPLATES['student-campus'];
-  var d = data;
-  var accent = tpl.accent;
-  var sections = renderOrderedSections(d, tpl);
-
-  if (tpl.layout === 'student-sidebar') {
-    return '<div class="rt-root rt-student-sidebar" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-side">' +
-        '<div class="rt-name">' + esc(d.name) + '</div>' +
-        '<div class="rt-contact">' + esc(d.contact).replace(/\|/g, '<br>') + '</div>' +
-        '<div class="rt-sec-title">Skills</div><div style="font-size:9px;line-height:1.7;">' + blockSkills(d) + '</div>' +
-      '</div>' +
-      '<div class="rt-main">' +
-        (d.summary ? sec('Summary', '<p class="rt-body">' + esc(d.summary) + '</p>') : '') +
-        sec('Education', blockEducation(d)) +
-        sec('Projects', blockProjects(d, false)) +
-        sec('Experience', blockExperience(d)) +
-      '</div></div>';
-  }
-
-  if (tpl.layout === 'pro-split') {
-    return '<div class="rt-root rt-pro-split" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-side">' +
-        '<div class="rt-name">' + esc(d.name) + '</div>' +
-        '<div class="rt-contact">' + esc(d.contact).replace(/\|/g, '<br>') + '</div>' +
-        '<div class="rt-sec-title">Skills</div><div style="font-size:9px;line-height:1.7;">' + blockSkills(d) + '</div>' +
-      '</div>' +
-      '<div class="rt-main">' +
-        (d.summary ? sec('Summary', '<p class="rt-body">' + esc(d.summary) + '</p>') : '') +
-        sec('Experience', blockExperience(d)) +
-        sec('Education', blockEducation(d)) +
-        sec('Projects', blockProjects(d, false)) +
-      '</div></div>';
-  }
-
-  if (tpl.layout === 'student-projects') {
-    return '<div class="rt-root rt-student-projects" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-banner"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div></div>' +
-      sections + '</div>';
-  }
-
-  if (tpl.layout === 'student-campus') {
-    return '<div class="rt-root rt-student-campus" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-head"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div></div>' +
-      sections + '</div>';
-  }
-
-  if (tpl.layout === 'pro-corporate') {
-    return '<div class="rt-root rt-pro-corporate" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-head"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div></div>' +
-      sections + '</div>';
-  }
-
-  if (tpl.layout === 'pro-slate') {
-    return '<div class="rt-root rt-pro-slate" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div><div class="rt-rule"></div>' +
-      sections + '</div>';
-  }
-
-  if (tpl.layout === 'exec-dark') {
-    return '<div class="rt-root rt-exec-dark" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-head"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div>' +
-      (d.summary ? '<div class="rt-tagline">' + esc(d.summary.slice(0, 80)) + (d.summary.length > 80 ? '…' : '') + '</div>' : '') +
-      '</div><div class="rt-body-wrap">' + sections + '</div></div>';
-  }
-
-  if (tpl.layout === 'exec-timeline') {
-    var expBody = d.jt
-      ? '<div class="rt-entry">' + blockExperience(d) + '</div>'
-      : '<div class="rt-muted">Add your experience above</div>';
-    var map = sectionsMap(d, tpl);
-    map.experience = sec('Experience', expBody);
-    var html = tpl.order.map(function (k) { return map[k]; }).join('');
-    return '<div class="rt-root rt-exec-timeline" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div>' +
-      html + '</div>';
-  }
-
-  if (tpl.layout === 'exec-classic') {
-    return '<div class="rt-root rt-exec-classic" style="--rt-accent:' + accent + '">' +
-      '<div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div>' +
-      sections + '</div>';
-  }
-
-  return renderResumeHTML(data, 'student-campus');
+  var fn = RENDERERS[tpl.layout];
+  return fn ? fn(data, tpl) : renderCampus(data, tpl);
 }
 
 function applyResumeTemplate(id) {
@@ -260,19 +315,18 @@ function filterTemplates(btn, cat) {
 }
 
 function miniPreviewHTML(tpl) {
-  var c = tpl.accent;
-  var layouts = {
-    'student-campus': '<div style="padding:12px;text-align:center"><div style="height:8px;width:55%;background:' + c + ';margin:0 auto 6px;border-radius:2px"></div><div style="height:3px;width:70%;background:#cbd5e1;margin:0 auto 10px"></div><div style="height:2px;width:40%;background:' + c + ';margin-bottom:4px"></div><div style="height:2px;background:#e2e8f0;margin-bottom:2px"></div><div style="height:2px;width:85%;background:#e2e8f0"></div></div>',
-    'student-sidebar': '<div style="display:flex;height:100%"><div style="width:35%;background:' + c + '"></div><div style="flex:1;padding:10px"><div style="height:6px;width:80%;background:#1e293b;margin-bottom:6px"></div><div style="height:2px;background:#e2e8f0;width:90%"></div></div></div>',
-    'student-projects': '<div style="background:' + c + ';height:40px;margin-bottom:8px"></div><div style="padding:0 12px"><div style="height:2px;width:35%;background:' + c + ';margin-bottom:4px"></div><div style="height:2px;background:#e2e8f0;width:80%"></div></div>',
-    'pro-corporate': '<div style="padding:12px"><div style="height:6px;width:50%;background:#0f172a;margin-bottom:4px"></div><div style="height:2px;width:75%;background:#94a3b8;margin-bottom:8px"></div><div style="background:#f1f5f9;padding:4px 6px;margin-bottom:4px"><div style="height:2px;width:35%;background:#0f172a"></div></div><div style="height:2px;background:#e2e8f0;width:88%"></div></div>',
-    'pro-split': '<div style="display:flex;height:100%"><div style="width:38%;background:' + c + '"></div><div style="flex:1;padding:10px"><div style="height:5px;width:85%;background:#0f172a;margin-bottom:6px"></div><div style="height:2px;border-left:3px solid ' + c + ';padding-left:4px;width:40%;margin-bottom:4px"></div><div style="height:2px;background:#e2e8f0;width:90%"></div></div></div>',
-    'pro-slate': '<div style="padding:14px"><div style="height:8px;width:60%;background:#111827;margin-bottom:6px"></div><div style="height:1px;background:#d1d5db;margin-bottom:8px"></div><div style="height:2px;width:30%;background:#6b7280;margin-bottom:4px"></div><div style="height:2px;background:#f1f5f9;width:85%"></div></div>',
-    'exec-dark': '<div style="background:#111827;height:50px;margin-bottom:8px"></div><div style="padding:0 12px"><div style="height:2px;width:40%;background:' + c + ';border-bottom:2px solid ' + c + ';margin-bottom:6px"></div><div style="height:2px;background:#e2e8f0;width:90%"></div></div>',
-    'exec-timeline': '<div style="padding:12px"><div style="height:6px;width:55%;background:#064e3b;margin-bottom:6px"></div><div style="border-left:3px solid ' + c + ';padding-left:8px"><div style="height:2px;background:#e2e8f0;width:85%;margin-bottom:2px"></div><div style="height:2px;background:#e2e8f0;width:70%"></div></div></div>',
-    'exec-classic': '<div style="padding:14px;text-align:center;font-family:Georgia,serif"><div style="height:7px;width:65%;background:#1c1917;margin:0 auto 4px"></div><div style="height:1px;background:#1c1917;margin-bottom:8px"></div><div style="height:2px;width:35%;background:#57534e;margin:0 auto 6px"></div><div style="height:2px;background:#e7e5e4;width:80%;margin:0 auto"></div></div>'
+  var previews = {
+    campus: '<div style="padding:14px;text-align:center;height:100%"><div style="font-size:11px;font-weight:800;color:#4f46e5;margin-bottom:4px">NAME</div><div style="height:3px;background:linear-gradient(90deg,#4f46e5,#818cf8);margin:8px 20px 12px"></div><div style="font-size:7px;color:#4f46e5;text-align:left;letter-spacing:.1em;margin-bottom:4px">EDUCATION</div><div style="height:2px;background:#e2e8f0;width:85%"></div></div>',
+    sidebar: '<div style="display:flex;height:100%"><div style="width:38%;background:linear-gradient(180deg,#6d28d9,#4c1d95)"></div><div style="flex:1;padding:12px"><div style="width:6px;height:6px;border-radius:50%;background:#6d28d9;display:inline-block;margin-right:4px"></div><span style="font-size:8px;font-weight:800;color:#6d28d9">Education</span><div style="height:2px;background:#e2e8f0;margin-top:6px;width:90%"></div></div></div>',
+    projects: '<div style="height:100%"><div style="background:linear-gradient(120deg,#0e7490,#06b6d4);height:55px"></div><div style="padding:10px"><div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:6px;height:28px;margin-bottom:6px"></div><div style="font-size:7px;color:#0e7490;font-weight:800">PROJECTS</div></div></div>',
+    corporate: '<div style="padding:12px"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#0f172a">Name</div><div style="height:3px;background:#0f172a;margin:6px 0 10px"></div><div style="background:#0f172a;color:#fff;font-size:6px;padding:3px 6px;display:inline-block;margin-bottom:6px">EXPERIENCE</div><div style="height:2px;background:#e2e8f0;width:88%"></div></div>',
+    split: '<div style="display:flex;height:100%"><div style="width:40%;background:#0284c7"></div><div style="flex:1;padding:10px;border-left:4px solid #0284c7;margin-left:0"><div style="font-size:8px;font-weight:700;color:#0284c7;text-transform:uppercase">Experience</div></div></div>',
+    slate: '<div style="padding:16px"><div style="font-size:16px;font-weight:800;color:#111827;letter-spacing:-.03em">Name</div><div style="font-size:6px;letter-spacing:.2em;color:#9ca3af;margin:10px 0 8px">EXPERIENCE</div><div style="height:2px;background:#f3f4f6;width:80%"></div></div>',
+    execdark: '<div style="height:100%"><div style="background:#0c0a09;height:65px"></div><div style="padding:10px"><div style="font-size:7px;color:#78716c;border-bottom:3px solid #f59e0b;display:inline-block;padding-bottom:2px">EXPERIENCE</div></div></div>',
+    timeline: '<div style="padding:12px"><div style="font-size:10px;font-weight:800;color:#064e3b">Name</div><div style="border-left:4px solid #34d399;padding-left:8px;margin-top:10px"><div style="font-family:monospace;font-size:7px;color:#059669">// career</div><div style="height:2px;background:#e2e8f0;width:80%;margin-top:4px"></div></div></div>',
+    classic: '<div style="padding:14px;text-align:center;font-family:Georgia,serif;height:100%"><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Name</div><div style="color:#a8a29e;font-size:10px;margin:6px 0">— ✦ —</div><div style="font-size:8px;color:#44403c">◆ Experience</div></div>'
   };
-  return layouts[tpl.layout] || layouts['student-campus'];
+  return previews[tpl.layout] || previews.campus;
 }
 
 function initTemplatesPage() {
@@ -296,15 +350,10 @@ function initTemplatesPage() {
         '<div class="tpl-row"><span class="tpl-ats">' + tpl.ats + '% ATS</span>' +
         '<button type="button" class="btn-primary" style="font-size:11px;padding:6px 12px;">Use template</button></div>' +
       '</div>';
-    card.querySelector('button').addEventListener('click', function (e) {
-      e.stopPropagation();
-      applyResumeTemplate(id);
-    });
+    card.querySelector('button').addEventListener('click', function (e) { e.stopPropagation(); applyResumeTemplate(id); });
     card.addEventListener('click', function () { applyResumeTemplate(id); });
     grid.appendChild(card);
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  initTemplatesPage();
-});
+document.addEventListener('DOMContentLoaded', function () { initTemplatesPage(); });
