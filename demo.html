@@ -6,6 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>ResumeAI</title>
   <link rel="stylesheet" href="assets/app.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     .page{display:none}.page.active{display:block}
     @media(max-width:768px){
@@ -39,13 +40,6 @@
     <button type="button" class="nav-item" data-page="coverletter" onclick="showPage('coverletter')">Cover letter</button>
     <button type="button" class="nav-item" data-page="builder" onclick="showPage('builder')">Resume builder</button>
     <button type="button" class="nav-item" data-page="templates" onclick="showPage('templates')">Templates</button>
-    <div class="nav-section">Interview prep</div>
-    <button type="button" class="nav-item" data-page="project-gen" onclick="showPage('project-gen')">Project ideas</button>
-    <button type="button" class="nav-item" data-page="interview" onclick="showPage('interview')">Mock interview</button>
-    <button type="button" class="nav-item" data-page="readiness" onclick="showPage('readiness')">Readiness score</button>
-    <button type="button" class="nav-item" data-page="coach" onclick="showPage('coach')">Daily coach</button>
-    <button type="button" class="nav-item" data-page="github-analyzer" onclick="showPage('github-analyzer')">GitHub review</button>
-    <button type="button" class="nav-item" data-page="simulation" onclick="showPage('simulation')">Career simulation</button>
   </nav>
   <div class="sidebar-footer">
     <a href="career-explorer.html">Career paths</a>
@@ -76,9 +70,9 @@
         <span class="step-num">3</span>
         <div><div class="workflow-step-title">Run ATS analysis</div><div class="workflow-step-desc">Get score and keyword gaps</div></div>
       </div>
-      <div class="workflow-step" onclick="showPage('interview')">
+      <div class="workflow-step" onclick="showPage('coverletter')">
         <span class="step-num">4</span>
-        <div><div class="workflow-step-title">Practice interviews</div><div class="workflow-step-desc">Mock questions by role</div></div>
+        <div><div class="workflow-step-title">Draft cover letter</div><div class="workflow-step-desc">Tailored to your target role</div></div>
       </div>
     </div>
 
@@ -88,9 +82,6 @@
       <div class="tool-card" onclick="showPage('coverletter')"><div class="tool-card-title">Cover letter</div><div class="tool-card-desc">Draft for a role</div></div>
       <div class="tool-card" onclick="showPage('builder')"><div class="tool-card-title">Resume builder</div><div class="tool-card-desc">Edit with preview</div></div>
       <div class="tool-card" onclick="showPage('templates')"><div class="tool-card-title">Templates</div><div class="tool-card-desc">ATS-friendly layouts</div></div>
-      <div class="tool-card" onclick="showPage('project-gen')"><div class="tool-card-title">Project ideas</div><div class="tool-card-desc">Portfolio suggestions</div></div>
-      <div class="tool-card" onclick="showPage('interview')"><div class="tool-card-title">Mock interview</div><div class="tool-card-desc">Timed practice</div></div>
-      <div class="tool-card" onclick="showPage('readiness')"><div class="tool-card-title">Readiness score</div><div class="tool-card-desc">Gap analysis</div></div>
     </div>
 
     <!-- Tabs -->
@@ -1508,6 +1499,7 @@ Warm regards,
 
 <script>
 // ── Page navigation ──────────────────────────────────────
+const REMOVED_PAGES = ['project-gen','interview','readiness','coach','github-analyzer','simulation'];
 const SIDEBAR_ACTIVE = {
   home: 'dashboard',
   report: 'analyzer'
@@ -1515,6 +1507,7 @@ const SIDEBAR_ACTIVE = {
 
 function showPage(name){
   if(name === 'home') name = 'dashboard';
+  if(REMOVED_PAGES.includes(name)) name = 'dashboard';
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const page = document.getElementById('page-'+name);
   if(page) page.classList.add('active');
@@ -2160,26 +2153,29 @@ function updatePreview(){
   document.getElementById('pv-skills').innerHTML = skillsHTML || '<div style="color:#9ca3af;">Add your skills above</div>';
 }
 
-// ── Builder: PDF download via print ──────────────────────
-function downloadResumePDF(){
+// ── Builder: PDF download ────────────────────────────────
+async function downloadResumePDF(){
   updatePreview();
   saveResumeDraft();
-  const content = document.getElementById('resume-print-content').innerHTML;
-  const printDiv = document.getElementById('print-resume-inner');
-  printDiv.innerHTML = content;
-
-  // Show only print div, print, then restore
-  const allPages = document.querySelectorAll('.page, nav, #notif');
-  allPages.forEach(el=>el.style.display='none');
-  document.getElementById('print-resume').style.display='block';
-
-  setTimeout(()=>{
-    window.print();
-    document.getElementById('print-resume').style.display='none';
-    allPages.forEach(el=>el.style.display='');
-    document.getElementById('page-builder').style.display='block';
-    notify('📄','PDF download started! Choose "Save as PDF" in the print dialog.');
-  }, 100);
+  const element = document.getElementById('resume-print-content');
+  const name = (document.getElementById('b-name')?.value || 'resume').trim().replace(/[^\w\s-]/g,'').replace(/\s+/g,'_') || 'resume';
+  if(typeof html2pdf === 'undefined'){
+    notify('Error','PDF library failed to load. Refresh and try again.');
+    return;
+  }
+  notify('…','Generating PDF…');
+  try {
+    await html2pdf().set({
+      margin: [0.4, 0.4, 0.4, 0.4],
+      filename: name + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).from(element).save();
+    notify('Done','Resume downloaded as ' + name + '.pdf');
+  } catch (e) {
+    notify('Error','Could not generate PDF. Try again.');
+  }
 }
 
 function saveResumeDraft(){
@@ -2330,7 +2326,7 @@ function applyUrlParams(){
   }
 
   if(page){
-    const pages = ['home','dashboard','analyzer','linkedin','coverletter','builder','templates','project-gen','interview','readiness','coach','github-analyzer','simulation','report'];
+    const pages = ['dashboard','analyzer','linkedin','coverletter','builder','templates','report'];
     if(pages.includes(page)) showPage(page);
   }
 }
