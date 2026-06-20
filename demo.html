@@ -4,363 +4,97 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <title>ResumeAI — AI Career Toolkit</title>
-  <link rel="stylesheet" href="assets/yc-theme.css"/>
+  <title>ResumeAI</title>
+  <link rel="stylesheet" href="assets/app.css"/>
   <style>
-    *{font-family:var(--yc-font,'Inter',sans-serif);box-sizing:border-box;}
-    body{background:var(--yc-bg);color:var(--yc-ink);margin:0;}
-    .gradient-text{background:none;-webkit-text-fill-color:var(--yc-ink);color:var(--yc-ink);font-weight:800;letter-spacing:.02em;}
-    .glass{background:rgba(245,241,230,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--yc-border);}
-    .card{background:var(--yc-surface);border:1px solid var(--yc-border);border-radius:12px;padding:24px;color:var(--yc-ink);}
-    .btn-primary{background:var(--yc-ink);color:var(--yc-bg);font-weight:700;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;transition:background .2s;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
-    .btn-primary:hover{background:#2a211f;}
-    .btn-sec{background:transparent;color:var(--yc-ink);font-weight:600;padding:12px 24px;border-radius:999px;border:1px solid var(--yc-border-strong);cursor:pointer;transition:all .2s;font-size:12px;letter-spacing:.04em;text-transform:uppercase;}
-    .btn-sec:hover{background:rgba(60,47,47,.06);}
-    .page{display:none;}.page.active{display:block;}
-    .nav-link{color:var(--yc-muted);text-decoration:none;padding:8px 14px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;cursor:pointer;}
-    .nav-link:hover,.nav-link.active{background:rgba(60,47,47,.08);color:var(--yc-ink);}
-    .tab-btn{padding:8px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1px solid var(--yc-border);cursor:pointer;transition:all .2s;background:transparent;color:var(--yc-muted);}
-    .tab-btn.active{background:var(--yc-ink);color:var(--yc-bg);border-color:var(--yc-ink);}
-    .tab-btn:not(.active):hover{background:rgba(60,47,47,.06);color:var(--yc-ink);}
-    .input{width:100%;background:var(--yc-surface);border:1px solid var(--yc-border-strong);border-radius:8px;padding:12px 16px;color:var(--yc-ink);font-size:14px;outline:none;transition:border-color .2s;}
-    .input:focus{border-color:var(--yc-ink);}
-    .progress-bar{height:8px;border-radius:999px;background:var(--yc-bg-warm);overflow:hidden;}
-    .progress-fill{height:100%;border-radius:999px;transition:width 1.5s ease;background:var(--yc-accent);}
-    .upload-zone{border:2px dashed var(--yc-border-strong);border-radius:12px;padding:32px 24px;text-align:center;transition:all .2s;position:relative;background:var(--yc-surface);}
-    .upload-zone:hover,.upload-zone.drag{border-color:var(--yc-ink);background:rgba(60,47,47,.04);}
-    .upload-browse{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 24px;background:var(--yc-ink);color:var(--yc-bg);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;cursor:pointer;border:none;}
-    .upload-browse:hover{background:#2a211f;}
-    #resume-file-input{position:absolute;width:0;height:0;opacity:0;pointer-events:none;}
-    .upload-hint{font-size:11px;color:#64748b;margin-top:10px;}
-    .notification{position:fixed;top:80px;right:20px;z-index:100;background:var(--yc-ink);border:none;border-radius:12px;padding:14px 20px;color:var(--yc-bg);font-size:14px;box-shadow:0 8px 32px rgba(60,47,47,.2);display:none;}
-    .notification.show{display:flex;align-items:center;gap:10px;}
-    .tone-btn{padding:12px;border-radius:8px;border:1px solid var(--yc-border);cursor:pointer;text-align:left;transition:all .2s;background:transparent;color:var(--yc-muted);}
-    .tone-btn:hover{border-color:var(--yc-ink);color:var(--yc-ink);}
-    .tone-btn.selected{border-color:var(--yc-ink);background:rgba(60,47,47,.08);color:var(--yc-ink);}
-    .dropdown{position:relative;}
-    .dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;width:220px;background:var(--yc-surface);border:1px solid var(--yc-border);border-radius:12px;box-shadow:0 8px 32px rgba(60,47,47,.12);overflow:hidden;display:none;z-index:200;}
-    .dropdown:hover .dropdown-menu{display:block;}
-    .dropdown-item{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;transition:background .15s;color:var(--yc-ink);}
-    .dropdown-item:hover{background:rgba(60,47,47,.06);}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-    .animate-float{animation:float 5s ease-in-out infinite;}
-    .orb1,.orb2{display:none!important;}
-    .kw-red{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(212,82,10,.12);color:var(--yc-accent);}
-    .kw-green{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(60,47,47,.08);color:var(--yc-ink);}
-    .student-hub{background:var(--yc-surface);border:1px solid var(--yc-border);border-radius:12px;padding:20px 24px;margin-bottom:28px;}
-    .student-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:8px;background:var(--yc-bg);border:1px solid var(--yc-border);cursor:pointer;transition:all .2s;text-decoration:none;color:inherit;}
-    .student-step:hover{border-color:var(--yc-ink);}
-    .step-num{width:28px;height:28px;border-radius:999px;background:var(--yc-ink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--yc-bg);flex-shrink:0;}
-    #mobile-menu-btn{display:none;background:none;border:1px solid var(--yc-border-strong);color:var(--yc-ink);border-radius:999px;padding:8px 12px;cursor:pointer;}
-    #mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:var(--yc-bg);border-bottom:1px solid var(--yc-border);padding:12px 16px 16px;flex-direction:column;gap:4px;}
-    #mobile-nav.open{display:flex;}
-    #mobile-nav .nav-link{display:block;width:100%;}
-    @media(max-width:960px){
-      #mobile-menu-btn{display:block;}
-      #desktop-nav{display:none!important;}
-    }
+    .page{display:none}.page.active{display:block}
     @media(max-width:768px){
-      .student-hub{padding:16px;}
-      #page-dashboard [style*="grid-template-columns:repeat(5,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(6,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
-      #domain-btns{grid-template-columns:repeat(2,1fr)!important;}
-      #page-report [style*="grid-template-columns:180px 1fr"],#page-report [style*="grid-template-columns:1fr 1fr"],#report-score-grid,#report-sw-grid{grid-template-columns:1fr!important;}
+      #page-dashboard [style*="grid-template-columns:repeat(5,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(6,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+      #domain-btns{grid-template-columns:repeat(2,1fr)!important}
+      #page-report [style*="grid-template-columns:180px 1fr"],#page-report [style*="grid-template-columns:1fr 1fr"],#report-score-grid,#report-sw-grid{grid-template-columns:1fr!important}
     }
   </style>
 </head>
-<body class="yc-app-body">
+<body class="resume-app">
 
-<div class="notification" id="notif">
-  <span id="notif-icon">✅</span>
-  <span id="notif-text">Done!</span>
+<div class="toast" id="notif">
+  <span id="notif-icon"></span>
+  <span id="notif-text">Done</span>
 </div>
 
-<!-- NAVBAR -->
-<nav class="glass fixed top-0 left-0 right-0 z-50" style="border-bottom:1px solid var(--yc-border);">
-  <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;">
-    <div style="display:flex;align-items:center;gap:10px;cursor:pointer;" onclick="showPage('home')">
-      <div style="width:36px;height:36px;background:var(--yc-ink);border-radius:999px;display:flex;align-items:center;justify-content:center;">
-        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-      </div>
-      <span style="font-size:18px;font-weight:800;" class="gradient-text">ResumeAI</span>
-    </div>
-    <div style="display:flex;gap:2px;align-items:center;" id="desktop-nav">
-      <span class="nav-link" data-nav="home" onclick="showPage('home')">Home</span>
-      <span class="nav-link active" data-nav="dashboard" onclick="showPage('dashboard')">Dashboard</span>
-      <div class="dropdown">
-        <span class="nav-link" style="display:flex;align-items:center;gap:4px;">
-          AI Tools
-          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-        </span>
-        <div class="dropdown-menu">
-          <div class="dropdown-item" onclick="showPage('analyzer')">
-            <span style="font-size:18px;">📊</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Resume Analyzer</div><div style="font-size:11px;color:#64748b;">ATS score &amp; AI feedback</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('linkedin')">
-            <span style="font-size:18px;">💼</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">LinkedIn Optimizer</div><div style="font-size:11px;color:#64748b;">Profile score &amp; rewrite</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('coverletter')">
-            <span style="font-size:18px;">✉️</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Cover Letter Generator</div><div style="font-size:11px;color:#64748b;">AI-written, tailored letters</div></div>
-          </div>
-        </div>
-      </div>
-      <span class="nav-link" data-nav="builder" onclick="showPage('builder')">Builder</span>
-      <span class="nav-link" data-nav="templates" onclick="showPage('templates')">Templates</span>
-      <div class="dropdown">
-        <span class="nav-link" style="display:flex;align-items:center;gap:4px;color:#a5b4fc;">
-          🚀 Career OS
-          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-        </span>
-        <div class="dropdown-menu" style="width:260px;">
-          <div class="dropdown-item" onclick="showPage('project-gen')">
-            <span style="font-size:18px;">🛠️</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">AI Project Generator</div><div style="font-size:11px;color:#64748b;">Portfolio-ready project ideas</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('interview')">
-            <span style="font-size:18px;">🎤</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Mock Interview System</div><div style="font-size:11px;color:#64748b;">AI-powered interview prep</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('readiness')">
-            <span style="font-size:18px;">🎯</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Job Readiness Score</div><div style="font-size:11px;color:#64748b;">Know your hiring readiness</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('coach')">
-            <span style="font-size:18px;">🧠</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Daily Career Coach</div><div style="font-size:11px;color:#64748b;">Personalized daily guidance</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('github-analyzer')">
-            <span style="font-size:18px;">🐙</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">GitHub Portfolio Analyzer</div><div style="font-size:11px;color:#64748b;">Score your GitHub presence</div></div>
-          </div>
-          <div class="dropdown-item" onclick="showPage('simulation')">
-            <span style="font-size:18px;">🌐</span>
-            <div><div style="font-size:13px;font-weight:600;color:white;">Career Simulation Engine</div><div style="font-size:11px;color:#64748b;">Simulate your career paths</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <a href="index.html" class="btn-sec" style="padding:8px 14px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;">← Home</a>
-      <a href="career-explorer.html" class="btn-sec" style="padding:8px 14px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;">🔭 Paths</a>
-      <button id="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
-    </div>
+<button class="sidebar-toggle" type="button" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menu">Menu</button>
+
+<div class="app-layout">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    ResumeAI
+    <span>Career toolkit</span>
   </div>
-  <div id="mobile-nav">
-    <span class="nav-link" onclick="showPage('home');toggleMobileNav()">Home</span>
-    <span class="nav-link" onclick="showPage('dashboard');toggleMobileNav()">Dashboard</span>
-    <span class="nav-link" onclick="showPage('analyzer');toggleMobileNav()">Resume Analyzer</span>
-    <span class="nav-link" onclick="showPage('linkedin');toggleMobileNav()">LinkedIn Optimizer</span>
-    <span class="nav-link" onclick="showPage('coverletter');toggleMobileNav()">Cover Letter</span>
-    <span class="nav-link" onclick="showPage('builder');toggleMobileNav()">Builder</span>
-    <span class="nav-link" onclick="showPage('templates');toggleMobileNav()">Templates</span>
-    <span class="nav-link" onclick="showPage('project-gen');toggleMobileNav()">Project Generator</span>
-    <span class="nav-link" onclick="showPage('interview');toggleMobileNav()">Mock Interview</span>
-    <span class="nav-link" onclick="showPage('readiness');toggleMobileNav()">Job Readiness</span>
-    <span class="nav-link" onclick="showPage('coach');toggleMobileNav()">Career Coach</span>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Workspace</div>
+    <button type="button" class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">Overview</button>
+    <button type="button" class="nav-item" data-page="analyzer" onclick="showPage('analyzer')">Resume analyzer</button>
+    <div class="nav-section">Application</div>
+    <button type="button" class="nav-item" data-page="linkedin" onclick="showPage('linkedin')">LinkedIn</button>
+    <button type="button" class="nav-item" data-page="coverletter" onclick="showPage('coverletter')">Cover letter</button>
+    <button type="button" class="nav-item" data-page="builder" onclick="showPage('builder')">Resume builder</button>
+    <button type="button" class="nav-item" data-page="templates" onclick="showPage('templates')">Templates</button>
+    <div class="nav-section">Interview prep</div>
+    <button type="button" class="nav-item" data-page="project-gen" onclick="showPage('project-gen')">Project ideas</button>
+    <button type="button" class="nav-item" data-page="interview" onclick="showPage('interview')">Mock interview</button>
+    <button type="button" class="nav-item" data-page="readiness" onclick="showPage('readiness')">Readiness score</button>
+    <button type="button" class="nav-item" data-page="coach" onclick="showPage('coach')">Daily coach</button>
+    <button type="button" class="nav-item" data-page="github-analyzer" onclick="showPage('github-analyzer')">GitHub review</button>
+    <button type="button" class="nav-item" data-page="simulation" onclick="showPage('simulation')">Career simulation</button>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="career-explorer.html">Career paths</a>
+    <a href="index.html">Back to home</a>
+    <button type="button" onclick="promptUserName()">Set display name</button>
   </div>
-</nav>
+</aside>
 
-<!-- HOME -->
-<div id="page-home" class="page" style="padding-top:64px;min-height:100vh;overflow:hidden;position:relative;">
-  <div class="orb1"></div><div class="orb2"></div>
-  <div style="max-width:900px;margin:0 auto;padding:80px 24px;text-align:center;position:relative;">
-    <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc;font-size:13px;font-weight:500;margin-bottom:32px;">
-      <span style="width:8px;height:8px;background:#34d399;border-radius:50%;box-shadow:0 0 8px #34d399;animation:pulse 2s infinite;"></span>
-      AI-powered career tools for students, freshers &amp; tech professionals
-    </div>
-    <h1 style="font-size:clamp(40px,7vw,76px);font-weight:900;line-height:1.1;margin-bottom:24px;">
-      Land Your Dream Job<br/><span class="gradient-text">with AI-Powered</span><br/>Career Tools
-    </h1>
-    <p style="font-size:18px;color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7;">
-      Analyze your resume, optimize your LinkedIn, and generate tailored cover letters — whether you're a student, fresher, or experienced professional.
-    </p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn-primary" style="font-size:16px;padding:16px 36px;" onclick="showPage('analyzer')">🚀 Get Started — Free</button>
-      <button class="btn-sec" style="font-size:16px;padding:16px 36px;" onclick="showPage('templates')">Browse Templates</button>
-    </div>
-    <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:60px;padding-top:36px;border-top:1px solid rgba(255,255,255,.08);">
-      <div style="text-align:center;"><div style="font-size:30px;font-weight:900;" class="gradient-text">95%</div><div style="color:#64748b;font-size:12px;margin-top:4px;">ATS Pass Rate</div></div>
-      <div style="text-align:center;"><div style="font-size:30px;font-weight:900;" class="gradient-text">10k+</div><div style="color:#64748b;font-size:12px;margin-top:4px;">Resumes Analyzed</div></div>
-      <div style="text-align:center;"><div style="font-size:30px;font-weight:900;" class="gradient-text">8+</div><div style="color:#64748b;font-size:12px;margin-top:4px;">Tech Domains</div></div>
-      <div style="text-align:center;"><div style="font-size:30px;font-weight:900;" class="gradient-text">12</div><div style="color:#64748b;font-size:12px;margin-top:4px;">Career OS Tools</div></div>
-    </div>
-  </div>
-  <!-- Feature grid -->
-  <div style="max-width:1200px;margin:0 auto;padding:20px 24px 80px;">
-    <h2 style="text-align:center;font-size:34px;font-weight:900;margin-bottom:48px;">Your complete <span class="gradient-text">career toolkit</span></h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;">
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">📊</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">ATS Score Engine</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">0–100 score across keywords, formatting, completeness, and experience clarity.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">⚡</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">AI Bullet Rewriter</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">AI rewrites your bullet points with strong action verbs and quantifiable metrics.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">💼</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">LinkedIn Optimizer</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Score your profile, get 3 headline options, full About rewrite, and SEO keywords.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">✉️</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">Cover Letter Generator</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">AI writes a tailored cover letter for any role — choose your tone, edit freely.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#10b981,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🎨</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">10 ATS Templates</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">5 student + 5 professional templates — stunning, ATS-friendly, editable.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#ec4899,#f43f5e);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">✏️</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">Resume Builder</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Build from scratch with live preview and PDF export.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;cursor:pointer;" onclick="showPage('project-gen')" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🛠️</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">AI Project Generator</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Get portfolio-ready project ideas with resume bullets tailored to your domain.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;cursor:pointer;" onclick="showPage('interview')" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🎤</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">Mock Interview System</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Practice DSA, system design, and HR rounds with instant AI scoring.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;cursor:pointer;" onclick="showPage('readiness')" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#10b981,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🎯</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">Job Readiness Score</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Know exactly how ready you are for your target role with an actionable gap plan.</div>
-      </div>
-
-      <div class="card" style="transition:all .2s;cursor:pointer;" onclick="showPage('simulation')" onmouseenter="this.style.borderColor='rgba(99,102,241,.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;">🌐</div>
-        <div style="font-size:16px;font-weight:700;color:white;margin-bottom:6px;">Career Simulation Engine</div>
-        <div style="color:#64748b;font-size:13px;line-height:1.6;">Simulate career paths — see your 3-year salary trajectory and success probability.</div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
+<div class="app-main">
 <!-- DASHBOARD -->
-<div id="page-dashboard" class="page active" style="padding-top:88px;padding-bottom:48px;">
-  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
-    <div style="margin-bottom:32px;">
-      <h1 style="font-size:28px;font-weight:900;color:white;">Hey, <span id="user-name">Student</span> 👋</h1>
-      <p style="color:#64748b;margin-top:6px;">Your AI career toolkit — start here if you're preparing for internships or your first job.</p>
+<div id="page-dashboard" class="page active">
+  <div class="page-inner-wide">
+    <div class="page-header">
+      <h1>Overview</h1>
+      <p>Welcome back, <span id="user-name">there</span>. Pick a tool from the sidebar or start with your resume.</p>
     </div>
 
-    <!-- Student Quick Start -->
-    <div class="student-hub">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
-        <div>
-          <div style="font-size:13px;font-weight:700;color:#34d399;margin-bottom:4px;">🎓 Student Quick Start</div>
-          <div style="font-size:12px;color:#94a3b8;">Follow these 4 steps — most students finish in under an hour</div>
-        </div>
-        <button class="btn-sec" style="font-size:12px;padding:8px 14px;" onclick="promptUserName()">Set your name</button>
+    <div class="workflow-steps">
+      <a class="workflow-step" href="career-explorer.html">
+        <span class="step-num">1</span>
+        <div><div class="workflow-step-title">Choose a career path</div><div class="workflow-step-desc">Browse roadmaps in TechPath</div></div>
+      </a>
+      <div class="workflow-step" onclick="showPage('builder')">
+        <span class="step-num">2</span>
+        <div><div class="workflow-step-title">Build or upload resume</div><div class="workflow-step-desc">Use the builder or upload a file</div></div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
-        <a class="student-step" href="career-explorer.html">
-          <span class="step-num">1</span>
-          <div><div style="font-size:13px;font-weight:700;color:white;">Pick your career path</div><div style="font-size:11px;color:#64748b;margin-top:2px;">Explore 12 roadmaps in TechPath OS</div></div>
-        </a>
-        <div class="student-step" onclick="showPage('builder')">
-          <span class="step-num">2</span>
-          <div><div style="font-size:13px;font-weight:700;color:white;">Build your first resume</div><div style="font-size:11px;color:#64748b;margin-top:2px;">Use student templates + live preview</div></div>
-        </div>
-        <div class="student-step" onclick="showPage('analyzer')">
-          <span class="step-num">3</span>
-          <div><div style="font-size:13px;font-weight:700;color:white;">Get your ATS score</div><div style="font-size:11px;color:#64748b;margin-top:2px;">See what's missing before you apply</div></div>
-        </div>
-        <div class="student-step" onclick="showPage('interview')">
-          <span class="step-num">4</span>
-          <div><div style="font-size:13px;font-weight:700;color:white;">Practice interviews</div><div style="font-size:11px;color:#64748b;margin-top:2px;">DSA, HR &amp; behavioural rounds</div></div>
-        </div>
+      <div class="workflow-step" onclick="showPage('analyzer')">
+        <span class="step-num">3</span>
+        <div><div class="workflow-step-title">Run ATS analysis</div><div class="workflow-step-desc">Get score and keyword gaps</div></div>
+      </div>
+      <div class="workflow-step" onclick="showPage('interview')">
+        <span class="step-num">4</span>
+        <div><div class="workflow-step-title">Practice interviews</div><div class="workflow-step-desc">Mock questions by role</div></div>
       </div>
     </div>
 
-    <!-- 5 quick actions -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px;">
-      <div class="card" style="background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.2);cursor:pointer;transition:all .2s;" onclick="showPage('analyzer')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:24px;margin-bottom:6px;">📊</div>
-        <div style="font-weight:700;color:white;font-size:13px;margin-bottom:2px;">Resume Analyzer</div>
-        <div style="color:#64748b;font-size:11px;">Upload &amp; get ATS score</div>
-      </div>
-      <div class="card" style="background:rgba(14,165,233,.12);border-color:rgba(14,165,233,.18);cursor:pointer;transition:all .2s;" onclick="showPage('linkedin')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:24px;margin-bottom:6px;">💼</div>
-        <div style="font-weight:700;color:white;font-size:13px;margin-bottom:2px;">LinkedIn Optimizer</div>
-        <div style="color:#64748b;font-size:11px;">Optimize your profile</div>
-      </div>
-      <div class="card" style="background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.18);cursor:pointer;transition:all .2s;" onclick="showPage('coverletter')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:24px;margin-bottom:6px;">✉️</div>
-        <div style="font-weight:700;color:white;font-size:13px;margin-bottom:2px;">Cover Letter</div>
-        <div style="color:#64748b;font-size:11px;">Generate in seconds</div>
-      </div>
-      <div class="card" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.18);cursor:pointer;transition:all .2s;" onclick="showPage('builder')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:24px;margin-bottom:6px;">✏️</div>
-        <div style="font-weight:700;color:white;font-size:13px;margin-bottom:2px;">Build Resume</div>
-        <div style="color:#64748b;font-size:11px;">Create from scratch</div>
-      </div>
-      <div class="card" style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.18);cursor:pointer;transition:all .2s;" onclick="showPage('templates')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:24px;margin-bottom:6px;">🎨</div>
-        <div style="font-weight:700;color:white;font-size:13px;margin-bottom:2px;">Templates</div>
-        <div style="color:#64748b;font-size:11px;">ATS-ready designs</div>
-      </div>
-    </div>
-
-    <!-- Career OS Quick Actions -->
-    <div style="margin-bottom:12px;"><span style="font-size:13px;font-weight:700;color:#a5b4fc;">🚀 AI Career OS</span><span style="font-size:11px;color:#475569;margin-left:8px;">Advanced career tools</span></div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:32px;">
-      <div class="card" style="padding:14px;background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.15);cursor:pointer;transition:all .2s;" onclick="showPage('project-gen')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🛠️</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">Project Gen</div>
-        <div style="color:#64748b;font-size:10px;">AI project ideas</div>
-      </div>
-      <div class="card" style="padding:14px;background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.15);cursor:pointer;transition:all .2s;" onclick="showPage('interview')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🎤</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">Mock Interview</div>
-        <div style="color:#64748b;font-size:10px;">Practice &amp; score</div>
-      </div>
-      <div class="card" style="padding:14px;background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.15);cursor:pointer;transition:all .2s;" onclick="showPage('readiness')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🎯</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">Readiness Score</div>
-        <div style="color:#64748b;font-size:10px;">Am I job-ready?</div>
-      </div>
-      <div class="card" style="padding:14px;background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.15);cursor:pointer;transition:all .2s;" onclick="showPage('coach')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🧠</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">Career Coach</div>
-        <div style="color:#64748b;font-size:10px;">Daily guidance</div>
-      </div>
-      <div class="card" style="padding:14px;background:rgba(30,41,59,.6);border-color:rgba(100,116,139,.2);cursor:pointer;transition:all .2s;" onclick="showPage('github-analyzer')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🐙</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">GitHub Score</div>
-        <div style="color:#64748b;font-size:10px;">Portfolio analysis</div>
-      </div>
-      <div class="card" style="padding:14px;background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.15);cursor:pointer;transition:all .2s;" onclick="showPage('simulation')" onmouseenter="this.style.transform='translateY(-2px)'" onmouseleave="this.style.transform=''">
-        <div style="font-size:20px;margin-bottom:5px;">🌐</div>
-        <div style="font-weight:700;color:white;font-size:11px;margin-bottom:2px;">Career Sim</div>
-        <div style="color:#64748b;font-size:10px;">Simulate paths</div>
-      </div>
+    <div class="tool-grid">
+      <div class="tool-card" onclick="showPage('analyzer')"><div class="tool-card-title">Resume analyzer</div><div class="tool-card-desc">Upload PDF or DOCX</div></div>
+      <div class="tool-card" onclick="showPage('linkedin')"><div class="tool-card-title">LinkedIn</div><div class="tool-card-desc">Profile review</div></div>
+      <div class="tool-card" onclick="showPage('coverletter')"><div class="tool-card-title">Cover letter</div><div class="tool-card-desc">Draft for a role</div></div>
+      <div class="tool-card" onclick="showPage('builder')"><div class="tool-card-title">Resume builder</div><div class="tool-card-desc">Edit with preview</div></div>
+      <div class="tool-card" onclick="showPage('templates')"><div class="tool-card-title">Templates</div><div class="tool-card-desc">ATS-friendly layouts</div></div>
+      <div class="tool-card" onclick="showPage('project-gen')"><div class="tool-card-title">Project ideas</div><div class="tool-card-desc">Portfolio suggestions</div></div>
+      <div class="tool-card" onclick="showPage('interview')"><div class="tool-card-title">Mock interview</div><div class="tool-card-desc">Timed practice</div></div>
+      <div class="tool-card" onclick="showPage('readiness')"><div class="tool-card-title">Readiness score</div><div class="tool-card-desc">Gap analysis</div></div>
     </div>
 
     <!-- Tabs -->
-    <div style="display:flex;gap:4px;background:rgba(255,255,255,.04);padding:4px;border-radius:12px;width:fit-content;margin-bottom:24px;">
+    <div class="dash-tabs">
       <button class="tab-btn active" onclick="dashTab(this,'resumes')">Resumes <span style="font-size:11px;background:rgba(255,255,255,.1);padding:1px 7px;border-radius:999px;">3</span></button>
       <button class="tab-btn" onclick="dashTab(this,'analyses')">Analyses <span style="font-size:11px;background:rgba(255,255,255,.1);padding:1px 7px;border-radius:999px;">4</span></button>
       <button class="tab-btn" onclick="dashTab(this,'linkedin')">LinkedIn <span style="font-size:11px;background:rgba(255,255,255,.1);padding:1px 7px;border-radius:999px;">2</span></button>
@@ -509,22 +243,21 @@
 </div>
 
 <!-- ANALYZER -->
-<div id="page-analyzer" class="page" style="padding-top:88px;padding-bottom:48px;">
-  <div style="max-width:680px;margin:0 auto;padding:0 24px;">
-    <div style="margin-bottom:28px;">
-      <h1 style="font-size:28px;font-weight:900;color:white;margin-bottom:6px;">Resume Analyzer</h1>
-      <p style="color:#64748b;">Upload your resume and get an instant AI-powered ATS score with actionable feedback.</p>
+<div id="page-analyzer" class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <h1>Resume analyzer</h1>
+      <p>Upload your resume for an ATS score, keyword gaps, and section feedback.</p>
     </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:22px;">
+    <div class="panel" style="display:flex;flex-direction:column;gap:22px;">
       <div>
-        <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Upload Resume (PDF, DOCX, or TXT)</label>
+        <label class="field-label">Upload resume <span class="field-hint">PDF, DOCX, or TXT</span></label>
         <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"/>
         <div class="upload-zone" id="dropzone">
           <div id="drop-content">
-            <div style="font-size:44px;margin-bottom:10px;">📄</div>
-            <p style="color:#e2e8f0;font-weight:500;margin:0 0 4px;">Drag &amp; drop your resume here</p>
-            <p style="color:#475569;font-size:12px;margin:0 0 8px;">PDF, DOCX, or TXT — max 10MB</p>
-            <label for="resume-file-input" class="upload-browse" id="browse-btn">📁 Browse Files from Computer</label>
+            <p style="font-weight:500;margin:0 0 4px;">Drop file here</p>
+            <p style="font-size:12px;margin:0 0 8px;">or click to browse — max 10 MB</p>
+            <label for="resume-file-input" class="upload-browse" id="browse-btn">Choose file</label>
             <p class="upload-hint">Works on Mac, Windows, Chrome, Safari &amp; mobile</p>
           </div>
           <div id="drop-success" style="display:none;">
@@ -558,7 +291,7 @@
         <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:6px;">Job Description <span style="color:#475569;font-weight:400;">(optional — for match score)</span></label>
         <textarea class="input" id="job-description-input" rows="3" placeholder="Paste the job description here..." style="resize:none;font-size:13px;"></textarea>
       </div>
-      <div id="analyze-btn-area"><button class="btn-primary" style="width:100%;font-size:15px;padding:14px;" onclick="startAnalysis()">🚀 Analyze with AI</button></div>
+      <div id="analyze-btn-area"><button class="btn-primary" style="width:100%;padding:14px;" onclick="startAnalysis()">Run analysis</button></div>
       <div id="progress-area" style="display:none;">
         <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;"><span id="progress-label" style="color:#94a3b8;">Uploading...</span><span id="progress-pct" style="color:#818cf8;font-weight:600;">0%</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;background:linear-gradient(90deg,#6366f1,#a855f7);"></div></div>
@@ -569,7 +302,7 @@
 </div>
 
 <!-- REPORT -->
-<div id="page-report" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-report" class="page">
   <div style="max-width:1060px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px;">
       <div>
@@ -583,7 +316,7 @@
 </div>
 
 <!-- LINKEDIN OPTIMIZER -->
-<div id="page-linkedin" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-linkedin" class="page">
   <div style="max-width:1000px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;">
       <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(14,165,233,.3);">💼</div>
@@ -684,7 +417,7 @@
 </div>
 
 <!-- COVER LETTER GENERATOR -->
-<div id="page-coverletter" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-coverletter" class="page">
   <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;">
       <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(139,92,246,.3);">✉️</div>
@@ -786,7 +519,7 @@ Warm regards,
 </div>
 
 <!-- BUILDER -->
-<div id="page-builder" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-builder" class="page">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
       <div><h1 style="font-size:24px;font-weight:900;color:white;margin:0;" id="builder-title">Resume Builder</h1><p style="color:#64748b;font-size:13px;margin-top:4px;">Build your resume step by step</p></div>
@@ -969,7 +702,7 @@ Warm regards,
 </div>
 
 <!-- TEMPLATES -->
-<div id="page-templates" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-templates" class="page">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
     <div style="text-align:center;margin-bottom:40px;"><h1 style="font-size:34px;font-weight:900;color:white;margin-bottom:10px;">Resume Templates</h1><p style="color:#64748b;font-size:16px;">10 ATS-friendly templates for students and professionals</p></div>
     <div style="display:flex;gap:8px;justify-content:center;margin-bottom:32px;">
@@ -1191,7 +924,7 @@ Warm regards,
 ════════════════════════════════════════════════════════ -->
 
 <!-- 1. AI PROJECT GENERATOR -->
-<div id="page-project-gen" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-project-gen" class="page">
   <div style="max-width:1000px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:24px;">🛠️</div>
@@ -1308,7 +1041,7 @@ Warm regards,
 </div>
 
 <!-- 2. AI MOCK INTERVIEW SYSTEM -->
-<div id="page-interview" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-interview" class="page">
   <div style="max-width:900px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:24px;">🎤</div>
@@ -1418,7 +1151,7 @@ Warm regards,
 </div>
 
 <!-- 3. JOB READINESS SCORE ENGINE -->
-<div id="page-readiness" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-readiness" class="page">
   <div style="max-width:900px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#10b981,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:24px;">🎯</div>
@@ -1505,7 +1238,7 @@ Warm regards,
 </div>
 
 <!-- 4. AI DAILY CAREER COACH -->
-<div id="page-coach" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-coach" class="page">
   <div style="max-width:900px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:24px;">🧠</div>
@@ -1621,7 +1354,7 @@ Warm regards,
 </div>
 
 <!-- 5. AI GITHUB PORTFOLIO ANALYZER -->
-<div id="page-github-analyzer" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-github-analyzer" class="page">
   <div style="max-width:900px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#1e293b,#475569);display:flex;align-items:center;justify-content:center;font-size:24px;">🐙</div>
@@ -1694,7 +1427,7 @@ Warm regards,
 </div>
 
 <!-- 6. AI CAREER SIMULATION ENGINE -->
-<div id="page-simulation" class="page" style="padding-top:88px;padding-bottom:60px;">
+<div id="page-simulation" class="page">
   <div style="max-width:1000px;margin:0 auto;padding:0 24px;">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
       <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:24px;">🌐</div>
@@ -1770,27 +1503,28 @@ Warm regards,
   </div>
 </div>
 
+</div><!-- .app-main -->
+</div><!-- .app-layout -->
+
 <script>
 // ── Page navigation ──────────────────────────────────────
-const PAGE_NAV = {
-  home:'home', dashboard:'dashboard', builder:'builder', templates:'templates',
-  analyzer:'dashboard', linkedin:'dashboard', coverletter:'dashboard', report:'dashboard',
-  'project-gen':'dashboard', interview:'dashboard', readiness:'dashboard',
-  coach:'dashboard', 'github-analyzer':'dashboard', simulation:'dashboard'
+const SIDEBAR_ACTIVE = {
+  home: 'dashboard',
+  report: 'analyzer'
 };
 
 function showPage(name){
+  if(name === 'home') name = 'dashboard';
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const page = document.getElementById('page-'+name);
   if(page) page.classList.add('active');
   window.scrollTo(0,0);
-  document.querySelectorAll('[data-nav]').forEach(l=>{
-    l.classList.toggle('active', l.dataset.nav === (PAGE_NAV[name] || name));
+  const activeNav = SIDEBAR_ACTIVE[name] || name;
+  document.querySelectorAll('.nav-item[data-page]').forEach(el=>{
+    el.classList.toggle('active', el.dataset.page === activeNav);
   });
-}
-
-function toggleMobileNav(){
-  document.getElementById('mobile-nav').classList.toggle('open');
+  const sidebar = document.getElementById('sidebar');
+  if(sidebar) sidebar.classList.remove('open');
 }
 
 // ── User personalization ─────────────────────────────────
@@ -1804,7 +1538,7 @@ function promptUserName(){
   if(name && name.trim()){
     localStorage.setItem('aiCareerOS_name', name.trim());
     document.getElementById('user-name').textContent = name.trim();
-    notify('👋','Welcome, '+name.trim()+'!');
+    notify('Saved','Welcome, '+name.trim());
   }
 }
 
@@ -2586,7 +2320,7 @@ function applyUrlParams(){
       badge = document.createElement('div');
       badge.id = 'career-graph-badge';
       badge.style.cssText = 'display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:6px 14px;border-radius:999px;background:rgba(60,47,47,.08);border:1px solid rgba(60,47,47,.25);color:var(--yc-ink);margin-bottom:16px;letter-spacing:.04em;text-transform:uppercase;';
-      badge.textContent = '🗺️ Powered by Career Graph — role synced from TechPath';
+      badge.textContent = 'Role synced from TechPath';
       const analyzerHead = document.querySelector('#page-analyzer .card');
       if(analyzerHead) analyzerHead.parentElement.insertBefore(badge, analyzerHead);
     }

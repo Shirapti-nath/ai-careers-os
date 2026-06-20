@@ -4,8 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>TechPath OS — Navigate Your Future</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/yc-theme.css"/>
+<link rel="stylesheet" href="assets/app.css"/>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <style>
@@ -435,12 +434,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 }
 </style>
 </head>
-<body class="yc-career">
+<body class="career-app">
 
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-hex">⬡</div>
-  <div class="loader-title">TECHPATH OS</div>
+  <div class="loader-title">TechPath</div>
   <div class="loader-terminal">
     <div class="tline" id="tl1"></div>
     <div class="tline" id="tl2"></div>
@@ -463,36 +462,36 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <div class="nav-logo" onclick="location.href='index.html'" style="cursor:pointer"><span class="nav-logo-hex">⬡</span>TECHPATH OS</div>
+  <div class="nav-logo" onclick="location.href='index.html'" style="cursor:pointer">TechPath</div>
   <div class="nav-links">
-    <span class="nav-link" onclick="showLanding()">CAREER PATHS</span>
-    <span class="nav-link" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">SKILLS MAP</span>
-    <span class="nav-link" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">SALARY DATA</span>
-    <span class="nav-link nav-link-ai" onclick="location.href=resumeAIUrl()">⬡ RESUME AI</span>
+    <span class="nav-link" onclick="showLanding()">Paths</span>
+    <span class="nav-link" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">Search</span>
+    <span class="nav-link nav-link-ai" onclick="location.href=resumeAIUrl()">Resume analyzer</span>
   </div>
-  <div class="nav-status"><span class="nav-dot"></span>SYSTEM ONLINE</div>
 </nav>
 
 <!-- ═══════ LANDING ═══════ -->
 <div id="page-landing">
   <div class="ticker-wrap">
     <div class="ticker-inner">
-      <span>⬡ <b>12 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
-      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 STUDENT &amp; FRESHER ROADMAPS</span>
-      <span>📈 4-YEAR SKILL PROGRESSION</span><span>🏅 TOP CERTIFICATIONS LISTED</span>
-      <span>⬡ <b>12 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
-      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 STUDENT &amp; FRESHER ROADMAPS</span>
-      <span>📈 4-YEAR SKILL PROGRESSION</span><span>🏅 TOP CERTIFICATIONS LISTED</span>
+      <span><b>12 career paths</b> with year-by-year roadmaps</span>
+      <span>Salary ranges from entry level to senior</span>
+      <span>Skills, tools, and certifications per stage</span>
+      <span>Syncs target role to ResumeAI analyzer</span>
+      <span><b>12 career paths</b> with year-by-year roadmaps</span>
+      <span>Salary ranges from entry level to senior</span>
+      <span>Skills, tools, and certifications per stage</span>
+      <span>Syncs target role to ResumeAI analyzer</span>
     </div>
   </div>
 
   <section class="hero">
-    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>NEURAL CAREER INTERFACE v2.0</div>
+    <div class="hero-eyebrow">Career path explorer</div>
     <h1 id="hero-h1"></h1>
-    <p class="hero-sub">Explore 12 structured tech career paths — built for students and freshers. Real skills, certifications, and salary benchmarks from year one to senior leadership.</p>
+    <p class="hero-sub">Structured roadmaps for students and early-career engineers. Each path includes skills, projects, certifications, and salary benchmarks.</p>
     <div class="hero-cta-row">
-      <button class="btn-primary" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">⬡ EXPLORE PATHS</button>
-      <button class="btn-resume-ai" onclick="location.href=resumeAIUrl()">🤖 AI RESUME ANALYZER</button>
+      <button class="btn-primary" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">Browse paths</button>
+      <button class="btn-resume-ai" onclick="location.href=resumeAIUrl()">Analyze resume</button>
     </div>
     <div class="hero-stats">
       <div class="hstat"><span class="hstat-val" data-target="12" data-suf="">0</span><div class="hstat-lbl">Career Paths</div></div>
@@ -508,19 +507,19 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
       <input id="search-input" type="text" placeholder="Search paths, skills, tools — e.g. Docker, Python, SQL…"/>
     </div>
     <div class="filter-row">
-      <button class="fbtn active" data-filter="all">ALL [12]</button>
-      <button class="fbtn" data-filter="software">💻 SOFTWARE</button>
-      <button class="fbtn" data-filter="data">📊 DATA &amp; AI</button>
-      <button class="fbtn" data-filter="infrastructure">🖥 INFRA</button>
-      <button class="fbtn" data-filter="security">🛡 SECURITY</button>
-      <button class="fbtn" data-filter="creative">🎮 CREATIVE</button>
+      <button class="fbtn active" data-filter="all">All</button>
+      <button class="fbtn" data-filter="software">Software</button>
+      <button class="fbtn" data-filter="data">Data &amp; AI</button>
+      <button class="fbtn" data-filter="infrastructure">Infrastructure</button>
+      <button class="fbtn" data-filter="security">Security</button>
+      <button class="fbtn" data-filter="creative">Creative tech</button>
     </div>
   </div>
 
   <div class="cards-section">
     <div class="section-eyebrow">
       <div class="section-eyebrow-line"></div>
-      <div class="section-eyebrow-text">CHOOSE YOUR PATH</div>
+      <div class="section-eyebrow-text">All paths</div>
       <div class="section-eyebrow-line"></div>
     </div>
     <div class="cards-grid" id="cards-grid"></div>
@@ -530,14 +529,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 
 <!-- ═══════ DETAIL ═══════ -->
 <!-- Floating Resume AI Button -->
-<button id="resume-ai-fab" onclick="location.href=resumeAIUrl(currentPathId)">
-  <span class="fab-dot"></span>AI RESUME ANALYZER
-</button>
+<button id="resume-ai-fab" onclick="location.href=resumeAIUrl(currentPathId)">Resume analyzer</button>
 
 <div id="page-detail">
   <div class="detail-hero">
     <div class="detail-hero-bg" id="d-hero-bg"></div>
-    <button class="back-btn" onclick="showLanding()">← BACK TO ALL PATHS</button>
+    <button class="back-btn" onclick="showLanding()">← All paths</button>
     <div id="d-icon" class="detail-icon"></div>
     <div id="d-tag" class="detail-tag"></div>
     <h2 id="d-title" class="detail-title"></h2>
@@ -550,12 +547,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
   <div class="resume-ai-banner">
     <div class="resume-ai-inner">
       <div>
-        <div class="resume-ai-label">AI-POWERED CAREER TOOLKIT</div>
-        <div class="resume-ai-title">Ready to land a job in <span id="banner-career-name">this field</span>?</div>
-        <p class="resume-ai-sub">Upload your resume and get an instant ATS score, AI-powered suggestions, a tailored cover letter, and LinkedIn optimization — all built for your chosen career path.</p>
+        <div class="resume-ai-label">Resume tools</div>
+        <div class="resume-ai-title">Applying for roles in <span id="banner-career-name">this field</span>?</div>
+        <p class="resume-ai-sub">Upload your resume in ResumeAI to get an ATS score and suggestions matched to this path.</p>
       </div>
       <button class="btn-resume-ai" id="banner-resume-btn" onclick="location.href=resumeAIUrl(currentPathId)">
-        🤖 ANALYZE MY RESUME →
+        Open resume analyzer
       </button>
     </div>
   </div>
@@ -1202,7 +1199,7 @@ document.addEventListener('mousemove',e=>{agx=e.clientX;agy=e.clientY;});
 // ═══════════════════════════════════════
 function startHeroAnim(){
   const h1=document.getElementById('hero-h1');
-  const text='NAVIGATE YOUR TECH FUTURE';
+  const text='Plan your tech career';
   let i=0;
   h1.innerHTML='<span class="typer-cursor"></span>';
   function type(){

@@ -3,137 +3,51 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AI Career OS — Turn Students Into Hire-Ready Builders</title>
-<meta name="description" content="AI Career OS — free resume ATS analyzer, career roadmaps, and interview prep for students. Upload your resume, get instant feedback."/>
-<meta property="og:title" content="AI Career OS"/>
-<meta property="og:url" content="https://shirapti-nath.github.io/ai-careers-os/"/>
-<link rel="stylesheet" href="assets/yc-theme.css"/>
-<style>
-.yc-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.yc-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.yc-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:900px){.yc-grid-2,.yc-grid-3,.yc-grid-4{grid-template-columns:1fr}}
-.stat-row{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--yc-border);border-radius:12px;overflow:hidden}
-.stat-row div{padding:28px 16px;text-align:center;border-right:1px solid var(--yc-border);background:var(--yc-surface)}
-.stat-row div:last-child{border-right:none}
-.stat-row strong{display:block;font-size:2rem;font-weight:800}
-.stat-row span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--yc-muted)}
-.carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
-.carousel::-webkit-scrollbar{display:none}
-.carousel .yc-card{flex:0 0 min(320px,85vw);scroll-snap-align:start}
-.final-block{text-align:center;padding:80px 32px;background:var(--yc-ink);color:var(--yc-bg)}
-.final-block h2{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;text-transform:uppercase;margin-bottom:12px}
-.final-block p{opacity:.7;margin-bottom:28px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
-.final-block .yc-pill-filled{background:var(--yc-bg);color:var(--yc-ink);border-color:var(--yc-bg)}
-footer.yc-foot{padding:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--yc-muted);border-top:1px solid var(--yc-border);max-width:1100px;margin:0 auto}
-footer.yc-foot a{color:var(--yc-muted);text-decoration:none;margin-left:20px}
-footer.yc-foot a:hover{color:var(--yc-ink)}
-</style>
+<title>AI Career OS</title>
+<meta name="description" content="Resume analysis and career roadmaps for students. Upload a resume, explore paths, get feedback."/>
+<link rel="stylesheet" href="assets/app.css"/>
 </head>
-<body class="yc-body">
-<div class="yc-wrap">
+<body>
 
-<nav class="yc-nav">
-  <a href="index.html" class="yc-nav-logo">AI CAREER OS</a>
-  <div class="yc-nav-links">
-    <a href="#products" class="yc-pill">Products</a>
-    <a href="#agents" class="yc-pill">Agents</a>
-    <a href="career-explorer.html" class="yc-pill">Paths</a>
-    <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
-  </div>
-</nav>
-
-<header class="yc-hero">
-  <div class="yc-hero-left">
-    <h1>AI Career<br/>OS 2026</h1>
-    <p class="yc-hero-desc">AI Career OS is a free platform for students — upload your resume, explore 12 career paths, and get instant ATS scores with actionable recommendations.</p>
-    <div class="yc-hero-btns">
-      <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume →</a>
-      <a href="career-explorer.html" class="yc-pill">Explore Paths</a>
-    </div>
-  </div>
-  <div class="yc-hero-right">
-    <div class="yc-big">12 Tools</div>
-    <div class="yc-big" style="margin-top:8px;font-size:clamp(1.5rem,3vw,2rem);color:var(--yc-muted)">Free · No Signup</div>
-  </div>
+<header class="site-header">
+  <a href="index.html" class="site-logo">AI Career OS</a>
+  <nav class="site-nav">
+    <a href="demo.html">Resume tools</a>
+    <a href="career-explorer.html">Career paths</a>
+    <a href="https://github.com/shirapti-nath/ai-careers-os" target="_blank" rel="noopener">GitHub</a>
+  </nav>
 </header>
 
-<section class="yc-section" id="stories">
-  <p class="yc-section-label">Student outcomes</p>
-  <h2 class="yc-section-title">Before → After</h2>
-  <div class="carousel" style="margin-top:32px">
-    <div class="yc-card"><strong>Priya · Data Analyst</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">CS Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> 38 ATS, no portfolio</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 86 ATS, 3 SQL projects</p></div>
-    <div class="yc-card"><strong>Arjun · Full Stack</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">ECE Fresher</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> Failed 4 ATS screens</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 91 ATS, internship offer</p></div>
-    <div class="yc-card"><strong>Rahul · DevOps</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">IT Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> No roadmap</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> CI/CD project, 74% mock score</p></div>
-    <div class="yc-card"><strong>Ananya · AI/ML</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">BCA Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> 29 ATS on ML roles</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 88 ATS, Kaggle project</p></div>
-  </div>
-</section>
+<main>
+  <section class="landing-hero">
+    <h1>Career prep that stays out of your way</h1>
+    <p>Two tools, one workflow. Check your resume against ATS rules, then follow a structured roadmap for your target role. No account required.</p>
+    <div class="landing-actions">
+      <a href="demo.html?page=analyzer" class="btn btn-primary">Analyze resume</a>
+      <a href="career-explorer.html" class="btn btn-secondary">Browse paths</a>
+    </div>
+  </section>
 
-<section class="yc-section" id="agents">
-  <p class="yc-section-label">Multi-agent pipeline</p>
-  <h2 class="yc-section-title">Four agents. One career path.</h2>
-  <div class="yc-grid-4" style="margin-top:32px">
-    <a href="demo.html?page=analyzer" class="yc-card" style="text-decoration:none;color:inherit"><strong>📄 Resume Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">ATS score, keyword gaps, JD match</p></a>
-    <a href="career-explorer.html" class="yc-card" style="text-decoration:none;color:inherit"><strong>🗺️ Roadmap Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">12 career paths, skill trees, salaries</p></a>
-    <a href="demo.html?page=interview" class="yc-card" style="text-decoration:none;color:inherit"><strong>🎤 Interview Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">Mock DSA, system design, HR rounds</p></a>
-    <a href="demo.html?page=coach" class="yc-card" style="text-decoration:none;color:inherit"><strong>🧠 Coach Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">Daily goals, readiness score</p></a>
-  </div>
-</section>
-
-<section class="yc-section" id="algorithms">
-  <p class="yc-section-label">Under the hood</p>
-  <h2 class="yc-section-title">Real algorithms</h2>
-  <div class="yc-grid-3" style="margin-top:32px">
-    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">TF-IDF + COSINE</code><h3 style="margin:12px 0 8px;font-size:16px">Semantic JD Match</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Resume-to-job-description similarity scoring</p></div>
-    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">BFS / DAG</code><h3 style="margin:12px 0 8px;font-size:16px">Career Graph</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Shortest-path skill progression per role</p></div>
-    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">MONTE CARLO</code><h3 style="margin:12px 0 8px;font-size:16px">Career Simulator</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Probabilistic salary trajectory modeling</p></div>
-  </div>
-</section>
-
-<section class="yc-section" id="products">
-  <p class="yc-section-label">Two platforms</p>
-  <h2 class="yc-section-title">One ecosystem</h2>
-  <div class="yc-grid-2" style="margin-top:32px">
-    <a href="demo.html?page=analyzer" class="yc-card" style="text-decoration:none;color:inherit">
-      <p class="yc-section-label">ResumeAI</p>
-      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career Toolkit</h3>
-      <p style="font-size:13px;color:var(--yc-muted);line-height:1.7;margin-bottom:20px">Upload resume · ATS analyzer · LinkedIn · Cover letters · Mock interviews · 12 tools</p>
-      <span class="yc-pill yc-pill-filled">Open ResumeAI →</span>
+  <section class="landing-grid">
+    <a href="demo.html" class="landing-card">
+      <div class="landing-card-label">ResumeAI</div>
+      <h2>Resume &amp; application tools</h2>
+      <p>ATS scoring, LinkedIn review, cover letters, mock interviews, and a resume builder. Upload PDF or DOCX from your computer.</p>
+      <span class="btn btn-secondary">Open ResumeAI</span>
     </a>
-    <a href="career-explorer.html" class="yc-card" style="text-decoration:none;color:inherit">
-      <p class="yc-section-label">TechPath OS</p>
-      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career Explorer</h3>
-      <p style="font-size:13px;color:var(--yc-muted);line-height:1.7;margin-bottom:20px">12 roadmaps · Salary data · Skill trees · Syncs to ResumeAI automatically</p>
-      <span class="yc-pill">Open TechPath →</span>
+    <a href="career-explorer.html" class="landing-card">
+      <div class="landing-card-label">TechPath</div>
+      <h2>Career path explorer</h2>
+      <p>Twelve roadmaps with skills, certifications, and salary ranges. Pick a path and sync your target role to the resume analyzer.</p>
+      <span class="btn btn-secondary">Open TechPath</span>
     </a>
-  </div>
-</section>
+  </section>
+</main>
 
-<section class="yc-section">
-  <div class="stat-row">
-    <div><strong>12</strong><span>Career Tools</span></div>
-    <div><strong>12</strong><span>Career Paths</span></div>
-    <div><strong>95%</strong><span>ATS Pass Rate</span></div>
-    <div><strong>10k+</strong><span>Resumes</span></div>
-    <div><strong>Free</strong><span>For Students</span></div>
-  </div>
-</section>
-
-<section class="final-block">
-  <h2>It's never too early to start.</h2>
-  <p>Free for every student · Upload PDF, DOCX, or TXT</p>
-  <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Your Resume →</a>
-</section>
-
-<footer class="yc-foot">
-  <span>Built with care · AI Career OS · Shirapti Nath</span>
-  <div>
-    <a href="demo.html">ResumeAI</a>
-    <a href="career-explorer.html">TechPath OS</a>
-    <a href="https://github.com/shirapti-nath/ai-careers-os" target="_blank" rel="noopener">GitHub</a>
-  </div>
+<footer class="landing-footer">
+  <span>AI Career OS</span>
+  <span>Free for students</span>
 </footer>
 
-</div>
 </body>
 </html>
