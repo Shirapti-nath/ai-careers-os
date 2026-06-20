@@ -6,6 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>ResumeAI</title>
   <link rel="stylesheet" href="assets/app.css"/>
+  <link rel="stylesheet" href="assets/resume-templates.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     .page{display:none}.page.active{display:block}
@@ -642,32 +643,7 @@ Warm regards,
         <h3 style="font-size:12px;font-weight:500;color:#64748b;margin-bottom:10px;">Live Preview</h3>
         <div style="overflow:hidden;border-radius:8px;border:1px solid #1e293b;height:420px;">
           <div style="transform:scale(0.44);transform-origin:top left;width:816px;" id="resume-preview-scale">
-            <div id="resume-print-content" style="background:white;color:#111;padding:32px 36px;font-size:11px;line-height:1.6;min-height:1056px;font-family:'Inter',sans-serif;">
-              <div style="border-bottom:2px solid #4f46e5;padding-bottom:14px;margin-bottom:14px;">
-                <div id="pv-name" style="font-size:22px;font-weight:800;color:#111;">Your Name</div>
-                <div id="pv-contact" style="color:#64748b;font-size:10px;margin-top:4px;">your@email.com | +91 XXXXXXXXXX | City | linkedin.com/in/you | github.com/you</div>
-              </div>
-              <div id="pv-summary-section">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4f46e5;border-bottom:1.5px solid #4f46e5;padding-bottom:2px;margin-bottom:8px;margin-top:14px;">Professional Summary</div>
-                <p id="pv-summary" style="color:#374151;font-size:10px;line-height:1.7;"></p>
-              </div>
-              <div id="pv-edu-section">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4f46e5;border-bottom:1.5px solid #4f46e5;padding-bottom:2px;margin-bottom:8px;margin-top:14px;">Education</div>
-                <div id="pv-edu" style="font-size:10px;"></div>
-              </div>
-              <div id="pv-exp-section">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4f46e5;border-bottom:1.5px solid #4f46e5;padding-bottom:2px;margin-bottom:8px;margin-top:14px;">Experience</div>
-                <div id="pv-exp" style="font-size:10px;"></div>
-              </div>
-              <div id="pv-proj-section">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4f46e5;border-bottom:1.5px solid #4f46e5;padding-bottom:2px;margin-bottom:8px;margin-top:14px;">Projects</div>
-                <div id="pv-proj" style="font-size:10px;"></div>
-              </div>
-              <div id="pv-skills-section">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4f46e5;border-bottom:1.5px solid #4f46e5;padding-bottom:2px;margin-bottom:8px;margin-top:14px;">Skills</div>
-                <div id="pv-skills" style="font-size:10px;"></div>
-              </div>
-            </div>
+            <div id="resume-print-content"></div>
           </div>
         </div>
       </div>
@@ -694,217 +670,19 @@ Warm regards,
 
 <!-- TEMPLATES -->
 <div id="page-templates" class="page">
-  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
-    <div style="text-align:center;margin-bottom:40px;"><h1 style="font-size:34px;font-weight:900;color:white;margin-bottom:10px;">Resume Templates</h1><p style="color:#64748b;font-size:16px;">10 ATS-friendly templates for students and professionals</p></div>
-    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:32px;">
-      <button class="tab-btn active" onclick="filterTemplates(this,'all')">All Templates</button>
-      <button class="tab-btn" onclick="filterTemplates(this,'student')">Student / Fresher</button>
-      <button class="tab-btn" onclick="filterTemplates(this,'professional')">Professional</button>
+  <div class="page-inner-wide">
+    <div class="page-header" style="text-align:center;margin-bottom:32px;">
+      <h1>Resume Templates</h1>
+      <p>9 distinct ATS-friendly layouts — students, professionals, and experienced leaders</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;" id="templates-grid">
+    <div class="dash-tabs" style="justify-content:center;margin-bottom:28px;">
+      <button type="button" class="tab-btn active" onclick="filterTemplates(this,'all')">All</button>
+      <button type="button" class="tab-btn" onclick="filterTemplates(this,'student')">Students</button>
+      <button type="button" class="tab-btn" onclick="filterTemplates(this,'professional')">Professionals</button>
+      <button type="button" class="tab-btn" onclick="filterTemplates(this,'executive')">Experienced</button>
+    </div>
+    <div class="tpl-grid" id="templates-grid">
 
-      <!-- STUDENT TEMPLATES -->
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="student" onmouseenter="this.style.borderColor='rgba(99,102,241,.35)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="height:7px;width:55%;background:#4f46e5;border-radius:2px;margin-bottom:3px;"></div>
-          <div style="height:3px;width:85%;background:#cbd5e1;border-radius:2px;margin-bottom:8px;"></div>
-          <div style="height:2px;width:40%;background:#4f46e5;border-radius:1px;margin-bottom:4px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:80%;background:#e2e8f0;border-radius:1px;margin-bottom:8px;"></div>
-          <div style="height:2px;width:40%;background:#4f46e5;border-radius:1px;margin-bottom:4px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:90%;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:70%;background:#e2e8f0;border-radius:1px;margin-bottom:8px;"></div>
-          <div style="height:2px;width:40%;background:#4f46e5;border-radius:1px;margin-bottom:4px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:60%;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Clean Minimal</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(168,85,247,.25);color:#c084fc;">Student</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">95%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied! Redirecting to builder...');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="student" onmouseenter="this.style.borderColor='rgba(99,102,241,.35)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;display:flex;gap:8px;">
-          <div style="width:36%;background:#4f46e5;padding:6px;border-radius:2px;">
-            <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.3);margin:0 auto 6px;"></div>
-            <div style="height:2px;background:rgba(255,255,255,.5);margin-bottom:2px;border-radius:1px;"></div>
-            <div style="height:2px;width:70%;background:rgba(255,255,255,.3);border-radius:1px;margin-bottom:8px;"></div>
-            <div style="height:2px;background:rgba(255,255,255,.4);border-radius:1px;margin-bottom:2px;"></div>
-            <div style="height:2px;width:80%;background:rgba(255,255,255,.2);border-radius:1px;margin-bottom:2px;"></div>
-          </div>
-          <div style="flex:1;">
-            <div style="height:6px;width:80%;background:#1e293b;border-radius:2px;margin-bottom:4px;"></div>
-            <div style="height:2px;background:#cbd5e1;border-radius:1px;margin-bottom:8px;"></div>
-            <div style="height:2px;width:50%;background:#4f46e5;border-radius:1px;margin-bottom:3px;"></div>
-            <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-            <div style="height:2px;width:85%;background:#e2e8f0;border-radius:1px;margin-bottom:8px;"></div>
-            <div style="height:2px;width:50%;background:#4f46e5;border-radius:1px;margin-bottom:3px;"></div>
-            <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          </div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Modern Student</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(168,85,247,.25);color:#c084fc;">Student</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#fbbf24;font-size:12px;">90%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="student" onmouseenter="this.style.borderColor='rgba(99,102,241,.35)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-            <div><div style="height:7px;width:80px;background:#0ea5e9;border-radius:2px;margin-bottom:2px;"></div><div style="height:2px;width:120px;background:#cbd5e1;border-radius:1px;"></div></div>
-          </div>
-          <div style="height:1px;background:#0ea5e9;margin-bottom:6px;"></div>
-          <div style="height:2px;width:45%;background:#0ea5e9;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;margin-bottom:2px;border-radius:1px;"></div>
-          <div style="height:2px;width:90%;background:#e2e8f0;margin-bottom:2px;border-radius:1px;"></div>
-          <div style="height:2px;width:75%;background:#e2e8f0;margin-bottom:6px;border-radius:1px;"></div>
-          <div style="height:2px;width:45%;background:#0ea5e9;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap;"><div style="height:10px;width:28px;background:#e0f2fe;border-radius:3px;"></div><div style="height:10px;width:36px;background:#e0f2fe;border-radius:3px;"></div><div style="height:10px;width:24px;background:#e0f2fe;border-radius:3px;"></div></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Tech Focused</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(168,85,247,.25);color:#c084fc;">Student</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">92%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="student" onmouseenter="this.style.borderColor='rgba(99,102,241,.35)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="background:#ec4899;margin:-10px -10px 8px;padding:10px;"><div style="height:6px;width:70%;background:rgba(255,255,255,.9);border-radius:2px;margin-bottom:2px;"></div><div style="height:2px;width:90%;background:rgba(255,255,255,.5);border-radius:1px;"></div></div>
-          <div style="height:2px;width:40%;background:#ec4899;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:85%;background:#e2e8f0;border-radius:1px;margin-bottom:6px;"></div>
-          <div style="height:2px;width:40%;background:#ec4899;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:70%;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Creative Grad</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(168,85,247,.25);color:#c084fc;">Student</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#fbbf24;font-size:12px;">85%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="student" onmouseenter="this.style.borderColor='rgba(99,102,241,.35)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="text-align:center;margin-bottom:6px;"><div style="height:6px;width:60%;background:#1e293b;border-radius:2px;margin:0 auto 2px;"></div><div style="height:2px;width:80%;background:#94a3b8;border-radius:1px;margin:0 auto;"></div></div>
-          <div style="height:1px;background:#1e293b;margin-bottom:5px;"></div>
-          <div style="height:2px;width:35%;background:#1e293b;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:90%;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-          <div style="height:2px;width:35%;background:#1e293b;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:75%;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Academic Classic</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(168,85,247,.25);color:#c084fc;">Student</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">98%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <!-- PROFESSIONAL TEMPLATES -->
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="professional" onmouseenter="this.style.borderColor='rgba(59,130,246,.4)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="display:flex;gap:8px;margin-bottom:6px;"><div style="width:22px;height:22px;border-radius:50%;background:#1e293b;flex-shrink:0;"></div><div><div style="height:5px;width:70px;background:#1e293b;border-radius:2px;margin-bottom:2px;"></div><div style="height:2px;width:90px;background:#94a3b8;border-radius:1px;"></div></div></div>
-          <div style="height:1px;background:#1e293b;margin-bottom:5px;"></div>
-          <div style="height:2px;width:40%;background:#1e293b;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:90%;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:75%;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-          <div style="height:2px;width:40%;background:#1e293b;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:80%;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Executive Pro</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.25);color:#93c5fd;">Pro</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">96%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="professional" onmouseenter="this.style.borderColor='rgba(59,130,246,.4)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;display:flex;gap:8px;">
-          <div style="width:38%;background:#0ea5e9;padding:6px;">
-            <div style="height:4px;width:80%;background:rgba(255,255,255,.8);border-radius:1px;margin-bottom:10px;"></div>
-            <div style="height:2px;background:rgba(255,255,255,.4);border-radius:1px;margin-bottom:2px;"></div>
-            <div style="height:2px;width:70%;background:rgba(255,255,255,.3);border-radius:1px;margin-bottom:2px;"></div>
-            <div style="height:2px;width:85%;background:rgba(255,255,255,.3);border-radius:1px;"></div>
-          </div>
-          <div style="flex:1;">
-            <div style="height:5px;width:85%;background:#0f172a;border-radius:2px;margin-bottom:3px;"></div>
-            <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-            <div style="height:2px;width:50%;background:#0ea5e9;border-radius:1px;margin-bottom:3px;"></div>
-            <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-            <div style="height:2px;width:90%;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-            <div style="height:2px;width:50%;background:#0ea5e9;border-radius:1px;margin-bottom:3px;"></div>
-            <div style="height:2px;background:#e2e8f0;border-radius:1px;"></div>
-          </div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Modern Pro</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.25);color:#93c5fd;">Pro</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">93%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="professional" onmouseenter="this.style.borderColor='rgba(59,130,246,.4)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="border-left:3px solid #10b981;padding-left:7px;margin-bottom:6px;"><div style="height:6px;width:75%;background:#064e3b;border-radius:2px;margin-bottom:2px;"></div><div style="height:2px;width:90%;background:#94a3b8;border-radius:1px;"></div></div>
-          <div style="height:2px;width:40%;background:#10b981;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:85%;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-          <div style="height:2px;width:40%;background:#10b981;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:70%;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Senior Engineer</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.25);color:#93c5fd;">Pro</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">94%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="professional" onmouseenter="this.style.borderColor='rgba(59,130,246,.4)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;"><div style="height:6px;width:60%;background:#f59e0b;border-radius:2px;"></div><div style="height:14px;width:14px;border-radius:2px;background:#f59e0b;"></div></div>
-          <div style="height:1px;background:#f59e0b;margin-bottom:5px;"></div>
-          <div style="height:2px;width:35%;background:#92400e;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:90%;background:#e2e8f0;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:80%;background:#e2e8f0;border-radius:1px;margin-bottom:5px;"></div>
-          <div style="height:2px;width:35%;background:#92400e;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#e2e8f0;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Data Scientist</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.25);color:#93c5fd;">Pro</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#fbbf24;font-size:12px;">91%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
-
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;transition:all .2s;" data-cat="professional" onmouseenter="this.style.borderColor='rgba(59,130,246,.4)';this.style.transform='translateY(-3px)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.08)';this.style.transform=''">
-        <div style="height:160px;background:white;padding:10px;overflow:hidden;">
-          <div style="height:7px;width:55%;background:#111827;border-radius:2px;margin-bottom:3px;"></div>
-          <div style="height:2px;width:80%;background:#94a3b8;border-radius:1px;margin-bottom:6px;"></div>
-          <div style="height:2px;width:38%;background:#111827;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#f1f5f9;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:90%;background:#f1f5f9;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:75%;background:#f1f5f9;border-radius:1px;margin-bottom:6px;"></div>
-          <div style="height:2px;width:38%;background:#111827;border-radius:1px;margin-bottom:3px;"></div>
-          <div style="height:2px;background:#f1f5f9;border-radius:1px;margin-bottom:2px;"></div>
-          <div style="height:2px;width:65%;background:#f1f5f9;border-radius:1px;"></div>
-        </div>
-        <div style="padding:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><div style="font-weight:600;color:white;font-size:13px;">Minimal Pro</div><span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.25);color:#93c5fd;">Pro</span></div>
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;"><span style="font-weight:700;color:#34d399;font-size:12px;">97%</span><span style="color:#475569;font-size:10px;">ATS</span></div>
-          <div style="display:flex;gap:6px;"><button class="btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="notify('✅','Template applied!');setTimeout(()=>showPage('builder'),700)">Use Template</button></div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -1497,6 +1275,7 @@ Warm regards,
 </div><!-- .app-main -->
 </div><!-- .app-layout -->
 
+<script src="assets/resume-templates.js"></script>
 <script>
 // ── Page navigation ──────────────────────────────────────
 const REMOVED_PAGES = ['project-gen','interview','readiness','coach','github-analyzer','simulation'];
@@ -1518,6 +1297,8 @@ function showPage(name){
   });
   const sidebar = document.getElementById('sidebar');
   if(sidebar) sidebar.classList.remove('open');
+  if(name === 'templates' && typeof initTemplatesPage === 'function') initTemplatesPage();
+  if(name === 'builder' && typeof syncBuilderTemplateTitle === 'function') syncBuilderTemplateTitle();
 }
 
 // ── User personalization ─────────────────────────────────
@@ -2036,15 +1817,6 @@ function dashTab(btn,id){
   });
 }
 
-// ── Templates ─────────────────────────────────────────────
-function filterTemplates(btn,cat){
-  document.querySelectorAll('#page-templates .tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#templates-grid [data-cat]').forEach(card=>{
-    card.style.display=(cat==='all'||card.dataset.cat===cat)?'block':'none';
-  });
-}
-
 // ── Cover letter / LinkedIn ───────────────────────────────
 function selectTone(btn){
   document.querySelectorAll('#tone-btns .tone-btn').forEach(b=>b.classList.remove('selected'));
@@ -2088,69 +1860,16 @@ function builderPrev(){
 }
 
 // ── Builder: live preview updater ────────────────────────
-function g(id){ return (document.getElementById(id)||{}).value || ''; }
+function syncBuilderTemplateTitle(){
+  var tpl = window.RESUME_TEMPLATES && RESUME_TEMPLATES[currentResumeTemplate];
+  var title = document.getElementById('builder-title');
+  if(title && tpl) title.textContent = 'Resume Builder · ' + tpl.name;
+}
 
 function updatePreview(){
-  const name    = g('b-name');
-  const email   = g('b-email');
-  const phone   = g('b-phone');
-  const loc     = g('b-location');
-  const li      = g('b-linkedin');
-  const gh      = g('b-github');
-  const summary = g('b-summary');
-  const degree  = g('b-degree');
-  const inst    = g('b-institution');
-  const yr      = g('b-grad-year');
-  const cgpa    = g('b-cgpa');
-  const course  = g('b-coursework');
-  const jt      = g('b-jobtitle');
-  const comp    = g('b-company');
-  const start   = g('b-start');
-  const end     = g('b-end');
-  const bullets = g('b-bullets');
-  const p1      = g('b-proj1');
-  const p1s     = g('b-proj1-stack');
-  const p1d     = g('b-proj1-desc');
-  const p1l     = g('b-proj1-link');
-  const lang    = g('b-lang');
-  const fw      = g('b-frameworks');
-  const tools   = g('b-tools');
-  const certs   = g('b-certs');
-
-  document.getElementById('pv-name').textContent    = name || 'Your Name';
-  const contactParts = [email,phone,loc,li,gh].filter(Boolean);
-  document.getElementById('pv-contact').textContent = contactParts.join(' | ') || 'your@email.com | City';
-  document.getElementById('pv-summary').textContent = summary || '';
-
-  // Education
-  document.getElementById('pv-edu').innerHTML = degree ? `
-    <div style="display:flex;justify-content:space-between;font-weight:600;">${degree}<span style="font-weight:400;color:#64748b;">${yr||''}</span></div>
-    <div style="color:#64748b;">${inst||''}${cgpa?' &nbsp;·&nbsp; CGPA: '+cgpa:''}</div>
-    ${course?`<div style="color:#374151;margin-top:2px;">${course}</div>`:''}
-  ` : '<div style="color:#9ca3af;">Add your education details above</div>';
-
-  // Experience
-  const bulletsHTML = bullets ? bullets.split('\n').map(b=>b.trim()?`<div>• ${b.replace(/^•\s*/,'')}</div>`:'').join('') : '';
-  document.getElementById('pv-exp').innerHTML = jt ? `
-    <div style="display:flex;justify-content:space-between;font-weight:600;">${jt}<span style="font-weight:400;color:#64748b;">${start||''}${end?' – '+end:''}</span></div>
-    <div style="color:#64748b;margin-bottom:4px;">${comp||''}</div>
-    <div style="color:#374151;">${bulletsHTML}</div>
-  ` : '<div style="color:#9ca3af;">Add your experience above</div>';
-
-  // Projects
-  document.getElementById('pv-proj').innerHTML = p1 ? `
-    <div style="font-weight:600;">${p1}${p1s?' <span style="font-weight:400;color:#64748b;">· '+p1s+'</span>':''}</div>
-    ${p1d?`<div style="color:#374151;margin-top:2px;">${p1d}</div>`:''}
-    ${p1l?`<div style="color:#6366f1;font-size:9px;">${p1l}</div>`:''}
-  ` : '<div style="color:#9ca3af;">Add your projects above</div>';
-
-  // Skills
-  let skillsHTML = '';
-  if(lang)   skillsHTML += `<div><span style="font-weight:600;">Languages:</span> ${lang}</div>`;
-  if(fw)     skillsHTML += `<div><span style="font-weight:600;">Frameworks:</span> ${fw}</div>`;
-  if(tools)  skillsHTML += `<div><span style="font-weight:600;">Tools:</span> ${tools}</div>`;
-  if(certs)  skillsHTML += `<div style="margin-top:4px;"><span style="font-weight:600;">Certifications:</span> ${certs.replace(/\n/g,' | ')}</div>`;
-  document.getElementById('pv-skills').innerHTML = skillsHTML || '<div style="color:#9ca3af;">Add your skills above</div>';
+  var el = document.getElementById('resume-print-content');
+  if(!el || typeof renderResumeHTML !== 'function') return;
+  el.innerHTML = renderResumeHTML(getResumeFormData(), currentResumeTemplate);
 }
 
 // ── Builder: PDF download ────────────────────────────────
@@ -2185,19 +1904,25 @@ function saveResumeDraft(){
     'b-lang','b-frameworks','b-tools','b-certs'];
   const data = {};
   fields.forEach(id=>{ const el=document.getElementById(id); if(el) data[id]=el.value; });
+  data.templateId = currentResumeTemplate;
   localStorage.setItem('aiCareerOS_resume', JSON.stringify(data));
   notify('💾','Resume saved locally!');
 }
 
 function loadResumeDraft(){
   const raw = localStorage.getItem('aiCareerOS_resume');
-  if(!raw) return;
+  const savedTpl = localStorage.getItem('aiCareerOS_template');
+  if(savedTpl && RESUME_TEMPLATES[savedTpl]) currentResumeTemplate = savedTpl;
+  if(!raw){ syncBuilderTemplateTitle(); updatePreview(); return; }
   try{
     const data = JSON.parse(raw);
+    if(data.templateId && RESUME_TEMPLATES[data.templateId]) currentResumeTemplate = data.templateId;
     Object.entries(data).forEach(([id,val])=>{
+      if(id === 'templateId') return;
       const el=document.getElementById(id);
       if(el && val) el.value=val;
     });
+    syncBuilderTemplateTitle();
     updatePreview();
   }catch(e){}
 }
@@ -2328,6 +2053,15 @@ function applyUrlParams(){
   if(page){
     const pages = ['dashboard','analyzer','linkedin','coverletter','builder','templates','report'];
     if(pages.includes(page)) showPage(page);
+  }
+
+  const template = params.get('template');
+  if(template && RESUME_TEMPLATES[template]){
+    currentResumeTemplate = template;
+    localStorage.setItem('aiCareerOS_template', template);
+    syncBuilderTemplateTitle();
+    updatePreview();
+    showPage('builder');
   }
 }
 
