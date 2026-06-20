@@ -4,548 +4,136 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>AI Career OS — Turn Students Into Hire-Ready Builders</title>
-<meta name="description" content="AI Career OS is an agent-first career platform for students. Resume analysis, career roadmaps, mock interviews, and job readiness — 12 tools, 12 paths, free to start."/>
-<meta property="og:title" content="AI Career OS — Turn Students Into Hire-Ready Builders"/>
-<meta property="og:description" content="Multi-agent career pipeline: Resume AI + TechPath OS. ATS scoring, roadmaps, interviews, and Monte Carlo career simulation."/>
-<meta property="og:type" content="website"/>
+<meta name="description" content="AI Career OS — free resume ATS analyzer, career roadmaps, and interview prep for students. Upload your resume, get instant feedback."/>
+<meta property="og:title" content="AI Career OS"/>
 <meta property="og:url" content="https://shirapti-nath.github.io/ai-careers-os/"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "AI Career OS",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Agent-first career platform for students with resume analysis, career roadmaps, and interview prep.",
-  "author": { "@type": "Person", "name": "Shirapti Nath" }
-}
-</script>
+<link rel="stylesheet" href="assets/yc-theme.css"/>
 <style>
-:root{
-  --bg:#faf9f7;--surface:#ffffff;--ink:#1a1a1a;--muted:#6b6b6b;
-  --accent:#ff6600;--accent-hover:#e55a00;--border:#e8e4df;
-  --serif:'Newsreader',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
-body.antigravity-active{overflow:hidden}
-a{color:inherit;text-decoration:none}
-.serif{font-family:var(--serif)}
-
-/* Nav */
-nav{position:sticky;top:0;z-index:200;background:rgba(250,249,247,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-weight:700;font-size:15px;letter-spacing:-.02em}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{font-size:14px;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{background:var(--accent);color:#fff!important;padding:10px 20px;border-radius:999px;font-weight:600;font-size:14px}
-.nav-cta:hover{background:var(--accent-hover)}
-.ag-toggle{font-size:13px;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);cursor:pointer;color:var(--ink);font-weight:500;transition:all .2s}
-.ag-toggle:hover{border-color:var(--accent);color:var(--accent)}
-.ag-toggle.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
-
-/* Hero */
-.hero{padding:80px 32px 64px;max-width:920px;margin:0 auto;text-align:center}
-.hero-tag{font-size:13px;color:var(--muted);margin-bottom:24px;letter-spacing:.04em;text-transform:uppercase}
-.hero h1{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,3.75rem);font-weight:600;line-height:1.12;letter-spacing:-.03em;margin-bottom:24px}
-.hero-sub{font-size:18px;color:var(--muted);max-width:560px;margin:0 auto 36px;line-height:1.7}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:14px 28px;border-radius:999px;font-weight:600;font-size:15px;border:none;cursor:pointer;transition:background .2s}
-.btn-primary:hover{background:var(--accent-hover)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);padding:14px 28px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s}
-.btn-secondary:hover{border-color:var(--ink)}
-.hero-note{font-size:12px;color:var(--muted)}
-
-/* Physics layer */
-#physics-canvas{position:fixed;inset:0;z-index:150;pointer-events:none;display:none}
-#physics-canvas.active{display:block;pointer-events:auto}
-.physics-chip{position:fixed;z-index:151;padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13px;font-weight:600;box-shadow:0 4px 24px rgba(0,0,0,.08);cursor:grab;user-select:none;white-space:nowrap;display:none}
-.physics-chip:active{cursor:grabbing}
-#ag-reset{position:fixed;bottom:24px;right:24px;z-index:160;display:none;padding:12px 20px;background:#1a1a1a;color:#fff;border:none;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer}
-#ag-reset.visible{display:block}
-
-/* Sections */
-section{padding:72px 32px;border-top:1px solid var(--border)}
-.section-inner{max-width:1100px;margin:0 auto}
-.section-label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px}
-.section-title{font-family:var(--serif);font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:600;letter-spacing:-.02em;margin-bottom:12px;line-height:1.2}
-.section-desc{color:var(--muted);font-size:16px;max-width:640px;margin-bottom:40px;line-height:1.7}
-
-/* Carousel */
-.carousel-wrap{overflow:hidden;margin:0 -32px;padding:0 32px}
-.carousel{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:8px}
+.yc-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.yc-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.yc-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.yc-grid-2,.yc-grid-3,.yc-grid-4{grid-template-columns:1fr}}
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--yc-border);border-radius:12px;overflow:hidden}
+.stat-row div{padding:28px 16px;text-align:center;border-right:1px solid var(--yc-border);background:var(--yc-surface)}
+.stat-row div:last-child{border-right:none}
+.stat-row strong{display:block;font-size:2rem;font-weight:800}
+.stat-row span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--yc-muted)}
+.carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
-.story-card{flex:0 0 min(340px,85vw);scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;transition:box-shadow .25s}
-.story-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.06)}
-.story-name{font-weight:700;font-size:15px;margin-bottom:4px}
-.story-role{font-size:13px;color:var(--muted);margin-bottom:20px}
-.story-phase{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
-.story-before .story-phase{color:#b45309}
-.story-now .story-phase{color:#059669}
-.story-text{font-size:14px;line-height:1.65;color:var(--ink)}
-.story-divider{height:1px;background:var(--border);margin:16px 0}
-
-/* Agents */
-.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
-.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
-.agent-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.07)}
-.agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s}
-.agent-card:hover::before{transform:scaleX(1)}
-.agent-icon{font-size:28px;margin-bottom:12px}
-.agent-name{font-weight:700;font-size:15px;margin-bottom:6px}
-.agent-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
-.agent-link{font-size:13px;font-weight:600;color:var(--accent)}
-.agent-pipeline{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:16px}
-.pipeline-node{font-size:12px;font-weight:600;padding:8px 14px;background:var(--bg);border-radius:999px;border:1px solid var(--border)}
-.pipeline-arrow{color:var(--muted);font-size:18px;animation:pulse-arrow 2s ease-in-out infinite}
-@keyframes pulse-arrow{0%,100%{opacity:.4}50%{opacity:1}}
-
-/* Algorithms */
-.algo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.algo-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
-.algo-tag{font-family:ui-monospace,monospace;font-size:11px;color:var(--accent);font-weight:600;margin-bottom:10px}
-.algo-name{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:10px}
-.algo-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:16px}
-.algo-tech{font-size:12px;color:var(--muted);padding-top:14px;border-top:1px solid var(--border);font-family:ui-monospace,monospace}
-.algo-link{font-size:13px;font-weight:600;color:var(--accent);display:inline-block;margin-top:12px}
-
-/* Products */
-.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.product-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px;display:block;transition:box-shadow .25s,transform .25s}
-.product-card:hover{box-shadow:0 16px 48px rgba(0,0,0,.08);transform:translateY(-2px)}
-.product-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.product-card h3{font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:10px}
-.product-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-.product-features{display:flex;flex-direction:column;gap:6px;margin-bottom:24px}
-.product-features span{font-size:13px;color:var(--ink)}
-
-/* Testimonials */
-.quotes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.quote-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
-.quote-text{font-family:var(--serif);font-size:17px;line-height:1.65;font-style:italic;margin-bottom:20px;color:var(--ink)}
-.quote-author{font-size:13px;font-weight:600}
-.quote-meta{font-size:12px;color:var(--muted)}
-
-/* Stats */
-.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.stat-cell{background:var(--surface);padding:32px 20px;text-align:center}
-.stat-num{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--ink)}
-.stat-label{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
-
-/* Final CTA */
-.final-cta{text-align:center;padding:96px 32px;background:var(--ink);color:#fff;border:none}
-.final-cta h2{font-family:var(--serif);font-size:clamp(1.75rem,4vw,2.75rem);font-weight:600;margin-bottom:16px;letter-spacing:-.02em}
-.final-cta p{color:rgba(255,255,255,.65);font-size:16px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
-.final-cta .btn-primary{background:#fff;color:var(--ink)}
-.final-cta .btn-primary:hover{background:#f0f0f0}
-
-/* Footer */
-footer{padding:40px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
-.footer-links{display:flex;gap:24px}
-.footer-links a:hover{color:var(--ink)}
-
-/* Reveal */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:none}
-
-@media(max-width:960px){
-  .agents-grid,.algo-grid,.quotes-grid{grid-template-columns:1fr 1fr}
-  .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .products-grid{grid-template-columns:1fr}
-}
-@media(max-width:640px){
-  nav{padding:0 16px}
-  .nav-links a:not(.nav-cta){display:none}
-  .nav-links .ag-toggle{display:none}
-  section,.hero{padding-left:16px;padding-right:16px}
-  .agents-grid,.algo-grid,.quotes-grid,.stats-bar{grid-template-columns:1fr}
-  .hero-btns{flex-direction:column;align-items:stretch}
-  .hero-btns a,.hero-btns button{text-align:center;justify-content:center}
-}
-@media(prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  .pipeline-arrow{animation:none}
-}
+.carousel .yc-card{flex:0 0 min(320px,85vw);scroll-snap-align:start}
+.final-block{text-align:center;padding:80px 32px;background:var(--yc-ink);color:var(--yc-bg)}
+.final-block h2{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;text-transform:uppercase;margin-bottom:12px}
+.final-block p{opacity:.7;margin-bottom:28px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.final-block .yc-pill-filled{background:var(--yc-bg);color:var(--yc-ink);border-color:var(--yc-bg)}
+footer.yc-foot{padding:32px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--yc-muted);border-top:1px solid var(--yc-border);max-width:1100px;margin:0 auto}
+footer.yc-foot a{color:var(--yc-muted);text-decoration:none;margin-left:20px}
+footer.yc-foot a:hover{color:var(--yc-ink)}
 </style>
 </head>
-<body>
+<body class="yc-body">
+<div class="yc-wrap">
 
-<nav>
-  <a href="index.html" class="nav-logo">AI Career OS</a>
-  <div class="nav-links">
-    <a href="#products">Products</a>
-    <a href="#agents">Agents</a>
-    <a href="#algorithms">Algorithms</a>
-    <a href="career-explorer.html">Paths</a>
-    <button class="ag-toggle" id="ag-toggle" type="button" aria-label="Toggle Anti-Gravity">Anti-Gravity</button>
-    <a href="demo.html?page=analyzer" class="nav-cta">Upload Resume</a>
+<nav class="yc-nav">
+  <a href="index.html" class="yc-nav-logo">AI CAREER OS</a>
+  <div class="yc-nav-links">
+    <a href="#products" class="yc-pill">Products</a>
+    <a href="#agents" class="yc-pill">Agents</a>
+    <a href="career-explorer.html" class="yc-pill">Paths</a>
+    <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
   </div>
 </nav>
 
-<header class="hero">
-  <p class="hero-tag reveal">Agent-first career platform · Free for every student</p>
-  <h1 class="reveal serif">AI Career OS turns students into hire-ready builders.</h1>
-  <p class="hero-sub reveal">One ecosystem — resume intelligence, career roadmaps, mock interviews, and probabilistic career simulation. Four agents orchestrated in parallel, inspired by agent-first architecture.</p>
-  <div class="hero-btns reveal">
-    <a href="demo.html?page=analyzer" class="btn-primary">Upload Resume — Free ATS Score →</a>
-    <a href="career-explorer.html" class="btn-secondary">Explore 12 Career Paths</a>
+<header class="yc-hero">
+  <div class="yc-hero-left">
+    <h1>AI Career<br/>OS 2026</h1>
+    <p class="yc-hero-desc">AI Career OS is a free platform for students — upload your resume, explore 12 career paths, and get instant ATS scores with actionable recommendations.</p>
+    <div class="yc-hero-btns">
+      <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume →</a>
+      <a href="career-explorer.html" class="yc-pill">Explore Paths</a>
+    </div>
   </div>
-  <p class="hero-note reveal">Upload PDF, DOCX, or TXT from your computer · Instant ATS score · No signup required</p>
-
-  <!-- Floating chips for Anti-Gravity -->
-  <div id="physics-pool" style="display:none">
-    <div class="physics-chip" data-physics>Resume AI</div>
-    <div class="physics-chip" data-physics>TechPath OS</div>
-    <div class="physics-chip" data-physics>ATS Score 95%</div>
-    <div class="physics-chip" data-physics>12 Tools</div>
-    <div class="physics-chip" data-physics>Mock Interview</div>
-    <div class="physics-chip" data-physics>Career Graph</div>
-    <div class="physics-chip" data-physics>Monte Carlo Sim</div>
-    <div class="physics-chip" data-physics>Data Analyst</div>
-    <div class="physics-chip" data-physics>Full Stack</div>
-    <div class="physics-chip" data-physics>DevOps</div>
+  <div class="yc-hero-right">
+    <div class="yc-big">12 Tools</div>
+    <div class="yc-big" style="margin-top:8px;font-size:clamp(1.5rem,3vw,2rem);color:var(--yc-muted)">Free · No Signup</div>
   </div>
 </header>
 
-<section id="stories">
-  <div class="section-inner reveal">
-    <p class="section-label">Student outcomes</p>
-    <h2 class="section-title serif">Before AI Career OS → After</h2>
-    <p class="section-desc">Real trajectories across domains — from confused fresher to interview-ready builder.</p>
-  </div>
-  <div class="carousel-wrap">
-    <div class="carousel" id="story-carousel">
-      <div class="story-card">
-        <div class="story-name">Priya Sharma</div>
-        <div class="story-role">CS Student → Data Analyst</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">Generic resume, 38 ATS score, no portfolio, unclear career direction.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">Data Analyst roadmap synced, 86 ATS, 3 SQL projects, Tableau dashboard in portfolio.</div></div>
-      </div>
-      <div class="story-card">
-        <div class="story-name">Arjun Mehta</div>
-        <div class="story-role">ECE Fresher → Full Stack Developer</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">No GitHub, weak bullet points, failed 4 ATS screens in a row.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">Built resume in ResumeAI, 91 ATS, DevConnect project live, first internship offer.</div></div>
-      </div>
-      <div class="story-card">
-        <div class="story-name">Sneha Reddy</div>
-        <div class="story-role">MBA Graduate → Product Analyst</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">LinkedIn score 41, no keywords, cover letters copied from ChatGPT templates.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">LinkedIn optimized to 78, tailored cover letters, Job Readiness score 82/100.</div></div>
-      </div>
-      <div class="story-card">
-        <div class="story-name">Rahul Kumar</div>
-        <div class="story-role">IT Student → DevOps Engineer</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">Didn't know Docker vs Kubernetes, random YouTube tutorials, no roadmap.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">4-year DevOps roadmap, CI/CD project on GitHub, mock system design score 74%.</div></div>
-      </div>
-      <div class="story-card">
-        <div class="story-name">Ananya Patel</div>
-        <div class="story-role">BCA Student → AI/ML Engineer</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">Listed "Python" as only skill, no ML projects, 29 ATS on ML roles.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">AI Project Generator gave 3 portfolio ideas, Kaggle project shipped, 88 ATS.</div></div>
-      </div>
-      <div class="story-card">
-        <div class="story-name">Vikram Singh</div>
-        <div class="story-role">Career Switcher → Cybersecurity</div>
-        <div class="story-before"><div class="story-phase">Before</div><div class="story-text">10 years unrelated field, zero infosec keywords, no cert plan.</div></div>
-        <div class="story-divider"></div>
-        <div class="story-now"><div class="story-phase">Now</div><div class="story-text">Cybersecurity path + CompTIA roadmap, Monte Carlo sim showed 71% success route.</div></div>
-      </div>
-    </div>
+<section class="yc-section" id="stories">
+  <p class="yc-section-label">Student outcomes</p>
+  <h2 class="yc-section-title">Before → After</h2>
+  <div class="carousel" style="margin-top:32px">
+    <div class="yc-card"><strong>Priya · Data Analyst</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">CS Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> 38 ATS, no portfolio</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 86 ATS, 3 SQL projects</p></div>
+    <div class="yc-card"><strong>Arjun · Full Stack</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">ECE Fresher</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> Failed 4 ATS screens</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 91 ATS, internship offer</p></div>
+    <div class="yc-card"><strong>Rahul · DevOps</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">IT Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> No roadmap</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> CI/CD project, 74% mock score</p></div>
+    <div class="yc-card"><strong>Ananya · AI/ML</strong><p style="font-size:12px;color:var(--yc-muted);margin:8px 0 16px">BCA Student</p><p style="font-size:13px"><span style="color:var(--yc-accent)">Before:</span> 29 ATS on ML roles</p><p style="font-size:13px;margin-top:8px"><span style="color:var(--yc-ink)">After:</span> 88 ATS, Kaggle project</p></div>
   </div>
 </section>
 
-<section id="agents">
-  <div class="section-inner">
-    <p class="section-label reveal">Agent-first architecture</p>
-    <h2 class="section-title serif reveal">Four agents. One career pipeline.</h2>
-    <p class="section-desc reveal">Orchestrated in parallel — inspired by agent-first development platforms. Each agent owns a domain and feeds the next.</p>
-    <div class="agents-grid reveal">
-      <a href="demo.html" class="agent-card">
-        <div class="agent-icon">📄</div>
-        <div class="agent-name">Resume Agent</div>
-        <div class="agent-desc">ATS parsing simulation, semantic JD match, bullet rewriting, and keyword gap analysis.</div>
-        <span class="agent-link">Open ResumeAI →</span>
-      </a>
-      <a href="career-explorer.html" class="agent-card">
-        <div class="agent-icon">🗺️</div>
-        <div class="agent-name">Roadmap Agent</div>
-        <div class="agent-desc">Career graph navigation with skill prerequisite DAG and shortest-path learning plans.</div>
-        <span class="agent-link">Open TechPath →</span>
-      </a>
-      <a href="demo.html?page=interview" class="agent-card">
-        <div class="agent-icon">🎤</div>
-        <div class="agent-name">Interview Agent</div>
-        <div class="agent-desc">Adaptive mock interviews with difficulty scaling and spaced repetition on weak topics.</div>
-        <span class="agent-link">Practice interviews →</span>
-      </a>
-      <a href="demo.html?page=coach" class="agent-card">
-        <div class="agent-icon">🧠</div>
-        <div class="agent-name">Coach Agent</div>
-        <div class="agent-desc">Daily goals, weekly learning paths, and MCDA-based job readiness scoring.</div>
-        <span class="agent-link">Meet your coach →</span>
-      </a>
-    </div>
-    <div class="agent-pipeline reveal">
-      <span class="pipeline-node">Upload resume</span>
-      <span class="pipeline-arrow">→</span>
-      <span class="pipeline-node">Semantic Match</span>
-      <span class="pipeline-arrow">→</span>
-      <span class="pipeline-node">Skill Graph</span>
-      <span class="pipeline-arrow">→</span>
-      <span class="pipeline-node">Interview Prep</span>
-      <span class="pipeline-arrow">→</span>
-      <span class="pipeline-node">Job Ready</span>
-    </div>
+<section class="yc-section" id="agents">
+  <p class="yc-section-label">Multi-agent pipeline</p>
+  <h2 class="yc-section-title">Four agents. One career path.</h2>
+  <div class="yc-grid-4" style="margin-top:32px">
+    <a href="demo.html?page=analyzer" class="yc-card" style="text-decoration:none;color:inherit"><strong>📄 Resume Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">ATS score, keyword gaps, JD match</p></a>
+    <a href="career-explorer.html" class="yc-card" style="text-decoration:none;color:inherit"><strong>🗺️ Roadmap Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">12 career paths, skill trees, salaries</p></a>
+    <a href="demo.html?page=interview" class="yc-card" style="text-decoration:none;color:inherit"><strong>🎤 Interview Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">Mock DSA, system design, HR rounds</p></a>
+    <a href="demo.html?page=coach" class="yc-card" style="text-decoration:none;color:inherit"><strong>🧠 Coach Agent</strong><p style="font-size:13px;color:var(--yc-muted);margin-top:8px;line-height:1.6">Daily goals, readiness score</p></a>
   </div>
 </section>
 
-<section id="algorithms">
-  <div class="section-inner">
-    <p class="section-label reveal">Under the hood</p>
-    <h2 class="section-title serif reveal">Algorithms that actually differentiate</h2>
-    <p class="section-desc reveal">Not buzzwords — real computational methods powering each tool.</p>
-    <div class="algo-grid reveal">
-      <div class="algo-card">
-        <div class="algo-tag">SEMANTIC_MATCH</div>
-        <div class="algo-name serif">Semantic JD Match Engine</div>
-        <div class="algo-desc">TF-IDF vectorization + cosine similarity between your resume and job description, with LLM reranking for explainable match scores.</div>
-        <div class="algo-tech">cosine_similarity(resume_vec, jd_vec) → rank</div>
-        <a href="demo.html" class="algo-link">Try Resume Analyzer →</a>
-      </div>
-      <div class="algo-card">
-        <div class="algo-tag">CAREER_GRAPH</div>
-        <div class="algo-name serif">Career Graph Navigator</div>
-        <div class="algo-desc">Skill prerequisite DAG with BFS shortest-path to your target role. Personalized "what to learn next" — not a static checklist.</div>
-        <div class="algo-tech">BFS(skill_tree, target_role) → path[]</div>
-        <a href="career-explorer.html" class="algo-link">Explore roadmaps →</a>
-      </div>
-      <div class="algo-card">
-        <div class="algo-tag">MONTE_CARLO</div>
-        <div class="algo-name serif">Monte Carlo Career Simulator</div>
-        <div class="algo-desc">10,000 sampled career trajectories with probabilistic salary growth, job-switch timing, and success rate per path.</div>
-        <div class="algo-tech">simulate(n=10000, paths=3) → P(success)</div>
-        <a href="demo.html?page=simulation" class="algo-link">Run simulation →</a>
-      </div>
-    </div>
+<section class="yc-section" id="algorithms">
+  <p class="yc-section-label">Under the hood</p>
+  <h2 class="yc-section-title">Real algorithms</h2>
+  <div class="yc-grid-3" style="margin-top:32px">
+    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">TF-IDF + COSINE</code><h3 style="margin:12px 0 8px;font-size:16px">Semantic JD Match</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Resume-to-job-description similarity scoring</p></div>
+    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">BFS / DAG</code><h3 style="margin:12px 0 8px;font-size:16px">Career Graph</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Shortest-path skill progression per role</p></div>
+    <div class="yc-card"><code style="font-size:10px;color:var(--yc-accent)">MONTE CARLO</code><h3 style="margin:12px 0 8px;font-size:16px">Career Simulator</h3><p style="font-size:13px;color:var(--yc-muted);line-height:1.6">Probabilistic salary trajectory modeling</p></div>
   </div>
 </section>
 
-<section id="products">
-  <div class="section-inner">
-    <p class="section-label reveal">Two platforms</p>
-    <h2 class="section-title serif reveal">One ecosystem</h2>
-    <div class="products-grid reveal">
-      <a href="demo.html" class="product-card">
-        <div class="product-tag">Resume · Career Tools</div>
-        <h3 class="serif">ResumeAI</h3>
-        <p>12 AI-powered tools — ATS analyzer, LinkedIn optimizer, cover letters, builder, mock interviews, and more.</p>
-        <div class="product-features">
-          <span>✓ ATS Resume Analyzer (0–100 score)</span>
-          <span>✓ Multi-Agent Career Pipeline</span>
-          <span>✓ Mock Interview + Job Readiness</span>
-          <span>✓ GitHub Portfolio Analyzer</span>
-        </div>
-        <span class="btn-primary" style="display:inline-flex;font-size:14px;padding:12px 22px">Open ResumeAI →</span>
-      </a>
-      <a href="career-explorer.html" class="product-card">
-        <div class="product-tag">Career Explorer · Roadmaps</div>
-        <h3 class="serif">TechPath OS</h3>
-        <p>12 interactive career roadmaps with salary data, skill trees, and certifications from fresher to leadership.</p>
-        <div class="product-features">
-          <span>✓ Full Stack · AI/ML · DevOps · Cyber</span>
-          <span>✓ Data Analyst · Data Engineer · Game Dev</span>
-          <span>✓ 4-year skill progression per domain</span>
-          <span>✓ Syncs role to ResumeAI automatically</span>
-        </div>
-        <span class="btn-secondary" style="display:inline-flex;font-size:14px;padding:12px 22px">Open TechPath →</span>
-      </a>
-    </div>
+<section class="yc-section" id="products">
+  <p class="yc-section-label">Two platforms</p>
+  <h2 class="yc-section-title">One ecosystem</h2>
+  <div class="yc-grid-2" style="margin-top:32px">
+    <a href="demo.html?page=analyzer" class="yc-card" style="text-decoration:none;color:inherit">
+      <p class="yc-section-label">ResumeAI</p>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career Toolkit</h3>
+      <p style="font-size:13px;color:var(--yc-muted);line-height:1.7;margin-bottom:20px">Upload resume · ATS analyzer · LinkedIn · Cover letters · Mock interviews · 12 tools</p>
+      <span class="yc-pill yc-pill-filled">Open ResumeAI →</span>
+    </a>
+    <a href="career-explorer.html" class="yc-card" style="text-decoration:none;color:inherit">
+      <p class="yc-section-label">TechPath OS</p>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career Explorer</h3>
+      <p style="font-size:13px;color:var(--yc-muted);line-height:1.7;margin-bottom:20px">12 roadmaps · Salary data · Skill trees · Syncs to ResumeAI automatically</p>
+      <span class="yc-pill">Open TechPath →</span>
+    </a>
   </div>
 </section>
 
-<section id="testimonials">
-  <div class="section-inner">
-    <p class="section-label reveal">In students' words</p>
-    <h2 class="section-title serif reveal">What builders say</h2>
-    <div class="quotes-grid reveal">
-      <div class="quote-card">
-        <p class="quote-text">"The Student Quick Start checklist compressed months of confusion into one afternoon. I went from zero direction to a Data Analyst roadmap and 86 ATS in the same week."</p>
-        <div class="quote-author">Priya S.</div>
-        <div class="quote-meta">Final-year CS · Bengaluru</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"Mock interviews with instant scoring changed everything. I knew exactly which system design topics to fix before my Amazon OA."</p>
-        <div class="quote-author">Arjun M.</div>
-        <div class="quote-meta">ECE Fresher · Hyderabad</div>
-      </div>
-      <div class="quote-card">
-        <p class="quote-text">"TechPath synced my role to ResumeAI automatically. No more guessing which keywords to add for DevOps roles."</p>
-        <div class="quote-author">Rahul K.</div>
-        <div class="quote-meta">IT Student · Pune</div>
-      </div>
-    </div>
+<section class="yc-section">
+  <div class="stat-row">
+    <div><strong>12</strong><span>Career Tools</span></div>
+    <div><strong>12</strong><span>Career Paths</span></div>
+    <div><strong>95%</strong><span>ATS Pass Rate</span></div>
+    <div><strong>10k+</strong><span>Resumes</span></div>
+    <div><strong>Free</strong><span>For Students</span></div>
   </div>
 </section>
 
-<section>
-  <div class="section-inner reveal">
-    <div class="stats-bar">
-      <div class="stat-cell"><div class="stat-num">12</div><div class="stat-label">Career Tools</div></div>
-      <div class="stat-cell"><div class="stat-num">12</div><div class="stat-label">Career Paths</div></div>
-      <div class="stat-cell"><div class="stat-num">95%</div><div class="stat-label">ATS Pass Rate</div></div>
-      <div class="stat-cell"><div class="stat-num">10k+</div><div class="stat-label">Resumes Analyzed</div></div>
-      <div class="stat-cell"><div class="stat-num">4</div><div class="stat-label">AI Agents</div></div>
-    </div>
-  </div>
+<section class="final-block">
+  <h2>It's never too early to start.</h2>
+  <p>Free for every student · Upload PDF, DOCX, or TXT</p>
+  <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Your Resume →</a>
 </section>
 
-<section class="final-cta">
-  <h2 class="serif reveal">It's never too early to start.</h2>
-  <p class="reveal">Free for every student. No revenue required. No fully baked resume needed.</p>
-  <a href="demo.html?page=analyzer" class="btn-primary reveal">Upload Your Resume — Free →</a>
-</section>
-
-<footer>
+<footer class="yc-foot">
   <span>Built with care · AI Career OS · Shirapti Nath</span>
-  <div class="footer-links">
+  <div>
     <a href="demo.html">ResumeAI</a>
     <a href="career-explorer.html">TechPath OS</a>
     <a href="https://github.com/shirapti-nath/ai-careers-os" target="_blank" rel="noopener">GitHub</a>
   </div>
 </footer>
 
-<canvas id="physics-canvas"></canvas>
-<button id="ag-reset" type="button">Reset Layout</button>
-
-<script>
-// Scroll reveal
-const revealObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-// Auto-scroll carousel
-const carousel = document.getElementById('story-carousel');
-let scrollDir = 1;
-setInterval(()=>{
-  if(!carousel || document.hidden) return;
-  carousel.scrollLeft += scrollDir * 1.2;
-  if(carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 2) scrollDir = -1;
-  if(carousel.scrollLeft <= 0) scrollDir = 1;
-}, 30);
-
-// Anti-Gravity physics (Matter.js lazy-loaded)
-let engine=null, render=null, runner=null, mouseConstraint=null, bodies=[], agActive=false;
-const agToggle = document.getElementById('ag-toggle');
-const agReset = document.getElementById('ag-reset');
-const canvas = document.getElementById('physics-canvas');
-const pool = document.getElementById('physics-pool');
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isMobile = window.innerWidth < 768;
-
-function loadScript(src){
-  return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); });
-}
-
-async function startAntiGravity(){
-  if(reducedMotion || isMobile){
-    alert('Anti-Gravity is available on desktop with motion enabled. Try on a larger screen!');
-    return;
-  }
-  if(agActive) return;
-  agActive = true;
-  agToggle.classList.add('active');
-  agToggle.textContent = 'Gravity On';
-  document.body.classList.add('antigravity-active');
-  canvas.classList.add('active');
-  agReset.classList.add('visible');
-
-  await loadScript('https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js');
-  const {Engine,Render,Runner,Bodies,Composite,Mouse,MouseConstraint,Events} = Matter;
-
-  engine = Engine.create({ gravity:{x:0,y:-0.6} });
-  const W = window.innerWidth, H = window.innerHeight;
-  render = Render.create({ canvas, engine, options:{width:W,height:H,background:'transparent',wireframes:false,pixelRatio:window.devicePixelRatio} });
-
-  const wallOpts = {isStatic:true,render:{visible:false}};
-  Composite.add(engine.world,[
-    Bodies.rectangle(W/2,-25,W,50,wallOpts),
-    Bodies.rectangle(W/2,H+25,W,50,wallOpts),
-    Bodies.rectangle(-25,H/2,50,H,wallOpts),
-    Bodies.rectangle(W+25,H/2,50,H,wallOpts)
-  ]);
-
-  const chips = pool.querySelectorAll('[data-physics]');
-  chips.forEach((chip,i)=>{
-    chip.style.display = 'block';
-    const rect = chip.getBoundingClientRect();
-    const x = 80 + (i % 5) * (W/5) + Math.random()*40;
-    const y = H - 80 - Math.floor(i/5)*60;
-    chip.style.left = x+'px';
-    chip.style.top = y+'px';
-    const body = Bodies.rectangle(x+rect.width/2, y+rect.height/2, rect.width, rect.height,{
-      restitution:.7, frictionAir:.02, render:{fillStyle:'#ffffff',strokeStyle:'#e8e4df',lineWidth:1}
-    });
-    body.domEl = chip;
-    bodies.push(body);
-    Composite.add(engine.world, body);
-  });
-
-  Events.on(engine,'afterUpdate',()=>{
-    bodies.forEach(b=>{
-      if(b.domEl){
-        b.domEl.style.left = (b.position.x - b.domEl.offsetWidth/2)+'px';
-        b.domEl.style.top = (b.position.y - b.domEl.offsetHeight/2)+'px';
-        b.domEl.style.transform = 'rotate('+b.angle+'rad)';
-      }
-    });
-  });
-
-  const mouse = Mouse.create(canvas);
-  mouseConstraint = MouseConstraint.create(engine,{mouse,constraint:{stiffness:.15,render:{visible:false}}});
-  Composite.add(engine.world, mouseConstraint);
-  render.mouse = mouse;
-
-  Render.run(render);
-  runner = Runner.create();
-  Runner.run(runner, engine);
-}
-
-function stopAntiGravity(){
-  if(!agActive) return;
-  agActive = false;
-  agToggle.classList.remove('active');
-  agToggle.textContent = 'Anti-Gravity';
-  document.body.classList.remove('antigravity-active');
-  canvas.classList.remove('active');
-  agReset.classList.remove('visible');
-
-  if(typeof Matter !== 'undefined'){
-    if(runner) Matter.Runner.stop(runner);
-    if(render){ Matter.Render.stop(render); if(render.canvas) render.canvas.remove(); }
-    if(engine) Matter.Engine.clear(engine);
-  }
-  engine=render=runner=mouseConstraint=null;
-  bodies.forEach(b=>{ if(b.domEl){ b.domEl.style.transform=''; b.domEl.style.display='none'; }});
-  bodies=[];
-}
-
-agToggle.addEventListener('click',()=> agActive ? stopAntiGravity() : startAntiGravity());
-agReset.addEventListener('click', stopAntiGravity);
-</script>
+</div>
 </body>
 </html>
