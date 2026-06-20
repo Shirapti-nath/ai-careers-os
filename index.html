@@ -3,51 +3,223 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AI Career OS</title>
-<meta name="description" content="Resume analysis and career roadmaps for students. Upload a resume, explore paths, get feedback."/>
+<title>AI Career OS — Resume Analyzer &amp; Career Paths</title>
+<meta name="description" content="Free AI career platform for students. Upload your resume, explore 12 career paths, get ATS scores and interview prep."/>
 <link rel="stylesheet" href="assets/app.css"/>
 </head>
-<body>
+<body class="yc-home">
 
-<header class="site-header">
-  <a href="index.html" class="site-logo">AI Career OS</a>
-  <nav class="site-nav">
-    <a href="demo.html">Resume tools</a>
-    <a href="career-explorer.html">Career paths</a>
-    <a href="https://github.com/shirapti-nath/ai-careers-os" target="_blank" rel="noopener">GitHub</a>
-  </nav>
+<div class="yc-wrap">
+
+<nav class="yc-nav">
+  <a href="index.html" class="yc-nav-logo">AI CAREER OS</a>
+  <div class="yc-nav-links">
+    <a href="#pipeline" class="yc-pill">AI Pipeline</a>
+    <a href="#products" class="yc-pill">Products</a>
+    <a href="career-explorer.html" class="yc-pill">Paths</a>
+    <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
+  </div>
+</nav>
+
+<header class="yc-hero">
+  <div class="yc-hero-left">
+    <h1>AI Career<br/>OS 2026</h1>
+    <p class="yc-hero-desc">A free platform for students — upload your resume, explore 12 career paths, and get instant ATS scores with actionable recommendations. No signup.</p>
+    <div class="yc-hero-btns">
+      <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
+      <a href="career-explorer.html" class="yc-pill">Explore Paths</a>
+    </div>
+  </div>
+  <div class="yc-hero-right">
+    <div class="yc-big">12 Tools</div>
+    <div class="yc-big" style="margin-top:8px;font-size:clamp(1.5rem,3vw,2rem);color:var(--muted)">Free · Open</div>
+  </div>
 </header>
 
-<main>
-  <section class="landing-hero">
-    <h1>Career prep that stays out of your way</h1>
-    <p>Two tools, one workflow. Check your resume against ATS rules, then follow a structured roadmap for your target role. No account required.</p>
-    <div class="landing-actions">
-      <a href="demo.html?page=analyzer" class="btn btn-primary">Analyze resume</a>
-      <a href="career-explorer.html" class="btn btn-secondary">Browse paths</a>
+<section class="yc-section" id="pipeline">
+  <p class="yc-section-label">Live demo</p>
+  <h2 class="yc-section-title">AI agent pipeline</h2>
+  <div class="yc-grid-2" style="margin-top:32px;align-items:stretch">
+    <div class="agent-pipeline" id="agent-pipeline">
+      <a href="demo.html?page=analyzer" class="agent-node active" data-agent="0">
+        <div class="agent-node-num">01</div>
+        <div class="agent-node-title">Resume</div>
+        <div class="agent-node-desc">Parse PDF/DOCX, score ATS, find keyword gaps</div>
+      </a>
+      <a href="career-explorer.html" class="agent-node" data-agent="1">
+        <div class="agent-node-num">02</div>
+        <div class="agent-node-title">Roadmap</div>
+        <div class="agent-node-desc">12 paths with skills, certs, salary data</div>
+      </a>
+      <a href="demo.html?page=interview" class="agent-node" data-agent="2">
+        <div class="agent-node-num">03</div>
+        <div class="agent-node-title">Interview</div>
+        <div class="agent-node-desc">Mock DSA, system design, HR rounds</div>
+      </a>
+      <a href="demo.html?page=coach" class="agent-node" data-agent="3">
+        <div class="agent-node-num">04</div>
+        <div class="agent-node-title">Coach</div>
+        <div class="agent-node-desc">Daily goals and readiness tracking</div>
+      </a>
     </div>
-  </section>
+    <div class="ai-terminal" id="ai-terminal" aria-live="polite">
+      <div class="t-line"><span class="t-prompt">&gt;</span> Initializing career pipeline…</div>
+    </div>
+  </div>
+</section>
 
-  <section class="landing-grid">
-    <a href="demo.html" class="landing-card">
-      <div class="landing-card-label">ResumeAI</div>
-      <h2>Resume &amp; application tools</h2>
-      <p>ATS scoring, LinkedIn review, cover letters, mock interviews, and a resume builder. Upload PDF or DOCX from your computer.</p>
-      <span class="btn btn-secondary">Open ResumeAI</span>
-    </a>
-    <a href="career-explorer.html" class="landing-card">
-      <div class="landing-card-label">TechPath</div>
-      <h2>Career path explorer</h2>
-      <p>Twelve roadmaps with skills, certifications, and salary ranges. Pick a path and sync your target role to the resume analyzer.</p>
-      <span class="btn btn-secondary">Open TechPath</span>
-    </a>
-  </section>
-</main>
+<section class="yc-section" id="sync">
+  <p class="yc-section-label">Cross-platform sync</p>
+  <h2 class="yc-section-title">Path → Resume match</h2>
+  <div class="path-sync-demo" style="margin-top:32px">
+    <div class="path-picker" id="path-picker">
+      <button type="button" class="path-opt active" data-path="da" data-role="Data Analyst" data-score="72">Data Analyst</button>
+      <button type="button" class="path-opt" data-path="cse" data-role="Software Engineering" data-score="68">Software Engineering</button>
+      <button type="button" class="path-opt" data-path="de" data-role="Data Science" data-score="74">Data Science</button>
+      <button type="button" class="path-opt" data-path="devops" data-role="DevOps &amp; Cloud" data-score="61">DevOps &amp; Cloud</button>
+    </div>
+    <div class="sync-preview">
+      <div class="sync-score-ring" id="sync-score">72</div>
+      <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;text-align:center;margin-bottom:8px" id="sync-role">Data Analyst</p>
+      <p style="font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:16px" id="sync-desc">Role synced from TechPath. Upload your resume to see keyword match for this path.</p>
+      <div style="text-align:center">
+        <a href="demo.html?path=da" class="yc-pill yc-pill-filled" id="sync-link">Analyze for this role</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer class="landing-footer">
-  <span>AI Career OS</span>
-  <span>Free for students</span>
+<section class="yc-section" id="algorithms">
+  <p class="yc-section-label">Under the hood</p>
+  <h2 class="yc-section-title">Real algorithms</h2>
+  <div class="yc-grid-3" style="margin-top:32px">
+    <div class="yc-card">
+      <code style="font-size:10px;color:var(--accent);font-weight:700">TF-IDF · COSINE</code>
+      <h3 style="margin:12px 0 8px;font-size:16px;font-weight:700">Semantic JD match</h3>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">Resume-to-job-description similarity with weighted keyword scoring.</p>
+    </div>
+    <div class="yc-card">
+      <code style="font-size:10px;color:var(--accent);font-weight:700">BFS · DAG</code>
+      <h3 style="margin:12px 0 8px;font-size:16px;font-weight:700">Career graph</h3>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">Shortest-path skill progression mapped per role and experience level.</p>
+    </div>
+    <div class="yc-card">
+      <code style="font-size:10px;color:var(--accent);font-weight:700">MONTE CARLO</code>
+      <h3 style="margin:12px 0 8px;font-size:16px;font-weight:700">Career simulator</h3>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">Probabilistic salary trajectory modeling over a 3-year horizon.</p>
+    </div>
+  </div>
+</section>
+
+<section class="yc-section" id="products">
+  <p class="yc-section-label">Two platforms</p>
+  <h2 class="yc-section-title">One ecosystem</h2>
+  <div class="yc-grid-2" style="margin-top:32px">
+    <a href="demo.html" class="yc-card" style="text-decoration:none;color:inherit;display:block">
+      <p class="yc-section-label">ResumeAI</p>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career toolkit</h3>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px">Resume analyzer · LinkedIn · Cover letters · Mock interviews · Builder · 12 tools</p>
+      <span class="yc-pill yc-pill-filled">Open ResumeAI</span>
+    </a>
+    <a href="career-explorer.html" class="yc-card" style="text-decoration:none;color:inherit;display:block">
+      <p class="yc-section-label">TechPath</p>
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;text-transform:uppercase">Career explorer</h3>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px">12 roadmaps · Salary data · Skill trees · Syncs to ResumeAI automatically</p>
+      <span class="yc-pill">Open TechPath</span>
+    </a>
+  </div>
+</section>
+
+<section class="yc-section">
+  <div class="stat-row">
+    <div><strong>12</strong><span>Career tools</span></div>
+    <div><strong>12</strong><span>Career paths</span></div>
+    <div><strong>9</strong><span>Target roles</span></div>
+    <div><strong>Free</strong><span>For students</span></div>
+  </div>
+</section>
+
+<section class="yc-final">
+  <h2>Start before you graduate.</h2>
+  <p>Upload PDF, DOCX, or TXT — results in seconds</p>
+  <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload your resume</a>
+</section>
+
+<footer class="yc-foot">
+  <span>AI Career OS · Built for students</span>
+  <div>
+    <a href="demo.html">ResumeAI</a>
+    <a href="career-explorer.html">TechPath</a>
+    <a href="https://github.com/shirapti-nath/ai-careers-os" target="_blank" rel="noopener">GitHub</a>
+  </div>
 </footer>
 
+<a href="#pipeline" class="yc-scroll-hint" aria-label="Scroll">↓</a>
+
+</div>
+
+<script>
+(function(){
+  var lines = [
+    ['resume', 'Loading resume.pdf…', 400],
+    ['resume', 'Extracting text via PDF.js', 800],
+    ['resume', 'Found 847 words · 6 sections', 1200],
+    ['analyze', 'Running TF-IDF keyword match…', 1600],
+    ['analyze', 'Target role: Data Analyst', 2000],
+    ['analyze', 'ATS score: 72/100', 2400],
+    ['analyze', 'Missing: SQL, Tableau, A/B testing', 2800],
+    ['roadmap', 'Syncing TechPath roadmap…', 3200],
+    ['roadmap', 'Year 1 skills: Python, SQL, Excel', 3600],
+    ['interview', 'Generating mock questions…', 4000],
+    ['interview', '3 behavioral · 2 technical ready', 4400],
+    ['coach', 'Daily plan: 1 LeetCode · 1 project hour', 4800]
+  ];
+  var term = document.getElementById('ai-terminal');
+  var agentNodes = document.querySelectorAll('.agent-node');
+  var agentMap = { resume: 0, analyze: 0, roadmap: 1, interview: 2, coach: 3 };
+  function addLine(agent, text){
+    var div = document.createElement('div');
+    div.className = 't-line';
+    div.innerHTML = '<span class="t-prompt">&gt;</span> <span class="t-dim">[' + agent + ']</span> ' + text;
+    term.appendChild(div);
+    term.scrollTop = term.scrollHeight;
+    var n = agentMap[agent];
+    if(n !== undefined){
+      agentNodes.forEach(function(el,i){ el.classList.toggle('active', i === n); });
+    }
+  }
+
+  var delay = 0;
+
+  function scheduleLines(){
+    term.innerHTML = '<div class="t-line"><span class="t-prompt">&gt;</span> Initializing career pipeline…</div>';
+    delay = 600;
+    lines.forEach(function(l){
+      delay += 500;
+      setTimeout(function(){ addLine(l[0], l[1]); }, delay);
+    });
+    setTimeout(scheduleLines, delay + 2500);
+  }
+  scheduleLines();
+
+  document.getElementById('path-picker').addEventListener('click', function(e){
+    var btn = e.target.closest('.path-opt');
+    if(!btn) return;
+    document.querySelectorAll('.path-opt').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var path = btn.dataset.path;
+    var role = btn.dataset.role;
+    var score = btn.dataset.score;
+    document.getElementById('sync-score').textContent = score;
+    document.getElementById('sync-role').textContent = role;
+    document.getElementById('sync-link').href = 'demo.html?path=' + encodeURIComponent(path);
+  });
+
+  document.getElementById('agent-pipeline').addEventListener('mouseenter', function(e){
+    var node = e.target.closest('.agent-node');
+    if(node) agentNodes.forEach(function(n){ n.classList.toggle('active', n === node); });
+  }, true);
+})();
+</script>
 </body>
 </html>

@@ -461,12 +461,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 <div id="scroll-bar"></div>
 
 <!-- NAVBAR -->
-<nav id="navbar">
-  <div class="nav-logo" onclick="location.href='index.html'" style="cursor:pointer">TechPath</div>
-  <div class="nav-links">
-    <span class="nav-link" onclick="showLanding()">Paths</span>
-    <span class="nav-link" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">Search</span>
-    <span class="nav-link nav-link-ai" onclick="location.href=resumeAIUrl()">Resume analyzer</span>
+<nav class="yc-nav" id="navbar">
+  <a href="index.html" class="yc-nav-logo">AI CAREER OS</a>
+  <div class="yc-nav-links">
+    <span class="yc-pill" onclick="showLanding()">Paths</span>
+    <span class="yc-pill" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">Search</span>
+    <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
   </div>
 </nav>
 
@@ -486,12 +486,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
   </div>
 
   <section class="hero">
-    <div class="hero-eyebrow">Career path explorer</div>
-    <h1 id="hero-h1"></h1>
-    <p class="hero-sub">Structured roadmaps for students and early-career engineers. Each path includes skills, projects, certifications, and salary benchmarks.</p>
+    <div class="hero-eyebrow">TechPath · Career explorer</div>
+    <h1 id="hero-h1">Plan your tech career</h1>
+    <p class="hero-sub">Twelve structured roadmaps for students and early-career engineers — skills, certifications, and salary benchmarks from year one to senior level.</p>
     <div class="hero-cta-row">
-      <button class="btn-primary" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">Browse paths</button>
-      <button class="btn-resume-ai" onclick="location.href=resumeAIUrl()">Analyze resume</button>
+      <button class="btn-primary yc-pill yc-pill-filled" style="border-radius:999px" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">Browse paths</button>
+      <button class="btn-resume-ai yc-pill" style="border-radius:999px" onclick="location.href=resumeAIUrl()">Upload resume</button>
     </div>
     <div class="hero-stats">
       <div class="hstat"><span class="hstat-val" data-target="12" data-suf="">0</span><div class="hstat-lbl">Career Paths</div></div>
