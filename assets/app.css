@@ -1092,10 +1092,12 @@ a:hover { text-decoration: underline; }
 
 #code-bg {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 1;
 }
 
 .yc-home .yc-wrap,
@@ -1209,12 +1211,11 @@ a:hover { text-decoration: underline; }
 }
 
 .yc-hero {
-  min-height: calc(100vh - 64px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  align-items: end;
-  padding: 48px 32px 80px;
+  align-items: center;
+  padding: 40px 32px 64px;
   max-width: 1200px;
   margin: 0 auto;
 }
