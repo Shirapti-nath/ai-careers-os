@@ -24,17 +24,25 @@
 </nav>
 
 <header class="yc-hero">
-  <div class="yc-hero-left">
-    <h1>AI Career<br/>OS 2026</h1>
-    <p class="yc-hero-desc">A free platform for students — upload your resume, explore 12 career paths, and get instant ATS scores with actionable recommendations. No signup.</p>
-    <div class="yc-hero-btns">
-      <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
-      <a href="career-explorer.html" class="yc-pill">Explore Paths</a>
+  <div class="yc-hero-panel">
+    <div class="yc-hero-left">
+      <span class="yc-hero-badge">Free for students · 2026</span>
+      <h1>AI Career<br/>OS 2026</h1>
+      <p class="yc-hero-desc">Upload your resume, explore 12 career paths, and get instant ATS scores with actionable recommendations. No signup required.</p>
+      <div class="yc-hero-btns">
+        <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled yc-magnetic">Upload Resume</a>
+        <a href="career-explorer.html" class="yc-pill yc-magnetic">Explore Paths</a>
+      </div>
     </div>
-  </div>
-  <div class="yc-hero-right">
-    <div class="yc-big">6 Tools</div>
-    <div class="yc-big" style="margin-top:8px;font-size:clamp(1.5rem,3vw,2rem);color:var(--muted)">Free · Open</div>
+    <div class="yc-hero-right">
+      <div class="yc-hero-metrics">
+        <div class="yc-metric"><strong>6</strong><span>Resume tools</span></div>
+        <div class="yc-metric"><strong>12</strong><span>Career paths</span></div>
+        <div class="yc-metric"><strong>9</strong><span>Target roles</span></div>
+        <div class="yc-metric yc-metric-accent"><strong>Free</strong><span>For students</span></div>
+      </div>
+      <p class="yc-hero-hint">Move your cursor — code reacts with antigravity</p>
+    </div>
   </div>
 </header>
 
@@ -156,12 +164,23 @@
   </div>
 </footer>
 
-<a href="#pipeline" class="yc-scroll-hint" aria-label="Scroll">↓</a>
-
 </div>
 
 <script src="assets/code-bg.js"></script>
 <script>
+(function(){
+  document.querySelectorAll('.yc-magnetic').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) {
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left - r.width / 2) * 0.12;
+      var y = (e.clientY - r.top - r.height / 2) * 0.12;
+      el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    });
+    el.addEventListener('mouseleave', function () {
+      el.style.transform = '';
+    });
+  });
+})();
 (function(){
   var lines = [
     ['resume', 'Loading resume.pdf…'],
