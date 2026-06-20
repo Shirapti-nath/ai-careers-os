@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>ResumeAI — AI Career Toolkit</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -27,8 +28,12 @@
     .input:focus{border-color:#6366f1;}
     .progress-bar{height:8px;border-radius:999px;background:#1e293b;overflow:hidden;}
     .progress-fill{height:100%;border-radius:999px;transition:width 1.5s ease;}
-    .upload-zone{border:2px dashed #334155;border-radius:16px;padding:40px;text-align:center;cursor:pointer;transition:all .2s;}
+    .upload-zone{border:2px dashed #334155;border-radius:16px;padding:32px 24px;text-align:center;transition:all .2s;position:relative;}
     .upload-zone:hover,.upload-zone.drag{border-color:#6366f1;background:rgba(99,102,241,.05);}
+    .upload-browse{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 24px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-weight:600;font-size:14px;border-radius:12px;cursor:pointer;border:none;box-shadow:0 4px 20px rgba(99,102,241,.3);}
+    .upload-browse:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(99,102,241,.4);}
+    #resume-file-input{position:absolute;width:0;height:0;opacity:0;pointer-events:none;}
+    .upload-hint{font-size:11px;color:#64748b;margin-top:10px;}
     .notification{position:fixed;top:80px;right:20px;z-index:100;background:linear-gradient(135deg,#1e1b4b,#2e1065);border:1px solid #4338ca;border-radius:12px;padding:14px 20px;color:#e0e7ff;font-size:14px;box-shadow:0 8px 32px rgba(0,0,0,.4);display:none;}
     .notification.show{display:flex;align-items:center;gap:10px;}
     .tone-btn{padding:12px;border-radius:12px;border:1px solid #334155;cursor:pointer;text-align:left;transition:all .2s;background:transparent;color:#94a3b8;}
@@ -517,12 +522,28 @@
     </div>
     <div class="card" style="display:flex;flex-direction:column;gap:22px;">
       <div>
-        <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Upload Resume (PDF or DOCX)</label>
-        <input type="file" id="resume-file-input" accept=".pdf,.docx,.doc,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none"/>
+        <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Upload Resume (PDF, DOCX, or TXT)</label>
+        <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"/>
         <div class="upload-zone" id="dropzone">
-          <div id="drop-content"><div style="font-size:44px;margin-bottom:10px;">📄</div><p style="color:#e2e8f0;font-weight:500;margin:0 0 4px;">Drag &amp; drop your resume</p><p style="color:#475569;font-size:12px;margin:0;">or click to browse — PDF, DOCX, TXT up to 10MB</p></div>
-          <div id="drop-success" style="display:none;"><div style="font-size:36px;margin-bottom:8px;">✅</div><p id="upload-filename" style="color:#34d399;font-weight:600;margin:0 0 4px;"></p><p id="upload-filesize" style="color:#475569;font-size:12px;margin:0;"></p><button type="button" class="btn-sec" style="margin-top:12px;font-size:12px;padding:6px 14px;" onclick="clearResumeUpload(event)">Remove file</button></div>
+          <div id="drop-content">
+            <div style="font-size:44px;margin-bottom:10px;">📄</div>
+            <p style="color:#e2e8f0;font-weight:500;margin:0 0 4px;">Drag &amp; drop your resume here</p>
+            <p style="color:#475569;font-size:12px;margin:0 0 8px;">PDF, DOCX, or TXT — max 10MB</p>
+            <label for="resume-file-input" class="upload-browse" id="browse-btn">📁 Browse Files from Computer</label>
+            <p class="upload-hint">Works on Mac, Windows, Chrome, Safari &amp; mobile</p>
+          </div>
+          <div id="drop-success" style="display:none;">
+            <div style="font-size:36px;margin-bottom:8px;">✅</div>
+            <p id="upload-filename" style="color:#34d399;font-weight:600;margin:0 0 4px;"></p>
+            <p id="upload-filesize" style="color:#475569;font-size:12px;margin:0;"></p>
+            <button type="button" class="btn-sec" style="margin-top:12px;font-size:12px;padding:6px 14px;" onclick="clearResumeUpload(event)">Remove &amp; upload another</button>
+          </div>
         </div>
+        <details style="margin-top:14px;">
+          <summary style="color:#818cf8;font-size:13px;cursor:pointer;font-weight:500;">Or paste resume text directly</summary>
+          <textarea class="input" id="resume-paste-input" rows="6" placeholder="Paste your resume text here if file upload doesn't work..." style="resize:vertical;font-size:13px;margin-top:10px;"></textarea>
+          <button type="button" class="btn-sec" style="margin-top:8px;font-size:12px;padding:8px 16px;" onclick="usePastedResume()">Use pasted text</button>
+        </details>
       </div>
       <div>
         <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Your Target Role</label>
@@ -1817,6 +1838,7 @@ function notify(icon,text){
 // ── Resume Analyzer (real upload + client-side ATS engine) ──
 let uploadedResumeFile = null;
 let uploadedResumeText = '';
+let uploadedResumeName = '';
 
 const DOMAIN_KEYWORDS = {
   'software-engineering': ['REST API','microservices','Docker','Kubernetes','CI/CD','Git','Agile','Scrum','React','Node.js','Python','Java','TypeScript','PostgreSQL','Redis','AWS','system design','algorithms','data structures','OOP','unit testing','TDD','Spring','MongoDB'],
@@ -1843,20 +1865,46 @@ function initResumeUpload(){
   const fileInput = document.getElementById('resume-file-input');
   if(!dropzone || !fileInput) return;
 
-  dropzone.addEventListener('click', e=>{
-    if(e.target.closest('button')) return;
-    fileInput.click();
+  fileInput.addEventListener('change', function(e){
+    const file = e.target.files && e.target.files[0];
+    if(file) handleResumeFile(file);
   });
-  fileInput.addEventListener('change', e=>{
-    if(e.target.files[0]) handleResumeFile(e.target.files[0]);
+
+  dropzone.addEventListener('dragover', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.add('drag');
   });
-  dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
-  dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('drag'));
-  dropzone.addEventListener('drop', e=>{
+  dropzone.addEventListener('dragleave', function(e){
     e.preventDefault();
     dropzone.classList.remove('drag');
-    if(e.dataTransfer.files[0]) handleResumeFile(e.dataTransfer.files[0]);
   });
+  dropzone.addEventListener('drop', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    dropzone.classList.remove('drag');
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if(file) handleResumeFile(file);
+  });
+
+  // Click on dropzone (not on label/button) opens picker
+  dropzone.addEventListener('click', function(e){
+    if(e.target.closest('button') || e.target.closest('label') || e.target.closest('summary')) return;
+    fileInput.click();
+  });
+}
+
+function usePastedResume(){
+  const text = (document.getElementById('resume-paste-input')||{}).value || '';
+  if(text.trim().length < 50){
+    notify('❌','Please paste at least a few lines of your resume (50+ characters)');
+    return;
+  }
+  uploadedResumeFile = null;
+  uploadedResumeText = text.trim();
+  uploadedResumeName = 'Pasted Resume';
+  showUploadSuccess({name:'Pasted Resume.txt', size: new Blob([text]).size});
+  notify('✅','Resume text ready to analyze');
 }
 
 function formatFileSize(bytes){
@@ -1879,7 +1927,11 @@ function clearResumeUpload(e){
   if(e) e.stopPropagation();
   uploadedResumeFile = null;
   uploadedResumeText = '';
-  document.getElementById('resume-file-input').value = '';
+  uploadedResumeName = '';
+  const fi = document.getElementById('resume-file-input');
+  if(fi) fi.value = '';
+  const paste = document.getElementById('resume-paste-input');
+  if(paste) paste.value = '';
   document.getElementById('drop-content').style.display='block';
   document.getElementById('drop-success').style.display='none';
   const dz = document.getElementById('dropzone');
@@ -1888,29 +1940,45 @@ function clearResumeUpload(e){
 }
 
 function handleResumeFile(file){
-  const allowed = ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','text/plain'];
-  const ext = file.name.split('.').pop().toLowerCase();
+  if(!file || !file.name){
+    notify('❌','No file selected');
+    return;
+  }
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
   const okExt = ['pdf','docx','doc','txt'].includes(ext);
-  if(!okExt && !allowed.includes(file.type)){
-    notify('❌','Please upload a PDF, DOCX, or TXT file');
+  if(!okExt){
+    notify('❌','Unsupported format. Please use PDF, DOCX, or TXT.');
     return;
   }
   if(file.size > 10*1024*1024){
     notify('❌','File too large — max 10MB');
     return;
   }
+  if(file.size === 0){
+    notify('❌','File is empty');
+    return;
+  }
   uploadedResumeFile = file;
+  uploadedResumeText = '';
+  uploadedResumeName = file.name;
   showUploadSuccess(file);
-  notify('✅', file.name + ' uploaded successfully');
+  notify('✅', file.name + ' uploaded — click Analyze with AI');
 }
 
 function loadScriptOnce(src, globalCheck){
   if(globalCheck && globalCheck()) return Promise.resolve();
   return new Promise((res,rej)=>{
     const existing = document.querySelector('script[src="'+src+'"]');
-    if(existing){ existing.onload=()=>res(); return; }
+    if(existing){
+      if(globalCheck && globalCheck()) return res();
+      existing.addEventListener('load', ()=>res());
+      existing.addEventListener('error', ()=>rej(new Error('Failed to load '+src)));
+      return;
+    }
     const s=document.createElement('script');
-    s.src=src; s.onload=res; s.onerror=rej;
+    s.src=src;
+    s.onload=()=>res();
+    s.onerror=()=>rej(new Error('Failed to load '+src));
     document.head.appendChild(s);
   });
 }
@@ -2173,9 +2241,11 @@ function resetAnalysisUI(){
 }
 
 async function startAnalysis(){
-  if(!uploadedResumeFile){
-    notify('❌','Please upload your resume first (PDF, DOCX, or TXT)');
-    document.getElementById('resume-file-input').click();
+  if(!uploadedResumeFile && !uploadedResumeText){
+    notify('❌','Please upload your resume or paste resume text first');
+    const browse = document.getElementById('browse-btn');
+    if(browse) browse.focus();
+    else document.getElementById('resume-file-input').click();
     return;
   }
 
@@ -2193,16 +2263,19 @@ async function startAnalysis(){
   }
 
   try {
-    setProgress(15, 0);
-    const text = await extractResumeText(uploadedResumeFile);
+    setProgress(10, 0);
+    let text = uploadedResumeText;
+    if(!text && uploadedResumeFile){
+      text = await extractResumeText(uploadedResumeFile);
+    }
     uploadedResumeText = text;
 
     if(!text || text.length < 50){
-      throw new Error('Could not extract enough text. Try a text-based PDF or DOCX (not a scanned image).');
+      throw new Error('Could not read enough text from your resume. Try a text-based PDF/DOCX, or paste your resume text in the box below.');
     }
 
     setProgress(45, 1);
-    await new Promise(r=>setTimeout(r, 300));
+    await new Promise(r=>setTimeout(r, 200));
 
     setProgress(70, 2);
     const role = getSelectedRole();
@@ -2210,21 +2283,26 @@ async function startAnalysis(){
     const report = analyzeResumeText(text, role, jd);
 
     setProgress(95, 3);
-    await new Promise(r=>setTimeout(r, 200));
+    await new Promise(r=>setTimeout(r, 150));
 
     setProgress(100, 3);
-    renderReport(report, uploadedResumeFile.name, role);
+    const displayName = uploadedResumeName || (uploadedResumeFile && uploadedResumeFile.name) || 'Resume';
+    renderReport(report, displayName, role);
     resetAnalysisUI();
     showPage('report');
     notify('✅','Analysis complete — ATS score: '+report.atsScore+'/100');
   } catch(err){
     console.error(err);
     resetAnalysisUI();
-    notify('❌', err.message || 'Analysis failed. Please try another file.');
+    notify('❌', err.message || 'Analysis failed. Try pasting resume text instead.');
   }
 }
 
-initResumeUpload();
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', initResumeUpload);
+} else {
+  initResumeUpload();
+}
 
 // ── Dashboard tabs ────────────────────────────────────────
 function dashTab(btn,id){
