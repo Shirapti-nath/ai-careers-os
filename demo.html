@@ -49,6 +49,24 @@
     .kw-red{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(239,68,68,.2);color:#fca5a5;}
     .kw-green{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(16,185,129,.2);color:#6ee7b7;}
     .kw-blue{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(139,92,246,.2);color:#c4b5fd;}
+    .student-hub{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(99,102,241,.12));border:1px solid rgba(16,185,129,.25);border-radius:16px;padding:20px 24px;margin-bottom:28px;}
+    .student-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .2s;text-decoration:none;color:inherit;}
+    .student-step:hover{border-color:rgba(99,102,241,.35);transform:translateY(-1px);}
+    .step-num{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+    #mobile-menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.15);color:white;border-radius:10px;padding:8px 12px;cursor:pointer;}
+    #mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(2,6,23,.98);border-bottom:1px solid rgba(255,255,255,.08);padding:12px 16px 16px;flex-direction:column;gap:4px;}
+    #mobile-nav.open{display:flex;}
+    #mobile-nav .nav-link{display:block;width:100%;}
+    @media(max-width:960px){
+      #mobile-menu-btn{display:block;}
+      #desktop-nav{display:none!important;}
+    }
+    @media(max-width:768px){
+      .student-hub{padding:16px;}
+      #page-dashboard [style*="grid-template-columns:repeat(5,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(6,1fr)"],#page-dashboard [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;}
+      #domain-btns{grid-template-columns:repeat(2,1fr)!important;}
+      #page-report [style*="grid-template-columns:180px 1fr"],#page-report [style*="grid-template-columns:1fr 1fr"],#report-score-grid,#report-sw-grid{grid-template-columns:1fr!important;}
+    }
   </style>
 </head>
 <body>
@@ -67,8 +85,9 @@
       </div>
       <span style="font-size:18px;font-weight:800;" class="gradient-text">ResumeAI</span>
     </div>
-    <div style="display:flex;gap:2px;align-items:center;">
-      <span class="nav-link active" onclick="showPage('dashboard')">Dashboard</span>
+    <div style="display:flex;gap:2px;align-items:center;" id="desktop-nav">
+      <span class="nav-link" data-nav="home" onclick="showPage('home')">Home</span>
+      <span class="nav-link active" data-nav="dashboard" onclick="showPage('dashboard')">Dashboard</span>
       <div class="dropdown">
         <span class="nav-link" style="display:flex;align-items:center;gap:4px;">
           AI Tools
@@ -89,8 +108,8 @@
           </div>
         </div>
       </div>
-      <span class="nav-link" onclick="showPage('builder')">Builder</span>
-      <span class="nav-link" onclick="showPage('templates')">Templates</span>
+      <span class="nav-link" data-nav="builder" onclick="showPage('builder')">Builder</span>
+      <span class="nav-link" data-nav="templates" onclick="showPage('templates')">Templates</span>
       <div class="dropdown">
         <span class="nav-link" style="display:flex;align-items:center;gap:4px;color:#a5b4fc;">
           🚀 Career OS
@@ -125,24 +144,39 @@
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn-sec" style="padding:8px 16px;font-size:13px;">Sign out</button>
+      <a href="index.html" class="btn-sec" style="padding:8px 14px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;">← Home</a>
+      <a href="career-explorer.html" class="btn-sec" style="padding:8px 14px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;">🔭 Paths</a>
+      <button id="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Menu">☰</button>
     </div>
+  </div>
+  <div id="mobile-nav">
+    <span class="nav-link" onclick="showPage('home');toggleMobileNav()">Home</span>
+    <span class="nav-link" onclick="showPage('dashboard');toggleMobileNav()">Dashboard</span>
+    <span class="nav-link" onclick="showPage('analyzer');toggleMobileNav()">Resume Analyzer</span>
+    <span class="nav-link" onclick="showPage('linkedin');toggleMobileNav()">LinkedIn Optimizer</span>
+    <span class="nav-link" onclick="showPage('coverletter');toggleMobileNav()">Cover Letter</span>
+    <span class="nav-link" onclick="showPage('builder');toggleMobileNav()">Builder</span>
+    <span class="nav-link" onclick="showPage('templates');toggleMobileNav()">Templates</span>
+    <span class="nav-link" onclick="showPage('project-gen');toggleMobileNav()">Project Generator</span>
+    <span class="nav-link" onclick="showPage('interview');toggleMobileNav()">Mock Interview</span>
+    <span class="nav-link" onclick="showPage('readiness');toggleMobileNav()">Job Readiness</span>
+    <span class="nav-link" onclick="showPage('coach');toggleMobileNav()">Career Coach</span>
   </div>
 </nav>
 
 <!-- HOME -->
-<div id="page-home" class="page active" style="padding-top:64px;min-height:100vh;overflow:hidden;position:relative;">
+<div id="page-home" class="page" style="padding-top:64px;min-height:100vh;overflow:hidden;position:relative;">
   <div class="orb1"></div><div class="orb2"></div>
   <div style="max-width:900px;margin:0 auto;padding:80px 24px;text-align:center;position:relative;">
     <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc;font-size:13px;font-weight:500;margin-bottom:32px;">
       <span style="width:8px;height:8px;background:#34d399;border-radius:50%;box-shadow:0 0 8px #34d399;animation:pulse 2s infinite;"></span>
-      AI-powered career tools for tech professionals
+      AI-powered career tools for students, freshers &amp; tech professionals
     </div>
     <h1 style="font-size:clamp(40px,7vw,76px);font-weight:900;line-height:1.1;margin-bottom:24px;">
       Land Your Dream Job<br/><span class="gradient-text">with AI-Powered</span><br/>Career Tools
     </h1>
     <p style="font-size:18px;color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7;">
-      Analyze your resume, optimize your LinkedIn, and generate tailored cover letters — all powered by AI, built for tech professionals.
+      Analyze your resume, optimize your LinkedIn, and generate tailored cover letters — whether you're a student, fresher, or experienced professional.
     </p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <button class="btn-primary" style="font-size:16px;padding:16px 36px;" onclick="showPage('analyzer')">🚀 Get Started — Free</button>
@@ -225,11 +259,40 @@
 </div>
 
 <!-- DASHBOARD -->
-<div id="page-dashboard" class="page" style="padding-top:88px;padding-bottom:48px;">
+<div id="page-dashboard" class="page active" style="padding-top:88px;padding-bottom:48px;">
   <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
     <div style="margin-bottom:32px;">
-      <h1 style="font-size:28px;font-weight:900;color:white;">Hey, Jane 👋</h1>
-      <p style="color:#64748b;margin-top:6px;">Your AI career toolkit — all in one place.</p>
+      <h1 style="font-size:28px;font-weight:900;color:white;">Hey, <span id="user-name">Student</span> 👋</h1>
+      <p style="color:#64748b;margin-top:6px;">Your AI career toolkit — start here if you're preparing for internships or your first job.</p>
+    </div>
+
+    <!-- Student Quick Start -->
+    <div class="student-hub">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#34d399;margin-bottom:4px;">🎓 Student Quick Start</div>
+          <div style="font-size:12px;color:#94a3b8;">Follow these 4 steps — most students finish in under an hour</div>
+        </div>
+        <button class="btn-sec" style="font-size:12px;padding:8px 14px;" onclick="promptUserName()">Set your name</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+        <a class="student-step" href="career-explorer.html">
+          <span class="step-num">1</span>
+          <div><div style="font-size:13px;font-weight:700;color:white;">Pick your career path</div><div style="font-size:11px;color:#64748b;margin-top:2px;">Explore 12 roadmaps in TechPath OS</div></div>
+        </a>
+        <div class="student-step" onclick="showPage('builder')">
+          <span class="step-num">2</span>
+          <div><div style="font-size:13px;font-weight:700;color:white;">Build your first resume</div><div style="font-size:11px;color:#64748b;margin-top:2px;">Use student templates + live preview</div></div>
+        </div>
+        <div class="student-step" onclick="showPage('analyzer')">
+          <span class="step-num">3</span>
+          <div><div style="font-size:13px;font-weight:700;color:white;">Get your ATS score</div><div style="font-size:11px;color:#64748b;margin-top:2px;">See what's missing before you apply</div></div>
+        </div>
+        <div class="student-step" onclick="showPage('interview')">
+          <span class="step-num">4</span>
+          <div><div style="font-size:13px;font-weight:700;color:white;">Practice interviews</div><div style="font-size:11px;color:#64748b;margin-top:2px;">DSA, HR &amp; behavioural rounds</div></div>
+        </div>
+      </div>
     </div>
 
     <!-- 5 quick actions -->
@@ -455,25 +518,29 @@
     <div class="card" style="display:flex;flex-direction:column;gap:22px;">
       <div>
         <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Upload Resume (PDF or DOCX)</label>
-        <div class="upload-zone" id="dropzone" onclick="simulateUpload()">
-          <div id="drop-content"><div style="font-size:44px;margin-bottom:10px;">📄</div><p style="color:#e2e8f0;font-weight:500;margin:0 0 4px;">Drag &amp; drop your resume</p><p style="color:#475569;font-size:12px;margin:0;">or click to browse — PDF, DOCX up to 10MB</p></div>
-          <div id="drop-success" style="display:none;"><div style="font-size:36px;margin-bottom:8px;">✅</div><p style="color:#34d399;font-weight:600;margin:0 0 4px;">Jane_Doe_Resume.pdf</p><p style="color:#475569;font-size:12px;margin:0;">142 KB — Ready to analyze</p></div>
+        <input type="file" id="resume-file-input" accept=".pdf,.docx,.doc,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none"/>
+        <div class="upload-zone" id="dropzone">
+          <div id="drop-content"><div style="font-size:44px;margin-bottom:10px;">📄</div><p style="color:#e2e8f0;font-weight:500;margin:0 0 4px;">Drag &amp; drop your resume</p><p style="color:#475569;font-size:12px;margin:0;">or click to browse — PDF, DOCX, TXT up to 10MB</p></div>
+          <div id="drop-success" style="display:none;"><div style="font-size:36px;margin-bottom:8px;">✅</div><p id="upload-filename" style="color:#34d399;font-weight:600;margin:0 0 4px;"></p><p id="upload-filesize" style="color:#475569;font-size:12px;margin:0;"></p><button type="button" class="btn-sec" style="margin-top:12px;font-size:12px;padding:6px 14px;" onclick="clearResumeUpload(event)">Remove file</button></div>
         </div>
       </div>
       <div>
-        <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Your Tech Role</label>
+        <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:10px;">Your Target Role</label>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;" id="domain-btns">
           <button class="tab-btn active" onclick="selectDomain(this)">Software Engineering</button>
           <button class="tab-btn" onclick="selectDomain(this)">Full Stack</button>
           <button class="tab-btn" onclick="selectDomain(this)">AI / ML</button>
           <button class="tab-btn" onclick="selectDomain(this)">Data Science</button>
+          <button class="tab-btn" onclick="selectDomain(this)">Data Analyst</button>
           <button class="tab-btn" onclick="selectDomain(this)">DevOps &amp; Cloud</button>
           <button class="tab-btn" onclick="selectDomain(this)">Mobile</button>
+          <button class="tab-btn" onclick="selectDomain(this)">Student / Fresher</button>
+          <button class="tab-btn" onclick="selectDomain(this)">Internship</button>
         </div>
       </div>
       <div>
         <label style="display:block;font-size:13px;font-weight:500;color:#94a3b8;margin-bottom:6px;">Job Description <span style="color:#475569;font-weight:400;">(optional — for match score)</span></label>
-        <textarea class="input" rows="3" placeholder="Paste the job description here..." style="resize:none;font-size:13px;"></textarea>
+        <textarea class="input" id="job-description-input" rows="3" placeholder="Paste the job description here..." style="resize:none;font-size:13px;"></textarea>
       </div>
       <div id="analyze-btn-area"><button class="btn-primary" style="width:100%;font-size:15px;padding:14px;" onclick="startAnalysis()">🚀 Analyze with AI</button></div>
       <div id="progress-area" style="display:none;">
@@ -491,53 +558,11 @@
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px;">
       <div>
         <a href="#" style="color:#818cf8;font-size:13px;text-decoration:none;" onclick="showPage('dashboard');return false;">← Back to Dashboard</a>
-        <h1 style="font-size:24px;font-weight:900;color:white;margin-top:6px;">Software Engineer Resume — Analysis</h1>
+        <h1 id="report-title" style="font-size:24px;font-weight:900;color:white;margin-top:6px;">Resume Analysis</h1>
       </div>
       <button class="btn-sec" style="font-size:13px;padding:10px 18px;" onclick="showPage('analyzer')">Re-analyze</button>
     </div>
-    <div style="display:flex;flex-direction:column;gap:18px;">
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:18px;">
-        <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-          <svg width="150" height="150" style="transform:rotate(-90deg);">
-            <circle cx="75" cy="75" r="60" fill="none" stroke="#1e293b" stroke-width="11"/>
-            <circle cx="75" cy="75" r="60" fill="none" stroke="#6366f1" stroke-width="11" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="68" class="linkedin-score-ring"/>
-          </svg>
-          <div style="margin-top:-72px;text-align:center;position:relative;"><div style="font-size:38px;font-weight:900;color:#818cf8;">82</div><div style="font-size:11px;color:#475569;">/ 100</div></div>
-          <div style="margin-top:44px;font-size:13px;font-weight:700;color:#34d399;">Good</div>
-        </div>
-        <div class="card">
-          <h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:16px;">Score Breakdown</h3>
-          <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">Keywords Match</span><span style="color:#64748b;">21/25</span></div><div class="progress-bar"><div class="progress-fill" style="width:84%;background:#10b981;"></div></div></div>
-          <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">Formatting</span><span style="color:#64748b;">17/20</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%;background:#10b981;"></div></div></div>
-          <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">Section Completeness</span><span style="color:#64748b;">15/20</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%;background:#f59e0b;"></div></div></div>
-          <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">Experience Clarity</span><span style="color:#64748b;">16/20</span></div><div class="progress-bar"><div class="progress-fill" style="width:80%;background:#10b981;"></div></div></div>
-          <div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">Skills Relevance</span><span style="color:#64748b;">13/15</span></div><div class="progress-bar"><div class="progress-fill" style="width:87%;background:#10b981;"></div></div></div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
-        <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:12px;">✅ Strengths</h3>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#34d399;flex-shrink:0;">✓</span>Strong tech stack: React, Node.js, AWS</div>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#34d399;flex-shrink:0;">✓</span>Quantified achievements with clear metrics</div>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#34d399;flex-shrink:0;">✓</span>Well-structured project descriptions</div>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#34d399;flex-shrink:0;">✓</span>LinkedIn and GitHub profiles included</div>
-        </div>
-        <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:12px;">⚠️ Weaknesses</h3>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#f59e0b;flex-shrink:0;">!</span>No professional summary / objective</div>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#f59e0b;flex-shrink:0;">!</span>Missing CI/CD and microservices keywords</div>
-          <div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#f59e0b;flex-shrink:0;">!</span>Bullet points lack quantifiable metrics</div>
-        </div>
-      </div>
-      <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:10px;">🔑 Missing Keywords</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <span class="kw-red">microservices</span><span class="kw-red">CI/CD</span><span class="kw-red">Kubernetes</span><span class="kw-red">Docker</span><span class="kw-red">system design</span><span class="kw-red">TDD</span><span class="kw-red">Redis</span><span class="kw-red">GraphQL</span><span class="kw-red">TypeScript</span><span class="kw-red">Agile</span>
-        </div>
-      </div>
-      <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:14px;">✨ AI-Generated Summary</h3>
-        <div style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:16px;">
-          <p style="color:#c7d2fe;line-height:1.7;font-size:13px;">Results-driven Software Engineer with 3+ years of experience building scalable full-stack applications using React, Node.js, and AWS. Proven track record of delivering high-impact features including a recommendation engine that boosted user retention by 40% while maintaining 99.9% uptime. Passionate about distributed systems and performance optimization.</p>
-        </div>
-      </div>
-    </div>
+    <div id="report-content" style="display:flex;flex-direction:column;gap:18px;"></div>
   </div>
 </div>
 
@@ -700,7 +725,7 @@
               <span style="color:#94a3b8;font-size:13px;font-weight:500;">Senior Software Engineer @ Google</span>
             </div>
             <div style="display:flex;gap:8px;">
-              <button style="font-size:11px;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;cursor:pointer;" onclick="notify('📋','Copied to clipboard!')">📋 Copy</button>
+              <button style="font-size:11px;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;cursor:pointer;" onclick="copyCoverLetter()">📋 Copy</button>
               <button style="font-size:11px;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;cursor:pointer;" onclick="notify('⬇️','Downloading cover letter...')">⬇ Download</button>
               <button style="font-size:11px;padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;cursor:pointer;" onclick="notify('✏️','Edit mode enabled!')">✏️ Edit</button>
             </div>
@@ -750,7 +775,7 @@ Warm regards,
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
       <div><h1 style="font-size:24px;font-weight:900;color:white;margin:0;" id="builder-title">Resume Builder</h1><p style="color:#64748b;font-size:13px;margin-top:4px;">Build your resume step by step</p></div>
       <div style="display:flex;gap:10px;">
-        <button class="btn-sec" style="font-size:13px;padding:9px 16px;" onclick="notify('💾','Resume saved!')">💾 Save</button>
+        <button class="btn-sec" style="font-size:13px;padding:9px 16px;" onclick="saveResumeDraft()">💾 Save</button>
         <button class="btn-primary" style="font-size:13px;padding:9px 16px;" onclick="downloadResumePDF()">⬇ Download PDF</button>
       </div>
     </div>
@@ -1731,10 +1756,53 @@ Warm regards,
 
 <script>
 // ── Page navigation ──────────────────────────────────────
+const PAGE_NAV = {
+  home:'home', dashboard:'dashboard', builder:'builder', templates:'templates',
+  analyzer:'dashboard', linkedin:'dashboard', coverletter:'dashboard', report:'dashboard',
+  'project-gen':'dashboard', interview:'dashboard', readiness:'dashboard',
+  coach:'dashboard', 'github-analyzer':'dashboard', simulation:'dashboard'
+};
+
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
+  const page = document.getElementById('page-'+name);
+  if(page) page.classList.add('active');
   window.scrollTo(0,0);
+  document.querySelectorAll('[data-nav]').forEach(l=>{
+    l.classList.toggle('active', l.dataset.nav === (PAGE_NAV[name] || name));
+  });
+}
+
+function toggleMobileNav(){
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+// ── User personalization ─────────────────────────────────
+function loadUserName(){
+  const saved = localStorage.getItem('aiCareerOS_name');
+  if(saved) document.getElementById('user-name').textContent = saved;
+}
+function promptUserName(){
+  const current = localStorage.getItem('aiCareerOS_name') || '';
+  const name = prompt('What should we call you?', current || 'Student');
+  if(name && name.trim()){
+    localStorage.setItem('aiCareerOS_name', name.trim());
+    document.getElementById('user-name').textContent = name.trim();
+    notify('👋','Welcome, '+name.trim()+'!');
+  }
+}
+
+// ── Clipboard ────────────────────────────────────────────
+function copyText(text, msg){
+  if(!text) return notify('❌','Nothing to copy');
+  navigator.clipboard.writeText(text).then(()=>notify('📋', msg||'Copied to clipboard!'))
+    .catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); notify('📋', msg||'Copied!'); }
+      catch(e){ notify('❌','Copy failed — select text manually'); }
+      document.body.removeChild(ta);
+    });
 }
 
 // ── Notification toast ───────────────────────────────────
@@ -1746,30 +1814,417 @@ function notify(icon,text){
   setTimeout(()=>n.classList.remove('show'),3000);
 }
 
-// ── Analyzer ─────────────────────────────────────────────
-function simulateUpload(){
+// ── Resume Analyzer (real upload + client-side ATS engine) ──
+let uploadedResumeFile = null;
+let uploadedResumeText = '';
+
+const DOMAIN_KEYWORDS = {
+  'software-engineering': ['REST API','microservices','Docker','Kubernetes','CI/CD','Git','Agile','Scrum','React','Node.js','Python','Java','TypeScript','PostgreSQL','Redis','AWS','system design','algorithms','data structures','OOP','unit testing','TDD','Spring','MongoDB'],
+  'fullstack': ['React','Vue','Angular','Node.js','Express','Next.js','TypeScript','GraphQL','REST API','PostgreSQL','MongoDB','Redis','Docker','AWS','responsive design','Tailwind CSS','authentication','WebSockets'],
+  'ai-ml': ['machine learning','deep learning','neural networks','PyTorch','TensorFlow','scikit-learn','NLP','computer vision','transformer','BERT','LLM','fine-tuning','MLOps','model deployment','feature engineering','RAG','LangChain','pandas','NumPy'],
+  'data-science': ['data analysis','pandas','NumPy','SQL','Tableau','Power BI','statistics','A/B testing','data visualization','ETL','Spark','regression','classification','clustering','Jupyter','statistical modeling','business intelligence'],
+  'data-analyst': ['SQL','Excel','Tableau','Power BI','data visualization','pivot tables','dashboards','Google Analytics','Looker','business intelligence','KPI','reporting','data cleaning','Python','pandas'],
+  'devops-cloud': ['Kubernetes','Docker','Terraform','Ansible','CI/CD','Jenkins','GitHub Actions','AWS','GCP','Azure','infrastructure as code','Helm','Prometheus','Grafana','SRE','Linux'],
+  'mobile': ['iOS','Android','React Native','Flutter','Swift','Kotlin','Xcode','Firebase','App Store','push notifications','mobile CI/CD'],
+  'student-fresher': ['projects','GitHub','coursework','internship','academic','programming','problem solving','teamwork','certifications','hackathon','open source'],
+  'internship': ['internship','projects','GitHub','coursework','eager to learn','team player','programming','collaboration','academic projects','certifications']
+};
+
+const ROLE_TO_DOMAIN = {
+  'Software Engineering':'software-engineering','Full Stack':'fullstack','AI / ML':'ai-ml',
+  'Data Science':'data-science','Data Analyst':'data-analyst','DevOps & Cloud':'devops-cloud',
+  'Mobile':'mobile','Student / Fresher':'student-fresher','Internship':'internship'
+};
+
+const ACTION_VERBS = ['built','developed','designed','implemented','led','managed','created','optimized','reduced','increased','improved','delivered','architected','automated','deployed','engineered','achieved','spearheaded','collaborated','migrated'];
+
+function initResumeUpload(){
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('resume-file-input');
+  if(!dropzone || !fileInput) return;
+
+  dropzone.addEventListener('click', e=>{
+    if(e.target.closest('button')) return;
+    fileInput.click();
+  });
+  fileInput.addEventListener('change', e=>{
+    if(e.target.files[0]) handleResumeFile(e.target.files[0]);
+  });
+  dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e=>{
+    e.preventDefault();
+    dropzone.classList.remove('drag');
+    if(e.dataTransfer.files[0]) handleResumeFile(e.dataTransfer.files[0]);
+  });
+}
+
+function formatFileSize(bytes){
+  if(bytes < 1024) return bytes + ' B';
+  if(bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1048576).toFixed(1) + ' MB';
+}
+
+function showUploadSuccess(file){
   document.getElementById('drop-content').style.display='none';
   document.getElementById('drop-success').style.display='block';
-  document.getElementById('dropzone').style.borderColor='#34d399';
-  document.getElementById('dropzone').style.background='rgba(16,185,129,.05)';
+  document.getElementById('upload-filename').textContent = file.name;
+  document.getElementById('upload-filesize').textContent = formatFileSize(file.size) + ' — Ready to analyze';
+  const dz = document.getElementById('dropzone');
+  dz.style.borderColor='#34d399';
+  dz.style.background='rgba(16,185,129,.05)';
 }
+
+function clearResumeUpload(e){
+  if(e) e.stopPropagation();
+  uploadedResumeFile = null;
+  uploadedResumeText = '';
+  document.getElementById('resume-file-input').value = '';
+  document.getElementById('drop-content').style.display='block';
+  document.getElementById('drop-success').style.display='none';
+  const dz = document.getElementById('dropzone');
+  dz.style.borderColor='';
+  dz.style.background='';
+}
+
+function handleResumeFile(file){
+  const allowed = ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','text/plain'];
+  const ext = file.name.split('.').pop().toLowerCase();
+  const okExt = ['pdf','docx','doc','txt'].includes(ext);
+  if(!okExt && !allowed.includes(file.type)){
+    notify('❌','Please upload a PDF, DOCX, or TXT file');
+    return;
+  }
+  if(file.size > 10*1024*1024){
+    notify('❌','File too large — max 10MB');
+    return;
+  }
+  uploadedResumeFile = file;
+  showUploadSuccess(file);
+  notify('✅', file.name + ' uploaded successfully');
+}
+
+function loadScriptOnce(src, globalCheck){
+  if(globalCheck && globalCheck()) return Promise.resolve();
+  return new Promise((res,rej)=>{
+    const existing = document.querySelector('script[src="'+src+'"]');
+    if(existing){ existing.onload=()=>res(); return; }
+    const s=document.createElement('script');
+    s.src=src; s.onload=res; s.onerror=rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function extractResumeText(file){
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(ext === 'txt' || file.type === 'text/plain'){
+    return await file.text();
+  }
+  if(ext === 'pdf' || file.type === 'application/pdf'){
+    await loadScriptOnce('https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js', ()=>window.pdfjsLib);
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+    let text = '';
+    for(let i=1;i<=pdf.numPages;i++){
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map(it=>it.str).join(' ') + '\n';
+    }
+    return text.trim();
+  }
+  if(ext === 'docx' || ext === 'doc'){
+    await loadScriptOnce('https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js', ()=>window.mammoth);
+    const buf = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({arrayBuffer:buf});
+    return result.value.trim();
+  }
+  throw new Error('Unsupported file format');
+}
+
+function getSelectedRole(){
+  const active = document.querySelector('#domain-btns .tab-btn.active');
+  return active ? active.textContent.trim() : 'Software Engineering';
+}
+
 function selectDomain(btn){
   document.querySelectorAll('#domain-btns .tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
-function startAnalysis(){
+
+function normalizeText(t){ return t.toLowerCase().replace(/\s+/g,' ').trim(); }
+
+function countKeywordMatches(text, keywords){
+  const lower = normalizeText(text);
+  const found = [], missing = [];
+  keywords.forEach(kw=>{
+    if(lower.includes(kw.toLowerCase())) found.push(kw);
+    else missing.push(kw);
+  });
+  return {found, missing};
+}
+
+function tokenize(text){
+  return normalizeText(text).replace(/[^a-z0-9+#.\s-]/g,' ').split(/\s+/).filter(w=>w.length>1);
+}
+
+function buildTfIdfVector(tokens, idfMap, vocab){
+  const tf = {};
+  tokens.forEach(t=>{ tf[t]=(tf[t]||0)+1; });
+  const maxTf = Math.max(...Object.values(tf),1);
+  const vec = {};
+  vocab.forEach(term=>{
+    vec[term] = (tf[term]||0)/maxTf * (idfMap[term]||1);
+  });
+  return vec;
+}
+
+function cosineSimilarity(a,b,keys){
+  let dot=0, magA=0, magB=0;
+  keys.forEach(k=>{
+    dot += (a[k]||0)*(b[k]||0);
+    magA += (a[k]||0)**2;
+    magB += (b[k]||0)**2;
+  });
+  if(!magA||!magB) return 0;
+  return dot/(Math.sqrt(magA)*Math.sqrt(magB));
+}
+
+function jdMatchScore(resumeText, jd){
+  if(!jd || jd.trim().length < 20) return null;
+  const rTokens = tokenize(resumeText);
+  const jTokens = tokenize(jd);
+  const vocab = [...new Set([...rTokens,...jTokens])];
+  const docFreq = {};
+  vocab.forEach(t=>{
+    docFreq[t] = (resumeText.toLowerCase().includes(t)?1:0) + (jd.toLowerCase().includes(t)?1:0);
+  });
+  const idf = {};
+  vocab.forEach(t=>{ idf[t] = Math.log(2/(docFreq[t]||1))+1; });
+  const rVec = buildTfIdfVector(rTokens,idf,vocab);
+  const jVec = buildTfIdfVector(jTokens,idf,vocab);
+  return Math.round(cosineSimilarity(rVec,jVec,vocab)*100);
+}
+
+function scoreLabel(score){
+  if(score>=85) return {text:'Excellent',color:'#34d399'};
+  if(score>=70) return {text:'Good',color:'#34d399'};
+  if(score>=55) return {text:'Fair',color:'#fbbf24'};
+  return {text:'Needs Work',color:'#f87171'};
+}
+
+function barColor(pct){ return pct>=75?'#10b981':pct>=50?'#f59e0b':'#ef4444'; }
+
+function analyzeResumeText(text, roleLabel, jobDescription){
+  const domain = ROLE_TO_DOMAIN[roleLabel] || 'software-engineering';
+  const keywords = DOMAIN_KEYWORDS[domain] || DOMAIN_KEYWORDS['software-engineering'];
+  const lower = normalizeText(text);
+  const lines = text.split(/\n/).map(l=>l.trim()).filter(Boolean);
+
+  const {found, missing} = countKeywordMatches(text, keywords);
+  let kwScore = Math.min(25, Math.round((found.length/keywords.length)*25));
+  if(jobDescription){
+    const jdMatch = jdMatchScore(text, jobDescription);
+    if(jdMatch !== null) kwScore = Math.min(25, Math.round(kwScore*0.6 + (jdMatch/100)*25*0.4));
+  }
+
+  let fmtScore = 20;
+  if(text.length < 200) fmtScore -= 8;
+  if(text.length > 8000) fmtScore -= 4;
+  if(!/@/.test(text) && !/email|mail/i.test(text)) fmtScore -= 3;
+  if(!/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/.test(text) && !/phone|mobile/i.test(text)) fmtScore -= 2;
+  fmtScore = Math.max(0, fmtScore);
+
+  const sections = {
+    summary: /summary|objective|profile|about me/i.test(text),
+    experience: /experience|employment|work history|internship/i.test(text),
+    education: /education|university|college|b\.?tech|bachelor|master|degree|cgpa/i.test(text),
+    skills: /skills|technologies|technical skills|competencies/i.test(text),
+    projects: /projects|portfolio|personal projects/i.test(text)
+  };
+  const sectionCount = Object.values(sections).filter(Boolean).length;
+  let compScore = Math.min(20, sectionCount * 4);
+  if(domain === 'student-fresher' || domain === 'internship'){
+    if(sections.projects) compScore = Math.min(20, compScore + 2);
+    if(sections.education) compScore = Math.min(20, compScore + 2);
+  }
+
+  const bulletLines = lines.filter(l=>/^[•\-\*]|^\d+\./.test(l) || l.length > 40);
+  const hasMetrics = /\d+%|\$\d+|\d+\+|increased|reduced|saved|improved|\d+\s*(users|customers|ms|seconds|hours)/i.test(text);
+  const hasActionVerbs = ACTION_VERBS.some(v=> lower.includes(v));
+  let expScore = 8;
+  if(bulletLines.length >= 3) expScore += 4;
+  if(hasActionVerbs) expScore += 4;
+  if(hasMetrics) expScore += 4;
+  else expScore -= 2;
+  expScore = Math.max(0, Math.min(20, expScore));
+
+  let skillScore = Math.min(15, Math.round((found.length/Math.max(keywords.length*0.35,1))*15));
+  if(/github\.com|linkedin\.com/i.test(text)) skillScore = Math.min(15, skillScore + 2);
+
+  const total = Math.min(100, kwScore + fmtScore + compScore + expScore + skillScore);
+  const strengths = [], weaknesses = [], suggestions = [];
+
+  if(found.length >= 5) strengths.push('Strong keyword coverage for ' + roleLabel + ': ' + found.slice(0,5).join(', '));
+  if(sections.projects) strengths.push('Projects section detected — great for students and freshers');
+  if(hasMetrics) strengths.push('Quantified achievements with metrics (numbers, %, impact)');
+  if(/github\.com/i.test(text)) strengths.push('GitHub profile link included');
+  if(/linkedin\.com/i.test(text)) strengths.push('LinkedIn profile link included');
+  if(hasActionVerbs) strengths.push('Uses strong action verbs in experience bullets');
+  if(strengths.length === 0) strengths.push('Resume uploaded and parsed successfully — good starting point');
+
+  if(!sections.summary) weaknesses.push('Missing professional summary or objective section');
+  if(!hasMetrics) weaknesses.push('Bullet points lack quantifiable metrics (%, numbers, impact)');
+  if(missing.length > 8) weaknesses.push('Low keyword match for ' + roleLabel + ' — ATS may filter you out');
+  if(!sections.projects && (domain==='student-fresher'||domain==='internship')) weaknesses.push('No projects section — critical for students without work experience');
+  if(!sections.skills) weaknesses.push('No dedicated skills section found');
+  if(bulletLines.length < 3) weaknesses.push('Too few detailed bullet points — expand experience and projects');
+  if(!/@/.test(text)) weaknesses.push('No email address detected');
+
+  if(!sections.summary) suggestions.push({title:'Add a professional summary',detail:'Write 2–3 lines at the top highlighting your target role, top skills, and one key achievement.'});
+  if(!hasMetrics) suggestions.push({title:'Quantify your impact',detail:'Add numbers to bullets: "Improved load time by 40%", "Built app used by 500+ users", "Reduced bugs by 25%".'});
+  if(missing.length > 0) suggestions.push({title:'Add missing ATS keywords',detail:'Naturally weave these into skills and experience: ' + missing.slice(0,8).join(', ') + '.'});
+  if(!sections.projects) suggestions.push({title:'Add a Projects section',detail:'Include 2–3 projects with tech stack, your role, and measurable outcomes. Link to GitHub if possible.'});
+  if(!/github\.com/i.test(text)) suggestions.push({title:'Add your GitHub link',detail:'Recruiters check GitHub for students and developers — include github.com/yourusername in contact info.'});
+  if(jobDescription && jdMatchScore(text, jobDescription) < 50) suggestions.push({title:'Tailor resume to the job description',detail:'Your resume has low semantic match with the pasted JD. Mirror key phrases from the job posting in your summary and skills.'});
+
+  const topSkills = found.slice(0,6).join(', ') || 'relevant technical skills';
+  const summary = roleLabel + ' candidate with demonstrated experience in ' + topSkills + '. '
+    + (hasMetrics ? 'Track record of measurable impact in prior roles and projects. ' : 'Focus on adding quantified achievements to strengthen your profile. ')
+    + (sections.education ? 'Solid educational foundation with ' : '')
+    + (missing.length ? 'Priority improvement: add keywords like ' + missing.slice(0,4).join(', ') + ' to pass ATS screening.' : 'Well-aligned with common ATS requirements for this role.');
+
+  return {
+    atsScore: total,
+    scoreBreakdown: {
+      keywords: {score:kwScore, max:25, label:'Keywords Match'},
+      formatting: {score:fmtScore, max:20, label:'Formatting'},
+      completeness: {score:compScore, max:20, label:'Section Completeness'},
+      experienceClarity: {score:expScore, max:20, label:'Experience Clarity'},
+      skillsRelevance: {score:skillScore, max:15, label:'Skills Relevance'}
+    },
+    strengths: strengths.slice(0,5),
+    weaknesses: weaknesses.slice(0,5),
+    missingKeywords: missing.slice(0,12),
+    suggestions: suggestions.slice(0,6),
+    summary,
+    foundKeywords: found
+  };
+}
+
+function renderReport(report, fileName, roleLabel){
+  const label = scoreLabel(report.atsScore);
+  const circumference = 377;
+  const offset = circumference - (report.atsScore/100)*circumference;
+  const breakdownHtml = Object.values(report.scoreBreakdown).map(b=>{
+    const pct = Math.round((b.score/b.max)*100);
+    return `<div style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="color:#cbd5e1;">${b.label}</span><span style="color:#64748b;">${b.score}/${b.max}</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${barColor(pct)};"></div></div></div>`;
+  }).join('');
+
+  const strengthsHtml = report.strengths.map(s=>`<div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#34d399;flex-shrink:0;">✓</span>${s}</div>`).join('');
+  const weaknessesHtml = report.weaknesses.map(w=>`<div style="display:flex;gap:8px;font-size:12px;color:#cbd5e1;margin-bottom:8px;"><span style="color:#f59e0b;flex-shrink:0;">!</span>${w}</div>`).join('');
+  const kwHtml = report.missingKeywords.length
+    ? report.missingKeywords.map(k=>`<span class="kw-red">${k}</span>`).join('')
+    : '<span class="kw-green">Great coverage — no critical gaps</span>';
+  const suggestHtml = report.suggestions.map(s=>`
+    <div style="padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);">
+      <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px;">${s.title}</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.6;">${s.detail}</div>
+    </div>`).join('');
+
+  document.getElementById('report-title').textContent = fileName.replace(/\.[^.]+$/,'') + ' — ' + roleLabel + ' Analysis';
+  document.getElementById('report-content').innerHTML = `
+    <div style="display:grid;grid-template-columns:180px 1fr;gap:18px;" id="report-score-grid">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <svg width="150" height="150" style="transform:rotate(-90deg);">
+          <circle cx="75" cy="75" r="60" fill="none" stroke="#1e293b" stroke-width="11"/>
+          <circle cx="75" cy="75" r="60" fill="none" stroke="#6366f1" stroke-width="11" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" class="linkedin-score-ring"/>
+        </svg>
+        <div style="margin-top:-72px;text-align:center;position:relative;"><div style="font-size:38px;font-weight:900;color:#818cf8;">${report.atsScore}</div><div style="font-size:11px;color:#475569;">/ 100</div></div>
+        <div style="margin-top:44px;font-size:13px;font-weight:700;color:${label.color};">${label.text}</div>
+      </div>
+      <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:16px;">Score Breakdown</h3>${breakdownHtml}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;" id="report-sw-grid">
+      <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:12px;">✅ Strengths</h3>${strengthsHtml}</div>
+      <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:12px;">⚠️ Weaknesses</h3>${weaknessesHtml}</div>
+    </div>
+    <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:10px;">🔑 Missing Keywords</h3><div style="display:flex;flex-wrap:wrap;gap:8px;">${kwHtml}</div></div>
+    <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:14px;">📋 Recommendations — What to Improve</h3>${suggestHtml}</div>
+    <div class="card"><h3 style="font-size:15px;font-weight:700;color:white;margin-bottom:14px;">✨ Suggested Professional Summary</h3>
+      <div style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:16px;">
+        <p style="color:#c7d2fe;line-height:1.7;font-size:13px;">${report.summary}</p>
+      </div>
+    </div>`;
+
+  setTimeout(()=>{
+    document.querySelectorAll('#report-content .progress-fill').forEach((el,i)=>{
+      const w=el.style.width; el.style.width='0%';
+      setTimeout(()=>{ el.style.width=w; }, 100+i*60);
+    });
+  }, 100);
+}
+
+function resetAnalysisUI(){
+  document.getElementById('analyze-btn-area').style.display='block';
+  document.getElementById('progress-area').style.display='none';
+  document.getElementById('progress-fill').style.width='0%';
+  document.getElementById('progress-pct').textContent='0%';
+}
+
+async function startAnalysis(){
+  if(!uploadedResumeFile){
+    notify('❌','Please upload your resume first (PDF, DOCX, or TXT)');
+    document.getElementById('resume-file-input').click();
+    return;
+  }
+
   document.getElementById('analyze-btn-area').style.display='none';
   document.getElementById('progress-area').style.display='block';
-  let pct=0;
-  const labels=['Uploading...','Extracting text...','AI analyzing resume...','Generating report...'];
-  const interval=setInterval(()=>{
-    pct=Math.min(pct+Math.random()*15,95);
-    document.getElementById('progress-fill').style.width=pct+'%';
-    document.getElementById('progress-pct').textContent=Math.round(pct)+'%';
-    document.getElementById('progress-label').textContent=pct<30?labels[0]:pct<55?labels[1]:pct<80?labels[2]:labels[3];
-  },350);
-  setTimeout(()=>{clearInterval(interval);document.getElementById('progress-fill').style.width='100%';setTimeout(()=>showPage('report'),500);},4000);
+  const fill = document.getElementById('progress-fill');
+  const pctEl = document.getElementById('progress-pct');
+  const labelEl = document.getElementById('progress-label');
+  const labels = ['Reading file...','Extracting text...','Running ATS analysis...','Generating report...'];
+
+  function setProgress(pct, labelIdx){
+    fill.style.width = pct+'%';
+    pctEl.textContent = Math.round(pct)+'%';
+    labelEl.textContent = labels[labelIdx] || labels[3];
+  }
+
+  try {
+    setProgress(15, 0);
+    const text = await extractResumeText(uploadedResumeFile);
+    uploadedResumeText = text;
+
+    if(!text || text.length < 50){
+      throw new Error('Could not extract enough text. Try a text-based PDF or DOCX (not a scanned image).');
+    }
+
+    setProgress(45, 1);
+    await new Promise(r=>setTimeout(r, 300));
+
+    setProgress(70, 2);
+    const role = getSelectedRole();
+    const jd = document.getElementById('job-description-input').value;
+    const report = analyzeResumeText(text, role, jd);
+
+    setProgress(95, 3);
+    await new Promise(r=>setTimeout(r, 200));
+
+    setProgress(100, 3);
+    renderReport(report, uploadedResumeFile.name, role);
+    resetAnalysisUI();
+    showPage('report');
+    notify('✅','Analysis complete — ATS score: '+report.atsScore+'/100');
+  } catch(err){
+    console.error(err);
+    resetAnalysisUI();
+    notify('❌', err.message || 'Analysis failed. Please try another file.');
+  }
 }
+
+initResumeUpload();
 
 // ── Dashboard tabs ────────────────────────────────────────
 function dashTab(btn,id){
@@ -1805,6 +2260,10 @@ function showCoverLetterResult(){
   document.getElementById('cl-empty').style.display='none';
   document.getElementById('cl-result').style.display='block';
   notify('✉️','Cover letter generated!');
+}
+function copyCoverLetter(){
+  const el = document.querySelector('#cl-result pre');
+  copyText(el ? el.innerText : '', 'Cover letter copied!');
 }
 
 // ── Builder: step state ───────────────────────────────────
@@ -1897,6 +2356,7 @@ function updatePreview(){
 // ── Builder: PDF download via print ──────────────────────
 function downloadResumePDF(){
   updatePreview();
+  saveResumeDraft();
   const content = document.getElementById('resume-print-content').innerHTML;
   const printDiv = document.getElementById('print-resume-inner');
   printDiv.innerHTML = content;
@@ -1913,6 +2373,30 @@ function downloadResumePDF(){
     document.getElementById('page-builder').style.display='block';
     notify('📄','PDF download started! Choose "Save as PDF" in the print dialog.');
   }, 100);
+}
+
+function saveResumeDraft(){
+  const fields = ['b-name','b-email','b-phone','b-location','b-linkedin','b-github','b-summary',
+    'b-degree','b-institution','b-grad-year','b-cgpa','b-coursework','b-jobtitle','b-company',
+    'b-start','b-end','b-bullets','b-proj1','b-proj1-stack','b-proj1-desc','b-proj1-link',
+    'b-lang','b-frameworks','b-tools','b-certs'];
+  const data = {};
+  fields.forEach(id=>{ const el=document.getElementById(id); if(el) data[id]=el.value; });
+  localStorage.setItem('aiCareerOS_resume', JSON.stringify(data));
+  notify('💾','Resume saved locally!');
+}
+
+function loadResumeDraft(){
+  const raw = localStorage.getItem('aiCareerOS_resume');
+  if(!raw) return;
+  try{
+    const data = JSON.parse(raw);
+    Object.entries(data).forEach(([id,val])=>{
+      const el=document.getElementById(id);
+      if(el && val) el.value=val;
+    });
+    updatePreview();
+  }catch(e){}
 }
 
 // ── Init: animate progress bars ───────────────────────────
@@ -1967,7 +2451,14 @@ function coachReply(){
   if(!q) return;
   input.value = '';
   notify('🧠','Coach AI is thinking...');
-  setTimeout(()=>notify('💬','Coach: Great question! Check your weekly plan for personalized next steps.'), 1500);
+  const replies = [
+    'Great question! Start with your Student Quick Start checklist on the Dashboard — step 1 is picking a career path.',
+    'For students with no experience: focus on projects and coursework on your resume. Use the AI Project Generator for portfolio ideas.',
+    'Your biggest win this week: run the ATS Analyzer, then fix the top 3 missing keywords it flags.',
+    'Internship tip: tailor your cover letter to each company and keep it under 300 words using the Concise tone.',
+    'Mock interviews build confidence fast — try one HR round and one DSA question today.'
+  ];
+  setTimeout(()=>notify('💬','Coach: '+replies[Math.floor(Math.random()*replies.length)]), 1500);
 }
 
 // ── Career OS: GitHub Analyzer ──────────────────────────
@@ -1998,6 +2489,48 @@ function selectPath(card, type){
   card.style.background = type==='fast'?'rgba(16,185,129,.08)':type==='balanced'?'rgba(99,102,241,.1)':'rgba(245,158,11,.08)';
   notify('🌐','Path selected! Updating year-by-year breakdown...');
 }
+
+// ── URL params: TechPath sync + deep links ───────────────
+const PATH_ROLE_MAP = {
+  cse:'Software Engineering', aiml:'AI / ML', ds:'Data Science',
+  cyber:'Software Engineering', it:'DevOps & Cloud', db:'Data Science',
+  net:'DevOps & Cloud', devops:'DevOps & Cloud', fullstack:'Full Stack',
+  da:'Data Analyst', de:'Data Science', gamedev:'Software Engineering'
+};
+
+function applyUrlParams(){
+  const params = new URLSearchParams(window.location.search);
+  const path = params.get('path');
+  const page = params.get('page');
+
+  if(path && PATH_ROLE_MAP[path]){
+    const role = PATH_ROLE_MAP[path];
+    document.querySelectorAll('#domain-btns .tab-btn').forEach(btn=>{
+      btn.classList.toggle('active', btn.textContent.trim() === role);
+    });
+    let badge = document.getElementById('career-graph-badge');
+    if(!badge){
+      badge = document.createElement('div');
+      badge.id = 'career-graph-badge';
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:#34d399;margin-bottom:16px;';
+      badge.textContent = '🗺️ Powered by Career Graph — role synced from TechPath';
+      const analyzerHead = document.querySelector('#page-analyzer .card');
+      if(analyzerHead) analyzerHead.parentElement.insertBefore(badge, analyzerHead);
+    }
+    badge.style.display = 'inline-flex';
+    notify('🗺️','Roadmap synced from TechPath — role: '+role);
+    showPage('analyzer');
+  }
+
+  if(page){
+    const pages = ['home','dashboard','analyzer','linkedin','coverletter','builder','templates','project-gen','interview','readiness','coach','github-analyzer','simulation','report'];
+    if(pages.includes(page)) showPage(page);
+  }
+}
+
+loadUserName();
+loadResumeDraft();
+applyUrlParams();
 </script>
 </body>
 </html>

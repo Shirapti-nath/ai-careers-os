@@ -20,6 +20,10 @@
 html{scroll-behavior:smooth}
 body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--text);
   min-height:100vh;overflow-x:hidden;cursor:none}
+@media (hover:none),(pointer:coarse){
+  body{cursor:auto}
+  #cur-dot,#cur-ring,#trail-canvas{display:none!important}
+}
 
 /* ── HEX GRID BACKGROUND ── */
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -458,12 +462,12 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 
 <!-- NAVBAR -->
 <nav id="navbar">
-  <div class="nav-logo"><span class="nav-logo-hex">⬡</span>TECHPATH OS</div>
+  <div class="nav-logo" onclick="location.href='index.html'" style="cursor:pointer"><span class="nav-logo-hex">⬡</span>TECHPATH OS</div>
   <div class="nav-links">
     <span class="nav-link" onclick="showLanding()">CAREER PATHS</span>
-    <span class="nav-link">SKILLS MAP</span>
-    <span class="nav-link">SALARY DATA</span>
-    <span class="nav-link nav-link-ai" onclick="window.open('https://shirapti-nath.github.io/sql-generator/resume-analyzer/demo.html','_blank')">⬡ RESUME AI</span>
+    <span class="nav-link" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">SKILLS MAP</span>
+    <span class="nav-link" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">SALARY DATA</span>
+    <span class="nav-link nav-link-ai" onclick="location.href=resumeAIUrl()">⬡ RESUME AI</span>
   </div>
   <div class="nav-status"><span class="nav-dot"></span>SYSTEM ONLINE</div>
 </nav>
@@ -472,11 +476,11 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 <div id="page-landing">
   <div class="ticker-wrap">
     <div class="ticker-inner">
-      <span>⬡ <b>10 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
-      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 FRESHER-FRIENDLY ROADMAPS</span>
+      <span>⬡ <b>12 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
+      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 STUDENT &amp; FRESHER ROADMAPS</span>
       <span>📈 4-YEAR SKILL PROGRESSION</span><span>🏅 TOP CERTIFICATIONS LISTED</span>
-      <span>⬡ <b>10 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
-      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 FRESHER-FRIENDLY ROADMAPS</span>
+      <span>⬡ <b>12 CAREER PATHS</b></span><span>💰 SALARIES UP TO <b>₹80 LPA</b></span>
+      <span>🚀 INDIA'S FASTEST GROWING TECH FIELDS</span><span>🎯 STUDENT &amp; FRESHER ROADMAPS</span>
       <span>📈 4-YEAR SKILL PROGRESSION</span><span>🏅 TOP CERTIFICATIONS LISTED</span>
     </div>
   </div>
@@ -484,13 +488,13 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
   <section class="hero">
     <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>NEURAL CAREER INTERFACE v2.0</div>
     <h1 id="hero-h1"></h1>
-    <p class="hero-sub">Explore 10 structured tech career paths — real skills, certifications, and salary benchmarks from year one to senior leadership.</p>
+    <p class="hero-sub">Explore 12 structured tech career paths — built for students and freshers. Real skills, certifications, and salary benchmarks from year one to senior leadership.</p>
     <div class="hero-cta-row">
       <button class="btn-primary" onclick="document.querySelector('.cards-section').scrollIntoView({behavior:'smooth'})">⬡ EXPLORE PATHS</button>
-      <button class="btn-resume-ai" onclick="window.open('https://shirapti-nath.github.io/sql-generator/resume-analyzer/demo.html','_blank')">🤖 AI RESUME ANALYZER</button>
+      <button class="btn-resume-ai" onclick="location.href=resumeAIUrl()">🤖 AI RESUME ANALYZER</button>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><span class="hstat-val" data-target="10" data-suf="">0</span><div class="hstat-lbl">Career Paths</div></div>
+      <div class="hstat"><span class="hstat-val" data-target="12" data-suf="">0</span><div class="hstat-lbl">Career Paths</div></div>
       <div class="hstat"><span class="hstat-val" data-target="50" data-suf="+">0</span><div class="hstat-lbl">Skill Areas</div></div>
       <div class="hstat"><span class="hstat-val" data-target="80" data-suf=" LPA">0</span><div class="hstat-lbl">Max Salary ₹</div></div>
       <div class="hstat"><span class="hstat-val" data-target="4" data-suf=" Yr">0</span><div class="hstat-lbl">Full Roadmap</div></div>
@@ -525,7 +529,7 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
 
 <!-- ═══════ DETAIL ═══════ -->
 <!-- Floating Resume AI Button -->
-<button id="resume-ai-fab" onclick="window.open('https://shirapti-nath.github.io/sql-generator/resume-analyzer/demo.html','_blank')">
+<button id="resume-ai-fab" onclick="location.href=resumeAIUrl(currentPathId)">
   <span class="fab-dot"></span>AI RESUME ANALYZER
 </button>
 
@@ -549,7 +553,7 @@ body.chov #cur-ring{width:50px;height:50px;border-color:var(--neon3);background:
         <div class="resume-ai-title">Ready to land a job in <span id="banner-career-name">this field</span>?</div>
         <p class="resume-ai-sub">Upload your resume and get an instant ATS score, AI-powered suggestions, a tailored cover letter, and LinkedIn optimization — all built for your chosen career path.</p>
       </div>
-      <button class="btn-resume-ai" onclick="window.open('https://shirapti-nath.github.io/sql-generator/resume-analyzer/demo.html','_blank')">
+      <button class="btn-resume-ai" id="banner-resume-btn" onclick="location.href=resumeAIUrl(currentPathId)">
         🤖 ANALYZE MY RESUME →
       </button>
     </div>
@@ -1346,18 +1350,28 @@ function renderSecBody(sec){
 // ═══════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════
+let currentPathId = null;
+
+function resumeAIUrl(pathId){
+  const id = pathId || currentPathId;
+  return id ? `demo.html?path=${encodeURIComponent(id)}` : 'demo.html';
+}
+
 function showDetail(id){
+  currentPathId = id;
   const p=PATHS.find(c=>c.id===id);if(!p)return;
   renderDetail(p);
   document.getElementById('page-landing').style.display='none';
   document.getElementById('page-detail').style.display='block';
   ring.style.borderColor=p.color;
-  // Update resume AI banner career name
   const bn=document.getElementById('banner-career-name');
   if(bn)bn.textContent=p.title.charAt(0)+p.title.slice(1).toLowerCase();
+  const bannerBtn=document.getElementById('banner-resume-btn');
+  if(bannerBtn) bannerBtn.onclick=()=>{ location.href=resumeAIUrl(id); };
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function showLanding(){
+  currentPathId = null;
   document.getElementById('page-landing').style.display='block';
   document.getElementById('page-detail').style.display='none';
   document.documentElement.style.setProperty('--accent','#00d4ff');

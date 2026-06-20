@@ -2,7 +2,9 @@
 
 > Your complete AI-powered career operating system — built for students, freshers & tech professionals.
 
-**Live Demo →** [https://shirapti-nath.github.io/ai-career-os](https://shirapti-nath.github.io/ai-career-os)
+**Live Demo →** [https://shirapti-nath.github.io/ai-careers-os/](https://shirapti-nath.github.io/ai-careers-os/)
+
+> YC-inspired landing page with Multi-Agent Career Pipeline, Anti-Gravity physics mode, and algorithm-powered tools.
 
 ---
 
