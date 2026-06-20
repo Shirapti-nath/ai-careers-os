@@ -1,296 +1,387 @@
-/* Resume template engine — each layout has unique HTML structure & typography */
+/* 8 reference resume templates — exact layout styles from user samples */
 window.RESUME_TEMPLATES = {
-  'student-campus': {
-    id: 'student-campus', name: 'Campus Fresh', category: 'student',
-    desc: 'Centered indigo header — built for internships and campus hiring.',
-    ats: 96, layout: 'campus',
-    order: ['summary', 'education', 'projects', 'experience', 'skills']
+  'navy-pro': {
+    id: 'navy-pro', name: 'Navy Professional', category: 'student',
+    desc: 'Left-aligned navy header with blue section underlines — tech resume style.',
+    ats: 97, layout: 'navy'
   },
-  'student-sidebar': {
-    id: 'student-sidebar', name: 'Portfolio Sidebar', category: 'student',
-    desc: 'Purple sidebar rail with skills — perfect for CS portfolios.',
-    ats: 93, layout: 'sidebar',
-    order: ['education', 'projects', 'experience']
+  'dev-centered': {
+    id: 'dev-centered', name: 'Developer Centered', category: 'student',
+    desc: 'Centered blue name, tagline, and linked contact row.',
+    ats: 96, layout: 'devcenter'
   },
-  'student-projects': {
-    id: 'student-projects', name: 'Project Spotlight', category: 'student',
-    desc: 'Teal banner header with card-style project blocks.',
-    ats: 91, layout: 'projects',
-    order: ['summary', 'projects', 'education', 'experience', 'skills']
+  'academic-serif': {
+    id: 'academic-serif', name: 'Academic Classic', category: 'student',
+    desc: 'Times New Roman academic layout with italic dates and rules.',
+    ats: 98, layout: 'academic'
   },
-  'pro-corporate': {
-    id: 'pro-corporate', name: 'Corporate Standard', category: 'professional',
-    desc: 'Navy section bars and uppercase name — recruiter-approved.',
-    ats: 97, layout: 'corporate',
-    order: ['summary', 'experience', 'education', 'projects', 'skills']
+  'sky-center': {
+    id: 'sky-center', name: 'Sky Blue Center', category: 'student',
+    desc: 'Centered header with sky-blue section titles and icon contacts.',
+    ats: 95, layout: 'sky'
   },
-  'pro-split': {
-    id: 'pro-split', name: 'Modern Split', category: 'professional',
-    desc: 'Oswald headline + sky-blue sidebar for 2–5 year pros.',
-    ats: 94, layout: 'split',
-    order: ['summary', 'experience', 'education', 'projects']
+  'pm-sidebar': {
+    id: 'pm-sidebar', name: 'Manager Sidebar', category: 'professional',
+    desc: 'Pale blue sidebar, rounded navy name block, skill dot ratings.',
+    ats: 94, layout: 'jane'
   },
-  'pro-slate': {
-    id: 'pro-slate', name: 'Clean Slate', category: 'professional',
-    desc: 'Oversized name, whisper-thin section labels, max whitespace.',
-    ats: 95, layout: 'slate',
-    order: ['summary', 'experience', 'skills', 'education', 'projects']
+  'purple-label': {
+    id: 'purple-label', name: 'Purple Label', category: 'professional',
+    desc: 'Purple label column with serif body — formal two-column sections.',
+    ats: 93, layout: 'purple'
   },
-  'exec-dark': {
-    id: 'exec-dark', name: 'Executive Dark', category: 'executive',
-    desc: 'Playfair serif on black header with gold section rules.',
-    ats: 92, layout: 'execdark',
-    order: ['experience', 'education', 'skills', 'projects']
+  'hybrid-serif': {
+    id: 'hybrid-serif', name: 'Serif Header Pro', category: 'professional',
+    desc: 'Serif centered name, sans-serif body, experience skills line.',
+    ats: 96, layout: 'hybrid'
   },
-  'exec-timeline': {
-    id: 'exec-timeline', name: 'Senior Timeline', category: 'executive',
-    desc: 'Monospace section labels with green timeline rail.',
-    ats: 93, layout: 'timeline',
-    order: ['summary', 'experience', 'skills', 'education', 'projects']
-  },
-  'exec-classic': {
-    id: 'exec-classic', name: 'Distinguished Classic', category: 'executive',
-    desc: 'Libre Baskerville serif — formal layout for director roles.',
-    ats: 90, layout: 'classic',
-    order: ['summary', 'experience', 'education', 'skills', 'projects']
+  'exec-split': {
+    id: 'exec-split', name: 'Executive Split', category: 'executive',
+    desc: 'Two-column executive layout with achievements sidebar.',
+    ats: 92, layout: 'brad'
   }
 };
 
-window.currentResumeTemplate = localStorage.getItem('aiCareerOS_template') || 'student-campus';
+var LEGACY_TEMPLATE_MAP = {
+  'student-campus': 'navy-pro', 'student-sidebar': 'pm-sidebar', 'student-projects': 'sky-center',
+  'pro-corporate': 'navy-pro', 'pro-split': 'pm-sidebar', 'pro-slate': 'hybrid-serif',
+  'exec-dark': 'exec-split', 'exec-timeline': 'exec-split', 'exec-classic': 'academic-serif'
+};
+
+(function initTemplateId() {
+  var saved = localStorage.getItem('aiCareerOS_template') || 'navy-pro';
+  if (LEGACY_TEMPLATE_MAP[saved]) saved = LEGACY_TEMPLATE_MAP[saved];
+  if (!RESUME_TEMPLATES[saved]) saved = 'navy-pro';
+  window.currentResumeTemplate = saved;
+})();
 
 function esc(s) {
   if (!s) return '';
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function g(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
 function getResumeFormData() {
-  function g(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-  var contactParts = [g('b-email'), g('b-phone'), g('b-location'), g('b-linkedin'), g('b-github')].filter(Boolean);
+  var email = g('b-email'), phone = g('b-phone'), loc = g('b-location');
+  var li = g('b-linkedin'), gh = g('b-github');
+  var contactParts = [phone, email, li, gh, loc].filter(Boolean);
   var bullets = g('b-bullets');
-  var bulletsHTML = bullets
-    ? bullets.split('\n').filter(function (b) { return b.trim(); }).map(function (b) {
-        return '<div>• ' + esc(b.replace(/^•\s*/, '')) + '</div>';
-      }).join('')
-    : '';
+  var bulletLines = bullets ? bullets.split('\n').filter(function (b) { return b.trim(); }) : [];
+  var bulletsHTML = bulletLines.map(function (b) {
+    return '<li>' + esc(b.replace(/^•\s*/, '')) + '</li>';
+  }).join('');
+  var bulletsDiv = bulletLines.map(function (b) {
+    return '<div>• ' + esc(b.replace(/^•\s*/, '')) + '</div>';
+  }).join('');
+
   return {
     name: g('b-name') || 'Your Name',
+    email: email || 'you@email.com',
+    phone: phone || '',
+    location: loc || 'City',
+    linkedin: li || '',
+    github: gh || '',
     contact: contactParts.join(' | ') || 'your@email.com | City',
     summary: g('b-summary'),
+    tagline: g('b-summary') ? g('b-summary').split(/[.!?\n]/)[0] : 'Your professional title · Add summary above',
     degree: g('b-degree'), inst: g('b-institution'), yr: g('b-grad-year'),
     cgpa: g('b-cgpa'), course: g('b-coursework'),
     jt: g('b-jobtitle'), comp: g('b-company'), start: g('b-start'), end: g('b-end'),
-    bulletsHTML: bulletsHTML,
+    dates: g('b-start') + (g('b-end') ? ' – ' + g('b-end') : ''),
+    bulletsHTML: bulletsDiv,
+    bulletsUL: bulletsHTML ? '<ul class="rt-ul">' + bulletsHTML + '</ul>' : '',
     p1: g('b-proj1'), p1s: g('b-proj1-stack'), p1d: g('b-proj1-desc'), p1l: g('b-proj1-link'),
     lang: g('b-lang'), fw: g('b-frameworks'), tools: g('b-tools'), certs: g('b-certs')
   };
 }
 
-/* ── Content blocks ── */
-function eduBlock(d) {
-  if (!d.degree) return '<div class="rt-muted">Add your education details above</div>';
-  return '<div style="display:flex;justify-content:space-between;font-weight:700;">' + esc(d.degree) +
-    '<span style="font-weight:500;color:#64748b;font-size:9.5px;">' + esc(d.yr) + '</span></div>' +
-    '<div class="rt-muted">' + esc(d.inst) + (d.cgpa ? ' · CGPA ' + esc(d.cgpa) : '') + '</div>' +
-    (d.course ? '<div class="rt-body" style="margin-top:3px;">' + esc(d.course) + '</div>' : '');
+function secBlue(title, body) {
+  return '<div class="rt-sec"><div class="rt-sec-h">' + title + '</div><div class="rt-sec-line"></div><div class="rt-sec-body">' + body + '</div></div>';
 }
 
-function expBlock(d, timeline) {
-  if (!d.jt) return '<div class="rt-muted">Add your experience above</div>';
-  var dates = d.start + (d.end ? ' – ' + d.end : '');
-  var inner = '<div style="display:flex;justify-content:space-between;font-weight:700;">' + esc(d.jt) +
-    '<span style="font-weight:500;color:#64748b;font-size:9.5px;">' + esc(dates) + '</span></div>' +
-    '<div class="rt-muted" style="margin:2px 0 5px;">' + esc(d.comp) + '</div>' +
-    '<div class="rt-body">' + d.bulletsHTML + '</div>';
-  return timeline ? '<div class="rt-timeline-entry">' + inner + '</div>' : inner;
+function skillsLines(d, labels) {
+  labels = labels || { lang: 'Languages & Frameworks', fw: 'Frameworks', tools: 'Tools & Platforms', certs: 'Certifications' };
+  var h = '';
+  if (d.lang) h += '<div class="rt-skills-line"><b>' + labels.lang + ':</b> ' + esc(d.lang) + '</div>';
+  if (d.fw) h += '<div class="rt-skills-line"><b>' + labels.fw + ':</b> ' + esc(d.fw) + '</div>';
+  if (d.tools) h += '<div class="rt-skills-line"><b>' + labels.tools + ':</b> ' + esc(d.tools) + '</div>';
+  if (d.certs) h += '<div class="rt-skills-line"><b>' + labels.certs + ':</b> ' + esc(d.certs.replace(/\n/g, ', ')) + '</div>';
+  return h || '<div class="rt-muted">Add your skills above</div>';
 }
 
-function projBlock(d, card, chips) {
-  if (!d.p1) return '<div class="rt-muted">Add your projects above</div>';
-  var chipsHTML = chips && d.p1s
-    ? d.p1s.split(',').map(function (s) { return '<span class="rt-chip">' + esc(s.trim()) + '</span>'; }).join('')
-    : '';
-  var inner = '<div style="font-weight:700;font-size:11px;">' + esc(d.p1) + '</div>' +
-    (chipsHTML ? '<div style="margin:6px 0 4px;">' + chipsHTML + '</div>' :
-      (d.p1s ? '<div class="rt-muted" style="font-size:9px;margin:2px 0;">' + esc(d.p1s) + '</div>' : '')) +
-    (d.p1d ? '<div class="rt-body">' + esc(d.p1d) + '</div>' : '') +
-    (d.p1l ? '<div style="color:#0284c7;font-size:9px;margin-top:3px;">' + esc(d.p1l) + '</div>' : '');
-  return card ? '<div class="rt-card">' + inner + '</div>' : inner;
+function skillsBullets(d) {
+  var items = [];
+  if (d.lang) items.push('<b>Languages:</b> ' + esc(d.lang));
+  if (d.fw) items.push('<b>Frameworks:</b> ' + esc(d.fw));
+  if (d.tools) items.push('<b>Tools:</b> ' + esc(d.tools));
+  if (d.certs) items.push('<b>Certifications:</b> ' + esc(d.certs.replace(/\n/g, ', ')));
+  if (!items.length) return '<div class="rt-muted">Add your skills above</div>';
+  return '<ul class="rt-ul">' + items.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul>';
 }
 
-function skillsBlock(d) {
-  var html = '';
-  if (d.lang) html += '<div><b>Languages</b> · ' + esc(d.lang) + '</div>';
-  if (d.fw) html += '<div><b>Frameworks</b> · ' + esc(d.fw) + '</div>';
-  if (d.tools) html += '<div><b>Tools</b> · ' + esc(d.tools) + '</div>';
-  if (d.certs) html += '<div style="margin-top:4px;"><b>Certs</b> · ' + esc(d.certs.replace(/\n/g, ', ')) + '</div>';
-  return html || '<div class="rt-muted">Add your skills above</div>';
+function dots(n) {
+  n = Math.min(5, Math.max(1, n));
+  var h = '<div class="rt-dots">';
+  for (var i = 1; i <= 5; i++) h += '<span class="rt-dot' + (i <= n ? ' on' : '') + '"></span>';
+  return h + '</div>';
 }
 
-function summaryBlock(d) {
-  return d.summary
-    ? '<p class="rt-body">' + esc(d.summary) + '</p>'
-    : '<p class="rt-muted">Add a brief summary above</p>';
-}
+/* ── 1. Navy Professional ── */
+function renderNavy(d) {
+  var edu = d.degree
+    ? '<div class="rt-row"><span class="rt-bold">' + esc(d.degree) + '</span><span class="rt-r">' + esc(d.yr) + '</span></div>' +
+      '<div>' + esc(d.inst) + (d.cgpa ? ' | CGPA: ' + esc(d.cgpa) : '') + '</div>' +
+      (d.course ? '<div class="rt-body">' + esc(d.course) + '</div>' : '')
+    : '<div class="rt-muted">Add your education above</div>';
 
-function section(h, body) {
-  return '<div class="rt-sec"><div class="rt-sec-h">' + h + '</div>' + body + '</div>';
-}
+  var exp = d.jt
+    ? '<div class="rt-row"><span class="rt-bold">' + esc(d.comp) + '</span><span class="rt-r">' + esc(d.dates) + '</span></div>' +
+      '<div class="rt-bold">' + esc(d.jt) + '</div>' + d.bulletsUL
+    : '<div class="rt-muted">Add your experience above</div>';
 
-/* ── Per-template renderers ── */
-function renderCampus(d, tpl) {
-  var parts = {
-    summary: section('Professional Summary', summaryBlock(d)),
-    education: section('Education', eduBlock(d)),
-    projects: section('Projects', projBlock(d, false, false)),
-    experience: section('Experience', expBlock(d, false)),
-    skills: section('Skills & Certifications', skillsBlock(d))
-  };
-  return '<div class="rt-t-campus">' +
+  var proj = d.p1
+    ? '<div class="rt-bold">' + esc(d.p1) + '</div>' +
+      (d.p1s ? '<div class="rt-body"><b>Tech Stack:</b> ' + esc(d.p1s) + '</div>' : '') +
+      (d.p1d ? '<div class="rt-body">' + esc(d.p1d) + '</div>' : '') +
+      (d.p1l ? '<div style="font-size:9px;color:#2563eb;">' + esc(d.p1l) + '</div>' : '')
+    : '<div class="rt-muted">Add your projects above</div>';
+
+  return '<div class="rt-navy">' +
     '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-tagline">' + esc(d.tagline) + '</div>' +
     '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-    '<div class="rt-head-rule"></div>' +
-    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '<div class="rt-head-line"></div>' +
+    secBlue('Professional Summary', d.summary ? '<p class="rt-body">' + esc(d.summary) + '</p>' : '<p class="rt-muted">Add a brief summary above</p>') +
+    secBlue('Technical Skills', skillsLines(d)) +
+    secBlue('Professional Experience', exp) +
+    secBlue('Projects', proj) +
+    secBlue('Education', edu) +
+    secBlue('Achievements', d.certs ? '<ul class="rt-ul"><li>' + esc(d.certs.replace(/\n/g, '</li><li>')) + '</li></ul>' : '<div class="rt-muted">Add certifications or achievements above</div>') +
     '</div>';
 }
 
-function renderSidebar(d) {
-  return '<div class="rt-t-sidebar">' +
-    '<div class="rt-rail">' +
+/* ── 2. Developer Centered ── */
+function renderDevCenter(d) {
+  var contact = [
+    d.phone, d.email,
+    d.linkedin ? '<a href="#">' + esc(d.linkedin) + '</a>' : '',
+    d.github ? '<a href="#">' + esc(d.github) + '</a>' : ''
+  ].filter(Boolean).join(' | ');
+
+  var proj = d.p1
+    ? '<div class="rt-proj-head"><span class="rt-title">' + esc(d.p1) + '</span>' +
+      (d.p1l ? '<span style="font-size:9px;color:#2563eb;">GitHub ↗</span>' : '') + '</div>' +
+      (d.p1s ? '<div class="rt-stack">Tech Stack: ' + esc(d.p1s) + '</div>' : '') +
+      (d.p1d ? d.bulletsUL || '<p class="rt-body">' + esc(d.p1d) + '</p>' : '')
+    : '<div class="rt-muted">Add your projects above</div>';
+
+  return '<div class="rt-devcenter">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-tagline">' + esc(d.tagline) + '</div>' +
+    '<div class="rt-contact">' + contact + '</div>' +
+    secBlue('Professional Summary', d.summary ? '<p class="rt-body">' + esc(d.summary) + '</p>' : '<p class="rt-muted">Add summary above</p>') +
+    secBlue('Technical Skills', skillsLines(d, { lang: 'Frontend', fw: 'Backend', tools: 'Database', certs: 'Tools' })) +
+    secBlue('Projects', proj) +
+    secBlue('Education', d.degree
+      ? '<div class="rt-row"><span class="rt-bold">' + esc(d.degree) + '</span><span class="rt-r">' + esc(d.yr) + '</span></div><div>' + esc(d.inst) + (d.cgpa ? ' | ' + esc(d.cgpa) : '') + '</div>'
+      : '<div class="rt-muted">Add education above</div>') +
+    secBlue('Achievements', d.certs ? '<ul class="rt-ul"><li>' + esc(d.certs.replace(/\n/g, '</li><li>')) + '</li></ul>' : '<div class="rt-muted">Add achievements above</div>') +
+    secBlue('Core Competencies', '<div class="rt-body" style="text-align:center;font-size:9.5px;color:#64748b;">' +
+      [d.lang, d.fw, d.tools].filter(Boolean).join(' · ') + '</div>') +
+    '</div>';
+}
+
+/* ── 3. Executive Split (Brad) ── */
+function renderBrad(d) {
+  var exp = d.jt
+    ? '<div class="rt-entry"><div class="rt-job">' + esc(d.jt) + '</div><div class="rt-co">' + esc(d.comp) + '</div>' +
+      '<div class="rt-meta">📅 ' + esc(d.dates) + (d.location ? ' · 📍 ' + esc(d.location) : '') + '</div>' + d.bulletsUL + '</div>'
+    : '<div class="rt-muted">Add your experience above</div>';
+
+  var skills = [d.lang, d.fw, d.tools, d.certs.replace(/\n/g, ', ')].filter(Boolean).join(', ') || 'Add skills above';
+
+  return '<div class="rt-brad">' +
+    '<div class="rt-top">' +
       '<div class="rt-name">' + esc(d.name) + '</div>' +
-      '<div class="rt-contact">' + esc(d.contact).replace(/\s*\|\s*/g, '<br>') + '</div>' +
-      '<div class="rt-sec-h">Technical Skills</div>' +
-      '<div class="rt-body">' + skillsBlock(d) + '</div>' +
-      (d.summary ? '<div class="rt-sec-h">About</div><div class="rt-body">' + esc(d.summary) + '</div>' : '') +
+      '<div class="rt-tagline">' + esc(d.tagline) + '</div>' +
+      '<div class="rt-contact">' +
+        (d.phone ? '<span>📞 ' + esc(d.phone) + '</span>' : '') +
+        (d.email ? '<span>✉ ' + esc(d.email) + '</span>' : '') +
+        (d.linkedin ? '<span>🔗 ' + esc(d.linkedin) + '</span>' : '') +
+        (d.location ? '<span>📍 ' + esc(d.location) + '</span>' : '') +
+      '</div></div>' +
+    '<div class="rt-grid"><div class="rt-left">' +
+      '<div class="rt-sec-h">Summary</div><p class="rt-body">' + (d.summary ? esc(d.summary) : 'Add summary above') + '</p>' +
+      '<div class="rt-sec-h">Experience</div>' + exp +
+    '</div><div class="rt-right">' +
+      '<div class="rt-sec-h">Key Achievements</div>' +
+      (d.p1 ? '<div class="rt-ach-title">' + esc(d.p1) + '</div><div class="rt-ach-desc">' + esc(d.p1d || d.p1s) + '</div>' : '<div class="rt-muted">Add project highlights</div>') +
+      (d.certs ? '<div class="rt-ach-title">Certifications</div><div class="rt-ach-desc">' + esc(d.certs.replace(/\n/g, ' · ')) + '</div>' : '') +
+      '<div class="rt-sec-h">Skills</div><div class="rt-skills-list">' + esc(skills) + '</div>' +
+      '<div class="rt-sec-h">Education</div>' +
+      (d.degree ? '<div class="rt-bold">' + esc(d.degree) + '</div><div class="rt-co">' + esc(d.inst) + '</div><div class="rt-meta">' + esc(d.yr) + '</div>' : '<div class="rt-muted">Add education</div>') +
+      (d.course ? '<div class="rt-sec-h">Training / Courses</div><div class="rt-ach-desc">' + esc(d.course) + '</div>' : '') +
+    '</div></div></div>';
+}
+
+/* ── 4. Sky Center ── */
+function renderSky(d) {
+  return '<div class="rt-sky">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-sub">' + esc(d.degree || 'Your Degree') + ' | ' + esc(d.inst || 'University') + '</div>' +
+    '<div class="rt-icons">' +
+      (d.email ? '✉ ' + esc(d.email) + ' &nbsp; ' : '') +
+      (d.phone ? '📞 ' + esc(d.phone) + ' &nbsp; ' : '') +
+      (d.location ? '📍 ' + esc(d.location) + ' &nbsp; ' : '') +
+      (d.linkedin ? '🔗 LinkedIn' : '') +
+    '</div>' +
+    secBlue('Work Experience', d.jt
+      ? '<div class="rt-co">' + esc(d.comp) + '</div><div class="rt-row"><span>' + esc(d.jt) + '</span><span class="rt-r">' + esc(d.dates) + '</span></div>' + d.bulletsUL
+      : '<div class="rt-muted">Add experience above</div>') +
+    secBlue('Education', d.degree
+      ? '<div class="rt-co">' + esc(d.inst) + '</div><div class="rt-row"><span>' + esc(d.degree) + (d.cgpa ? ' | ' + esc(d.cgpa) : '') + '</span><span class="rt-r">' + esc(d.yr) + '</span></div>'
+      : '<div class="rt-muted">Add education above</div>') +
+    secBlue('Project', d.p1
+      ? '<div class="rt-row"><span class="rt-co">' + esc(d.p1) + ' ↗</span><span class="rt-r">' + esc(d.yr) + '</span></div>' +
+        (d.p1s ? '<div class="rt-body"><b>' + esc(d.p1s.split(',')[0]) + '</b> — ' + esc(d.p1d || d.p1s) + '</div>' : '')
+      : '<div class="rt-muted">Add projects above</div>') +
+    secBlue('Skills', skillsBullets(d)) +
+    secBlue('Achievement', d.certs ? '<ul class="rt-ul"><li>' + esc(d.certs.replace(/\n/g, '</li><li>')) + '</li></ul>' : '<div class="rt-muted">Add achievements above</div>') +
+    '</div>';
+}
+
+/* ── 5. PM Sidebar (Jane) ── */
+function renderJane(d) {
+  var skillRows = [];
+  if (d.tools) d.tools.split(',').slice(0, 5).forEach(function (s, i) {
+    skillRows.push('<div class="rt-skill-row"><span>' + esc(s.trim()) + '</span>' + dots(4 - (i % 2)) + '</div>');
+  });
+  if (!skillRows.length) skillRows.push('<div class="rt-muted">Add tools above</div>');
+
+  return '<div class="rt-jane">' +
+    '<div class="rt-side">' +
+      '<div class="rt-name-block"><div class="rt-name">' + esc(d.name.split(' ')[0] || d.name) + '<br>' + esc(d.name.split(' ').slice(1).join(' ') || '') + '</div></div>' +
+      '<div class="rt-side-sec"><div class="rt-side-h">Personal details</div>' +
+        (d.email ? '<div class="rt-detail"><span class="rt-detail-ico">✉</span><span>' + esc(d.email) + '</span></div>' : '') +
+        (d.phone ? '<div class="rt-detail"><span class="rt-detail-ico">☎</span><span>' + esc(d.phone) + '</span></div>' : '') +
+        (d.location ? '<div class="rt-detail"><span class="rt-detail-ico">⌂</span><span>' + esc(d.location) + '</span></div>' : '') +
+      '</div>' +
+      '<div class="rt-side-sec"><div class="rt-side-h">Hard Skills</div>' + skillRows.join('') + '</div>' +
     '</div>' +
     '<div class="rt-main">' +
-      section('Education', eduBlock(d)) +
-      section('Projects', projBlock(d, true, true)) +
-      section('Experience', expBlock(d, false)) +
+      '<div class="rt-main-h">Summary</div><p class="rt-body">' + (d.summary ? esc(d.summary) : 'Add summary above') + '</p>' +
+      '<div class="rt-main-h">Work Experience</div>' +
+      (d.jt ? '<div class="rt-job-row"><span>' + esc(d.jt) + '</span><span>' + esc(d.dates) + '</span></div><div class="rt-co">' + esc(d.comp) + ', ' + esc(d.location) + '</div>' + d.bulletsUL : '<div class="rt-muted">Add experience</div>') +
+      '<div class="rt-main-h">Education</div>' +
+      (d.degree ? '<div class="rt-job-row"><span>' + esc(d.degree) + '</span><span>' + esc(d.yr) + '</span></div><div class="rt-co">' + esc(d.inst) + '</div>' : '<div class="rt-muted">Add education</div>') +
+      '<div class="rt-main-h">Soft Skills</div>' +
+      '<div class="rt-skill-row"><span>Leadership</span>' + dots(5) + '</div>' +
+      '<div class="rt-skill-row"><span>Communication</span>' + dots(4) + '</div>' +
     '</div></div>';
 }
 
-function renderProjects(d, tpl) {
-  var parts = {
-    summary: section('About Me', summaryBlock(d)),
-    projects: section('Featured Projects', projBlock(d, true, true)),
-    education: section('Education', eduBlock(d)),
-    experience: section('Experience', expBlock(d, false)),
-    skills: section('Skills', skillsBlock(d))
-  };
-  return '<div class="rt-t-projects">' +
-    '<div class="rt-banner"><div class="rt-name">' + esc(d.name) + '</div><div class="rt-contact">' + esc(d.contact) + '</div></div>' +
-    '<div class="rt-inner">' + tpl.order.map(function (k) { return parts[k]; }).join('') + '</div></div>';
-}
-
-function renderCorporate(d, tpl) {
-  var parts = {
-    summary: section('Executive Summary', summaryBlock(d)),
-    experience: section('Professional Experience', expBlock(d, false)),
-    education: section('Education', eduBlock(d)),
-    projects: section('Key Projects', projBlock(d, false, false)),
-    skills: section('Core Competencies', skillsBlock(d))
-  };
-  return '<div class="rt-t-corporate">' +
+/* ── 6. Purple Label ── */
+function renderPurple(d) {
+  var skillItems = [d.lang, d.fw, d.tools, d.certs.replace(/\n/g, ', ')].filter(Boolean);
+  while (skillItems.length < 8) skillItems.push('');
+  return '<div class="rt-purple">' +
     '<div class="rt-name">' + esc(d.name) + '</div>' +
-    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-    '<div class="rt-rule"></div>' +
-    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '<div class="rt-role">' + esc(d.jt || d.tagline) + '</div>' +
+    '<div class="rt-contact-bar"><div class="rt-lbl">Contact</div><div class="rt-contact-cols">' +
+      (d.phone ? '<div><b>Phone</b>' + esc(d.phone) + '</div>' : '<div><b>Phone</b>—</div>') +
+      (d.email ? '<div><b>Email</b>' + esc(d.email) + '</div>' : '<div><b>Email</b>—</div>') +
+      '<div><b>Address</b>' + esc(d.location) + '</div>' +
+      (d.linkedin ? '<div><b>LinkedIn</b>' + esc(d.linkedin) + '</div>' : '<div><b>LinkedIn</b>—</div>') +
+    '</div></div>' +
+    '<div class="rt-row-sec"><div class="rt-lbl">Profile</div><div class="rt-body">' + (d.summary ? esc(d.summary) : 'Add summary above') + '</div></div>' +
+    '<div class="rt-row-sec"><div class="rt-lbl">Employment History</div><div>' +
+      (d.jt ? '<div><b>' + esc(d.jt) + ' | ' + esc(d.comp) + ', ' + esc(d.location) + '</b></div><div style="font-size:10px;margin:2px 0 6px;">' + esc(d.dates) + '</div>' + d.bulletsUL : '<div class="rt-muted">Add experience above</div>') +
+    '</div></div>' +
+    (d.certs ? '<div class="rt-row-sec"><div class="rt-lbl">Courses</div><div><b>' + esc(d.certs.split('\n')[0]) + '</b><br><span style="font-size:10px;">' + esc(d.inst) + '</span></div></div>' : '') +
+    '<div class="rt-row-sec"><div class="rt-lbl">Education</div><div>' +
+      (d.degree ? '<div><b>' + esc(d.degree) + '</b></div><div style="font-size:10px;">' + esc(d.inst) + ' · ' + esc(d.yr) + '</div>' : '<div class="rt-muted">Add education</div>') +
+    '</div></div>' +
+    '<div class="rt-row-sec"><div class="rt-lbl">Skills</div><div class="rt-skills-grid">' +
+      skillItems.slice(0, 8).map(function (s) { return '<div>' + esc(s) + '</div>'; }).join('') +
+    '</div></div>' +
+    '<div class="rt-row-sec"><div class="rt-lbl">Languages</div><div>English | Hindi</div></div>' +
     '</div>';
 }
 
-function renderSplit(d) {
-  return '<div class="rt-t-split">' +
-    '<div class="rt-rail">' +
-      '<div class="rt-name">' + esc(d.name) + '</div>' +
-      '<div class="rt-contact">' + esc(d.contact).replace(/\s*\|\s*/g, '<br>') + '</div>' +
-      '<div class="rt-sec-h">Core Skills</div><div class="rt-body">' + skillsBlock(d) + '</div>' +
+/* ── 7. Academic Serif ── */
+function renderAcademic(d) {
+  return '<div class="rt-academic">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' + esc(d.location) + ' · ' + esc(d.phone) + ' · ' + esc(d.email) +
+      (d.linkedin ? ' · ' + esc(d.linkedin) : '') + (d.github ? ' · ' + esc(d.github) : '') + '</div>' +
+    '<div class="rt-sec-h">Education</div>' +
+    (d.degree
+      ? '<div class="rt-entry"><div class="rt-row"><span class="rt-l">' + esc(d.inst) + '</span><span class="rt-r">' + esc(d.yr) + '</span></div>' +
+        '<div class="rt-sub"><span>' + esc(d.degree) + '</span><span>' + (d.cgpa ? 'Grade: ' + esc(d.cgpa) : '') + '</span></div></div>'
+      : '<div class="rt-muted">Add education above</div>') +
+    '<div class="rt-sec-h">Experience</div>' +
+    (d.jt
+      ? '<div class="rt-entry"><div class="rt-row"><span class="rt-l">' + esc(d.comp) + '</span><span class="rt-r">' + esc(d.dates) + '</span></div>' +
+        '<div class="rt-sub"><span>' + esc(d.jt) + '</span><span>' + esc(d.location) + '</span></div>' + d.bulletsUL + '</div>'
+      : '<div class="rt-muted">Add experience above</div>') +
+    '<div class="rt-sec-h">Projects</div>' +
+    (d.p1
+      ? '<div class="rt-entry"><div class="rt-row"><span class="rt-l">' + esc(d.p1) + ' | ' + esc(d.p1s) + '</span><span class="rt-r">' + esc(d.yr) + '</span></div>' +
+        (d.p1d ? d.bulletsUL || '<p>' + esc(d.p1d) + '</p>' : '') + '</div>'
+      : '<div class="rt-muted">Add projects above</div>') +
+    '<div class="rt-sec-h">Technical Skills</div><div class="rt-skills">' + skillsLines(d) + '</div>' +
+    (d.course ? '<div class="rt-sec-h">Leadership / Extracurricular</div><p>' + esc(d.course) + '</p>' : '') +
+    '</div>';
+}
+
+/* ── 8. Hybrid Serif (Janhvi) ── */
+function renderHybrid(d) {
+  var stack = [d.lang, d.fw, d.tools].filter(Boolean).join(', ');
+  return '<div class="rt-hybrid">' +
+    '<div class="rt-name">' + esc(d.name) + '</div>' +
+    '<div class="rt-contact">' +
+      (d.linkedin ? 'LinkedIn · ' : '') + esc(d.email) + ' · ' + esc(d.phone) +
+      (d.github ? ' · GitHub' : '') +
     '</div>' +
-    '<div class="rt-main">' +
-      (d.summary ? section('Profile', summaryBlock(d)) : '') +
-      section('Experience', expBlock(d, false)) +
-      section('Education', eduBlock(d)) +
-      section('Projects', projBlock(d, false, false)) +
-    '</div></div>';
-}
-
-function renderSlate(d, tpl) {
-  var parts = {
-    summary: section('Summary', summaryBlock(d)),
-    experience: section('Experience', expBlock(d, false)),
-    skills: section('Skills', skillsBlock(d)),
-    education: section('Education', eduBlock(d)),
-    projects: section('Projects', projBlock(d, false, false))
-  };
-  return '<div class="rt-t-slate">' +
-    '<div class="rt-name">' + esc(d.name) + '</div>' +
-    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-    tpl.order.map(function (k) { return parts[k]; }).join('') +
-    '</div>';
-}
-
-function renderExecDark(d, tpl) {
-  var parts = {
-    experience: section('Leadership Experience', expBlock(d, false)),
-    education: section('Education', eduBlock(d)),
-    skills: section('Expertise', skillsBlock(d)),
-    projects: section('Strategic Initiatives', projBlock(d, false, false))
-  };
-  return '<div class="rt-t-execdark">' +
-    '<div class="rt-head">' +
-      '<div class="rt-name">' + esc(d.name) + '</div>' +
-      '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-      (d.summary ? '<div class="rt-tagline">' + esc(d.summary) + '</div>' : '') +
-    '</div>' +
-    '<div class="rt-inner">' + tpl.order.map(function (k) { return parts[k]; }).join('') + '</div></div>';
-}
-
-function renderTimeline(d, tpl) {
-  var parts = {
-    summary: section('// profile', summaryBlock(d)),
-    experience: section('// career', expBlock(d, true)),
-    skills: section('// expertise', skillsBlock(d)),
-    education: section('// education', eduBlock(d)),
-    projects: section('// projects', projBlock(d, false, false))
-  };
-  return '<div class="rt-t-timeline">' +
-    '<div class="rt-name">' + esc(d.name) + '</div>' +
-    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-    tpl.order.map(function (k) { return parts[k]; }).join('') +
-    '</div>';
-}
-
-function renderClassic(d, tpl) {
-  var parts = {
-    summary: section('Professional Summary', summaryBlock(d)),
-    experience: section('Professional Experience', expBlock(d, false)),
-    education: section('Education', eduBlock(d)),
-    skills: section('Areas of Expertise', skillsBlock(d)),
-    projects: section('Notable Projects', projBlock(d, false, false))
-  };
-  return '<div class="rt-t-classic">' +
-    '<div class="rt-name">' + esc(d.name) + '</div>' +
-    '<div class="rt-contact">' + esc(d.contact) + '</div>' +
-    '<div class="rt-ornament">— ✦ —</div>' +
-    tpl.order.map(function (k) { return parts[k]; }).join('') +
+    '<div class="rt-sec-h">Experience</div>' +
+    (d.jt
+      ? '<div class="rt-exp-head"><span>' + esc(d.comp) + ' — ' + esc(d.jt) + '</span><span class="rt-r">' + esc(d.location) + ' | ' + esc(d.dates) + '</span></div>' +
+        (stack ? '<div class="rt-skills-line">Skills: ' + esc(stack) + '</div>' : '') + d.bulletsUL
+      : '<div class="rt-muted">Add experience above</div>') +
+    '<div class="rt-sec-h">Education</div>' +
+    (d.degree
+      ? '<div class="rt-exp-head"><span>' + esc(d.inst) + '</span><span class="rt-r">' + esc(d.location) + ' | ' + esc(d.yr) + '</span></div>' +
+        '<div>' + esc(d.degree) + (d.cgpa ? ' CGPA: ' + esc(d.cgpa) : '') + '</div>' +
+        (d.course ? '<div style="font-size:10px;margin-top:4px;">Relevant Coursework: ' + esc(d.course) + '</div>' : '')
+      : '<div class="rt-muted">Add education above</div>') +
+    '<div class="rt-sec-h">Technical &amp; Product Skills</div>' + skillsBullets(d) +
+    '<div class="rt-sec-h">Projects</div>' +
+    (d.p1
+      ? '<div class="rt-proj-head"><span>' + esc(d.p1) + '</span><span style="font-size:9px;">' + (d.p1l ? 'Website · GitHub' : '') + '</span></div>' +
+        (d.p1d ? d.bulletsUL || '<p>' + esc(d.p1d) + '</p>' : '')
+      : '<div class="rt-muted">Add projects above</div>') +
     '</div>';
 }
 
 var RENDERERS = {
-  campus: renderCampus,
-  sidebar: renderSidebar,
-  projects: renderProjects,
-  corporate: renderCorporate,
-  split: renderSplit,
-  slate: renderSlate,
-  execdark: renderExecDark,
-  timeline: renderTimeline,
-  classic: renderClassic
+  navy: renderNavy,
+  devcenter: renderDevCenter,
+  brad: renderBrad,
+  sky: renderSky,
+  jane: renderJane,
+  purple: renderPurple,
+  academic: renderAcademic,
+  hybrid: renderHybrid
 };
 
 function renderResumeHTML(data, templateId) {
-  var tpl = RESUME_TEMPLATES[templateId] || RESUME_TEMPLATES['student-campus'];
+  var tpl = RESUME_TEMPLATES[templateId] || RESUME_TEMPLATES['navy-pro'];
   var fn = RENDERERS[tpl.layout];
-  return fn ? fn(data, tpl) : renderCampus(data, tpl);
+  return fn ? fn(data) : renderNavy(data);
 }
 
 function applyResumeTemplate(id) {
@@ -315,25 +406,24 @@ function filterTemplates(btn, cat) {
 }
 
 function miniPreviewHTML(tpl) {
-  var previews = {
-    campus: '<div style="padding:14px;text-align:center;height:100%"><div style="font-size:11px;font-weight:800;color:#4f46e5;margin-bottom:4px">NAME</div><div style="height:3px;background:linear-gradient(90deg,#4f46e5,#818cf8);margin:8px 20px 12px"></div><div style="font-size:7px;color:#4f46e5;text-align:left;letter-spacing:.1em;margin-bottom:4px">EDUCATION</div><div style="height:2px;background:#e2e8f0;width:85%"></div></div>',
-    sidebar: '<div style="display:flex;height:100%"><div style="width:38%;background:linear-gradient(180deg,#6d28d9,#4c1d95)"></div><div style="flex:1;padding:12px"><div style="width:6px;height:6px;border-radius:50%;background:#6d28d9;display:inline-block;margin-right:4px"></div><span style="font-size:8px;font-weight:800;color:#6d28d9">Education</span><div style="height:2px;background:#e2e8f0;margin-top:6px;width:90%"></div></div></div>',
-    projects: '<div style="height:100%"><div style="background:linear-gradient(120deg,#0e7490,#06b6d4);height:55px"></div><div style="padding:10px"><div style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:6px;height:28px;margin-bottom:6px"></div><div style="font-size:7px;color:#0e7490;font-weight:800">PROJECTS</div></div></div>',
-    corporate: '<div style="padding:12px"><div style="font-size:10px;font-weight:800;text-transform:uppercase;color:#0f172a">Name</div><div style="height:3px;background:#0f172a;margin:6px 0 10px"></div><div style="background:#0f172a;color:#fff;font-size:6px;padding:3px 6px;display:inline-block;margin-bottom:6px">EXPERIENCE</div><div style="height:2px;background:#e2e8f0;width:88%"></div></div>',
-    split: '<div style="display:flex;height:100%"><div style="width:40%;background:#0284c7"></div><div style="flex:1;padding:10px;border-left:4px solid #0284c7;margin-left:0"><div style="font-size:8px;font-weight:700;color:#0284c7;text-transform:uppercase">Experience</div></div></div>',
-    slate: '<div style="padding:16px"><div style="font-size:16px;font-weight:800;color:#111827;letter-spacing:-.03em">Name</div><div style="font-size:6px;letter-spacing:.2em;color:#9ca3af;margin:10px 0 8px">EXPERIENCE</div><div style="height:2px;background:#f3f4f6;width:80%"></div></div>',
-    execdark: '<div style="height:100%"><div style="background:#0c0a09;height:65px"></div><div style="padding:10px"><div style="font-size:7px;color:#78716c;border-bottom:3px solid #f59e0b;display:inline-block;padding-bottom:2px">EXPERIENCE</div></div></div>',
-    timeline: '<div style="padding:12px"><div style="font-size:10px;font-weight:800;color:#064e3b">Name</div><div style="border-left:4px solid #34d399;padding-left:8px;margin-top:10px"><div style="font-family:monospace;font-size:7px;color:#059669">// career</div><div style="height:2px;background:#e2e8f0;width:80%;margin-top:4px"></div></div></div>',
-    classic: '<div style="padding:14px;text-align:center;font-family:Georgia,serif;height:100%"><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Name</div><div style="color:#a8a29e;font-size:10px;margin:6px 0">— ✦ —</div><div style="font-size:8px;color:#44403c">◆ Experience</div></div>'
+  var p = {
+    navy: '<div style="padding:10px;font-family:sans-serif"><div style="font-size:10px;font-weight:800;color:#1e3a5f">NAME</div><div style="height:1px;background:#cbd5e1;margin:6px 0"></div><div style="font-size:6px;color:#1e3a5f;font-weight:800">SKILLS</div><div style="border-bottom:1.5px solid #1e3a5f;margin-bottom:4px"></div></div>',
+    devcenter: '<div style="padding:10px;text-align:center"><div style="font-size:11px;font-weight:800;color:#1e40af">Name</div><div style="font-size:6px;color:#64748b">tagline</div><div style="text-align:left;font-size:6px;color:#1e40af;font-weight:800;margin-top:8px">SUMMARY</div><div style="border-bottom:1.5px solid #1e40af"></div></div>',
+    brad: '<div style="padding:8px;font-size:6px"><div style="font-weight:800">BRAD JENSEN</div><div style="color:#2563eb;font-weight:700">Executive tagline</div><div style="display:flex;gap:8px;margin-top:6px"><div style="flex:1.6;border-bottom:2px solid #111;height:20px"></div><div style="flex:1;border-left:1px dashed #ccc"></div></div></div>',
+    sky: '<div style="padding:10px;text-align:center"><div style="font-weight:800">Name</div><div style="font-size:6px">✉ 📞 📍</div><div style="text-align:left;font-size:6px;color:#38bdf8;font-weight:800">WORK</div><div style="border-bottom:1.5px solid #111"></div></div>',
+    jane: '<div style="display:flex;height:100%"><div style="width:35%;background:#e8f4fc"><div style="background:#1e3a5f;height:40px;border-radius:0 0 40% 40%"></div></div><div style="flex:1;padding:8px"><div style="font-size:8px;color:#1e3a5f;font-weight:700">Summary</div></div></div>',
+    purple: '<div style="padding:10px"><div style="font-size:10px;font-weight:800;color:#6b21a8">NAME</div><div style="border-top:2px solid #6b21a8;border-bottom:2px solid #6b21a8;height:16px;margin:6px 0"></div><div style="display:flex;gap:6px"><div style="width:30%;font-size:5px;color:#6b21a8;font-weight:800">PROFILE</div><div style="flex:1;height:2px;background:#e5e7eb"></div></div></div>',
+    academic: '<div style="padding:10px;font-family:serif;text-align:center"><div style="font-size:9px;font-weight:700;letter-spacing:.1em">NAME</div><div style="border-bottom:1px solid #000;margin:8px 0 4px;text-align:left;font-size:6px;font-weight:700">Education</div></div>',
+    hybrid: '<div style="padding:10px"><div style="text-align:center;font-family:serif;font-size:10px;font-weight:700">Name</div><div style="border-bottom:1px solid #111;margin-top:8px;font-family:serif;font-size:6px;font-weight:700">Experience</div></div>'
   };
-  return previews[tpl.layout] || previews.campus;
+  return p[tpl.layout] || p.navy;
 }
 
 function initTemplatesPage() {
   var grid = document.getElementById('templates-grid');
-  if (!grid || grid.dataset.init) return;
-  grid.dataset.init = '1';
+  if (!grid) return;
   grid.innerHTML = '';
+  grid.dataset.init = '1';
   var badgeClass = { student: 'tpl-badge-student', professional: 'tpl-badge-professional', executive: 'tpl-badge-executive' };
   var badgeLabel = { student: 'Student', professional: 'Professional', executive: 'Experienced' };
   Object.keys(RESUME_TEMPLATES).forEach(function (id) {

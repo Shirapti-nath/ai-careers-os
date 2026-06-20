@@ -673,7 +673,7 @@ Warm regards,
   <div class="page-inner-wide">
     <div class="page-header" style="text-align:center;margin-bottom:32px;">
       <h1>Resume Templates</h1>
-      <p>9 distinct ATS-friendly layouts — students, professionals, and experienced leaders</p>
+      <p>8 professional resume layouts — pick a style, fill your details, download PDF</p>
     </div>
     <div class="dash-tabs" style="justify-content:center;margin-bottom:28px;">
       <button type="button" class="tab-btn active" onclick="filterTemplates(this,'all')">All</button>
@@ -1297,7 +1297,7 @@ function showPage(name){
   });
   const sidebar = document.getElementById('sidebar');
   if(sidebar) sidebar.classList.remove('open');
-  if(name === 'templates' && typeof initTemplatesPage === 'function') initTemplatesPage();
+  if(name === 'templates') initTemplatesPage();
   if(name === 'builder' && typeof syncBuilderTemplateTitle === 'function') syncBuilderTemplateTitle();
 }
 

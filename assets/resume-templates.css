@@ -1,222 +1,189 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Oswald:wght@500;600;700&family=Merriweather:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Libre+Baskerville:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Merriweather:wght@400;700&family=Source+Serif+4:wght@400;600;700&display=swap');
 
-/* Base reset inside resume preview only */
-#resume-print-content { background: #fff; }
+#resume-print-content { background: #fff; min-height: 1056px; }
 #resume-print-content * { box-sizing: border-box; }
 
-.rt-muted { color: #64748b; }
-.rt-body { color: #374151; }
+.rt-muted { color: #64748b; font-size: 10px; }
+.rt-body { color: #1a1a1a; font-size: 10.5px; line-height: 1.55; }
+.rt-ul { margin: 4px 0 0 14px; padding: 0; }
+.rt-ul li { margin-bottom: 3px; }
 
-/* ═══════════════════════════════════════
-   STUDENT — Campus Fresh (centered, indigo)
-   ═══════════════════════════════════════ */
-.rt-t-campus {
-  min-height: 1056px; padding: 36px 40px; background: #fff;
-  font-family: 'Inter', sans-serif; font-size: 10.5px; line-height: 1.65; color: #1e293b;
+/* ── 1. Navy Pro (left header, blue section lines) ── */
+.rt-navy {
+  padding: 28px 36px 36px; font-family: 'Inter', sans-serif; font-size: 10.5px; color: #111;
 }
-.rt-t-campus .rt-name {
-  text-align: center; font-size: 30px; font-weight: 800; letter-spacing: -.02em;
-  color: #312e81; margin-bottom: 6px;
+.rt-navy .rt-name {
+  font-size: 26px; font-weight: 800; color: #1e3a5f; letter-spacing: .02em;
+  text-transform: uppercase; margin-bottom: 4px;
 }
-.rt-t-campus .rt-contact {
-  text-align: center; font-size: 9.5px; color: #6366f1; margin-bottom: 20px;
+.rt-navy .rt-tagline { font-size: 10px; color: #64748b; margin-bottom: 6px; line-height: 1.5; }
+.rt-navy .rt-contact { font-size: 9.5px; color: #334155; margin-bottom: 14px; }
+.rt-navy .rt-head-line { border-bottom: 1px solid #cbd5e1; margin-bottom: 12px; }
+.rt-navy .rt-sec-h {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+  color: #1e3a5f; margin: 14px 0 0;
 }
-.rt-t-campus .rt-head-rule {
-  height: 4px; background: linear-gradient(90deg, #4f46e5, #818cf8); border-radius: 2px; margin-bottom: 22px;
-}
-.rt-t-campus .rt-sec-h {
-  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em;
-  color: #4f46e5; border-bottom: 2px solid #c7d2fe; padding-bottom: 4px; margin: 20px 0 10px;
-}
-.rt-t-campus .rt-body { font-size: 10.5px; }
+.rt-navy .rt-sec-line { border-bottom: 1.5px solid #1e3a5f; margin-bottom: 8px; }
+.rt-navy .rt-row { display: flex; justify-content: space-between; gap: 12px; }
+.rt-navy .rt-row .rt-r { color: #64748b; font-size: 10px; white-space: nowrap; }
+.rt-navy .rt-bold { font-weight: 700; }
+.rt-navy .rt-skills-line { margin-bottom: 3px; }
+.rt-navy .rt-skills-line b { font-weight: 700; }
 
-/* ═══════════════════════════════════════
-   STUDENT — Sidebar Portfolio (purple rail)
-   ═══════════════════════════════════════ */
-.rt-t-sidebar {
-  display: grid; grid-template-columns: 34% 1fr; min-height: 1056px; font-family: 'Inter', sans-serif;
+/* ── 2. Dev Centered (centered name, blue headers) ── */
+.rt-devcenter {
+  padding: 32px 40px; font-family: 'Inter', sans-serif; font-size: 10.5px; text-align: center; color: #111;
 }
-.rt-t-sidebar .rt-rail {
-  background: linear-gradient(180deg, #6d28d9 0%, #4c1d95 100%);
-  color: #fff; padding: 32px 20px;
+.rt-devcenter .rt-name {
+  font-size: 28px; font-weight: 800; color: #1e40af; margin-bottom: 6px;
 }
-.rt-t-sidebar .rt-rail .rt-name { font-size: 17px; font-weight: 800; line-height: 1.25; margin-bottom: 14px; }
-.rt-t-sidebar .rt-rail .rt-contact { font-size: 8.5px; line-height: 2; opacity: .92; }
-.rt-t-sidebar .rt-rail .rt-sec-h {
-  font-size: 8px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-  margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.25);
+.rt-devcenter .rt-tagline { font-size: 10px; color: #64748b; margin-bottom: 8px; line-height: 1.5; }
+.rt-devcenter .rt-contact { font-size: 9.5px; color: #475569; margin-bottom: 16px; }
+.rt-devcenter .rt-contact a { color: #2563eb; text-decoration: underline; }
+.rt-devcenter .rt-sec { text-align: left; margin-top: 14px; }
+.rt-devcenter .rt-sec-h {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; color: #1e40af; margin-bottom: 0;
 }
-.rt-t-sidebar .rt-rail .rt-body { font-size: 9px; line-height: 1.75; }
-.rt-t-sidebar .rt-main { padding: 32px 26px; font-size: 10px; line-height: 1.6; color: #1e293b; }
-.rt-t-sidebar .rt-main .rt-sec-h {
-  font-size: 13px; font-weight: 800; color: #6d28d9; margin: 18px 0 8px;
-  display: flex; align-items: center; gap: 8px;
-}
-.rt-t-sidebar .rt-main .rt-sec-h::before {
-  content: ''; width: 8px; height: 8px; border-radius: 50%; background: #6d28d9;
-}
+.rt-devcenter .rt-sec-line { border-bottom: 1.5px solid #1e40af; margin-bottom: 8px; }
+.rt-devcenter .rt-skills-line { text-align: left; margin-bottom: 4px; }
+.rt-devcenter .rt-skills-line b { font-weight: 700; }
+.rt-devcenter .rt-proj-head { display: flex; justify-content: space-between; align-items: baseline; }
+.rt-devcenter .rt-proj-head .rt-title { font-weight: 700; color: #1e40af; }
+.rt-devcenter .rt-stack { font-size: 9.5px; color: #64748b; font-style: italic; margin: 2px 0 4px; }
 
-/* ═══════════════════════════════════════
-   STUDENT — Project Spotlight (teal banner + cards)
-   ═══════════════════════════════════════ */
-.rt-t-projects {
-  min-height: 1056px; font-family: 'Inter', sans-serif; font-size: 10px; line-height: 1.6; color: #0f172a;
+/* ── 3. Executive Split (Brad Jensen style) ── */
+.rt-brad { font-family: 'Inter', sans-serif; font-size: 10px; color: #111; padding: 28px 32px; }
+.rt-brad .rt-top { margin-bottom: 18px; }
+.rt-brad .rt-name { font-size: 22px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.rt-brad .rt-tagline { font-size: 10.5px; font-weight: 700; color: #2563eb; margin: 4px 0 8px; }
+.rt-brad .rt-contact { font-size: 9.5px; color: #475569; }
+.rt-brad .rt-contact span { margin-right: 14px; }
+.rt-brad .rt-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 28px; }
+.rt-brad .rt-sec-h {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+  border-bottom: 2px solid #111; padding-bottom: 4px; margin: 16px 0 10px;
 }
-.rt-t-projects .rt-banner {
-  background: linear-gradient(120deg, #0e7490, #06b6d4 50%, #0891b2);
-  color: #fff; padding: 28px 36px 24px;
-}
-.rt-t-projects .rt-banner .rt-name { font-size: 27px; font-weight: 800; letter-spacing: -.01em; }
-.rt-t-projects .rt-banner .rt-contact { font-size: 10px; opacity: .9; margin-top: 6px; }
-.rt-t-projects .rt-inner { padding: 22px 32px 32px; }
-.rt-t-projects .rt-sec-h {
-  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em;
-  color: #0e7490; margin: 16px 0 8px;
-}
-.rt-t-projects .rt-card {
-  background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
-}
-.rt-t-projects .rt-chip {
-  display: inline-block; font-size: 8px; font-weight: 700; padding: 3px 9px;
-  background: #0891b2; color: #fff; border-radius: 999px; margin: 2px 4px 2px 0;
-}
+.rt-brad .rt-sec-h:first-child { margin-top: 0; }
+.rt-brad .rt-entry { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px dashed #cbd5e1; }
+.rt-brad .rt-entry:last-child { border-bottom: none; }
+.rt-brad .rt-job { font-weight: 800; font-size: 10.5px; margin-bottom: 2px; }
+.rt-brad .rt-co { font-weight: 700; color: #2563eb; font-size: 10px; }
+.rt-brad .rt-meta { font-size: 9px; color: #64748b; margin: 3px 0 6px; }
+.rt-brad .rt-ach-title { font-weight: 800; font-size: 10px; margin-bottom: 2px; }
+.rt-brad .rt-ach-desc { font-size: 9.5px; color: #374151; line-height: 1.45; margin-bottom: 10px; }
+.rt-brad .rt-skills-list { font-size: 10px; line-height: 1.6; }
 
-/* ═══════════════════════════════════════
-   PRO — Corporate (navy bars, structured)
-   ═══════════════════════════════════════ */
-.rt-t-corporate {
-  min-height: 1056px; padding: 34px 38px; font-family: 'Inter', sans-serif;
-  font-size: 11px; line-height: 1.6; color: #0f172a;
+/* ── 4. Sky Center (Rahul Kumar — icons, sky blue headers) ── */
+.rt-sky {
+  padding: 30px 38px; font-family: 'Inter', sans-serif; font-size: 10.5px; color: #111; text-align: center;
 }
-.rt-t-corporate .rt-name {
-  font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #0f172a;
+.rt-sky .rt-name { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+.rt-sky .rt-sub { font-size: 10px; color: #475569; margin-bottom: 10px; }
+.rt-sky .rt-icons { font-size: 9.5px; color: #334155; margin-bottom: 16px; line-height: 1.8; }
+.rt-sky .rt-sec { text-align: left; margin-top: 12px; }
+.rt-sky .rt-sec-h {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; color: #38bdf8; margin-bottom: 0;
 }
-.rt-t-corporate .rt-contact { font-size: 10px; color: #475569; margin: 6px 0 16px; }
-.rt-t-corporate .rt-rule { height: 3px; background: #0f172a; margin-bottom: 18px; }
-.rt-t-corporate .rt-sec-h {
-  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
-  background: #0f172a; color: #fff; padding: 6px 12px; margin: 18px 0 10px;
-}
-.rt-t-corporate .rt-body { font-size: 11px; }
+.rt-sky .rt-sec-line { border-bottom: 1.5px solid #111; margin-bottom: 8px; }
+.rt-sky .rt-co { font-weight: 700; text-align: left; }
+.rt-sky .rt-row { display: flex; justify-content: space-between; font-weight: 600; text-align: left; }
+.rt-sky .rt-row .rt-r { font-weight: 500; color: #64748b; }
 
-/* ═══════════════════════════════════════
-   PRO — Modern Split (sky sidebar)
-   ═══════════════════════════════════════ */
-.rt-t-split {
-  display: grid; grid-template-columns: 36% 1fr; min-height: 1056px; font-family: 'Oswald', 'Inter', sans-serif;
+/* ── 5. PM Sidebar (Jane Fitz) ── */
+.rt-jane {
+  display: grid; grid-template-columns: 34% 1fr; min-height: 1056px; font-family: 'Inter', sans-serif; font-size: 10px;
 }
-.rt-t-split .rt-rail { background: #0284c7; color: #fff; padding: 34px 22px; }
-.rt-t-split .rt-rail .rt-name {
-  font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; line-height: 1.15; margin-bottom: 16px;
+.rt-jane .rt-side { background: #e8f4fc; padding: 0 0 24px; }
+.rt-jane .rt-name-block {
+  background: #1e3a5f; color: #fff; padding: 28px 20px 32px;
+  border-radius: 0 0 50% 50% / 0 0 18% 18%; text-align: center; margin-bottom: 20px;
 }
-.rt-t-split .rt-rail .rt-contact { font-family: 'Inter', sans-serif; font-size: 9px; line-height: 2; opacity: .95; }
-.rt-t-split .rt-rail .rt-sec-h {
-  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-  margin-top: 24px; padding-top: 14px; border-top: 2px solid rgba(255,255,255,.3);
-}
-.rt-t-split .rt-rail .rt-body { font-family: 'Inter', sans-serif; font-size: 9.5px; line-height: 1.7; }
-.rt-t-split .rt-main {
-  padding: 34px 30px; font-family: 'Inter', sans-serif; font-size: 10.5px; line-height: 1.65; color: #1e293b;
-}
-.rt-t-split .rt-main .rt-sec-h {
-  font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
-  color: #0284c7; border-left: 5px solid #0284c7; padding-left: 10px; margin: 20px 0 10px;
-}
+.rt-jane .rt-name-block .rt-name { font-size: 22px; font-weight: 700; }
+.rt-jane .rt-side-sec { padding: 0 18px; margin-bottom: 18px; }
+.rt-jane .rt-side-h { font-size: 11px; font-weight: 700; color: #1e3a5f; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
+.rt-jane .rt-detail { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; font-size: 9.5px; }
+.rt-jane .rt-detail-ico { color: #1e3a5f; font-weight: 700; min-width: 14px; }
+.rt-jane .rt-dots { display: flex; gap: 3px; margin-top: 4px; }
+.rt-jane .rt-dot { width: 7px; height: 7px; border-radius: 50%; background: #cbd5e1; }
+.rt-jane .rt-dot.on { background: #1e3a5f; }
+.rt-jane .rt-skill-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 9.5px; }
+.rt-jane .rt-main { padding: 28px 26px 32px; }
+.rt-jane .rt-main-h { font-size: 16px; font-weight: 700; color: #1e3a5f; margin: 18px 0 10px; }
+.rt-jane .rt-main-h:first-child { margin-top: 0; }
+.rt-jane .rt-job-row { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px; }
+.rt-jane .rt-co { color: #2563eb; font-weight: 600; margin-bottom: 6px; }
 
-/* ═══════════════════════════════════════
-   PRO — Clean Slate (ultra minimal, large type)
-   ═══════════════════════════════════════ */
-.rt-t-slate {
-  min-height: 1056px; padding: 48px 52px; font-family: 'Inter', sans-serif; color: #111827;
+/* ── 6. Purple Label (Rahul Khanna) ── */
+.rt-purple {
+  padding: 28px 36px 36px; font-family: 'Merriweather', Georgia, serif; font-size: 10.5px; color: #111;
+  background: #fff; position: relative;
 }
-.rt-t-slate .rt-name { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1; margin-bottom: 8px; }
-.rt-t-slate .rt-contact { font-size: 11px; color: #9ca3af; font-weight: 500; margin-bottom: 28px; }
-.rt-t-slate .rt-sec-h {
-  font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .22em;
-  color: #9ca3af; margin: 28px 0 10px;
+.rt-purple::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 120px;
+  background: linear-gradient(135deg, transparent 40%, #f3f4f6 40%, #e5e7eb 100%);
+  clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%); pointer-events: none;
 }
-.rt-t-slate .rt-body { font-size: 11.5px; line-height: 1.75; color: #374151; }
+.rt-purple .rt-name { font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 800; color: #6b21a8; letter-spacing: .02em; text-transform: uppercase; }
+.rt-purple .rt-role { font-family: 'Inter', sans-serif; font-size: 11px; color: #111; margin: 4px 0 16px; }
+.rt-purple .rt-contact-bar {
+  border-top: 2px solid #6b21a8; border-bottom: 2px solid #6b21a8; padding: 12px 0; margin-bottom: 16px;
+  display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: start;
+}
+.rt-purple .rt-contact-bar .rt-lbl { font-family: 'Inter', sans-serif; font-weight: 800; color: #6b21a8; text-transform: uppercase; font-size: 10px; }
+.rt-purple .rt-contact-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-family: 'Inter', sans-serif; font-size: 9px; }
+.rt-purple .rt-contact-cols b { display: block; font-size: 9.5px; margin-bottom: 2px; }
+.rt-purple .rt-row-sec { display: grid; grid-template-columns: 120px 1fr; gap: 12px; margin-bottom: 14px; align-items: start; }
+.rt-purple .rt-row-sec .rt-lbl { font-family: 'Inter', sans-serif; font-weight: 800; color: #6b21a8; text-transform: uppercase; font-size: 10px; padding-top: 2px; }
+.rt-purple .rt-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; font-size: 10px; }
 
-/* ═══════════════════════════════════════
-   EXEC — Dark Header (gold accents)
-   ═══════════════════════════════════════ */
-.rt-t-execdark { min-height: 1056px; font-family: 'Inter', sans-serif; font-size: 10.5px; line-height: 1.65; }
-.rt-t-execdark .rt-head {
-  background: #0c0a09; color: #fff; padding: 32px 40px 28px;
+/* ── 7. Academic Serif (Shubham Sarkar) ── */
+.rt-academic {
+  padding: 32px 40px; font-family: 'Times New Roman', Times, serif; font-size: 11px; color: #000; line-height: 1.45;
 }
-.rt-t-execdark .rt-head .rt-name {
-  font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 700; letter-spacing: .01em;
-}
-.rt-t-execdark .rt-head .rt-contact { font-size: 10px; color: #a8a29e; margin-top: 10px; }
-.rt-t-execdark .rt-head .rt-tagline {
-  font-size: 11px; color: #fbbf24; font-weight: 600; margin-top: 12px; font-style: italic;
-}
-.rt-t-execdark .rt-inner { padding: 26px 40px 36px; color: #1c1917; }
-.rt-t-execdark .rt-sec-h {
-  font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
-  color: #78716c; border-bottom: 3px solid #f59e0b; padding-bottom: 5px; margin: 20px 0 10px;
-}
+.rt-academic .rt-name { text-align: center; font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+.rt-academic .rt-contact { text-align: center; font-size: 10px; margin-bottom: 14px; }
+.rt-academic .rt-sec-h { font-weight: 700; font-size: 11px; letter-spacing: .08em; border-bottom: 1px solid #000; padding-bottom: 2px; margin: 12px 0 8px; }
+.rt-academic .rt-entry { margin-bottom: 8px; }
+.rt-academic .rt-row { display: flex; justify-content: space-between; }
+.rt-academic .rt-row .rt-l { font-weight: 700; }
+.rt-academic .rt-row .rt-r { font-weight: 700; }
+.rt-academic .rt-sub { display: flex; justify-content: space-between; font-style: italic; }
+.rt-academic .rt-skills b { font-weight: 700; }
 
-/* ═══════════════════════════════════════
-   EXEC — Timeline (green rail)
-   ═══════════════════════════════════════ */
-.rt-t-timeline {
-  min-height: 1056px; padding: 36px 40px; font-family: 'Inter', sans-serif;
-  font-size: 10.5px; line-height: 1.65; color: #14532d;
+/* ── 8. Hybrid Serif (Janhvi Babani) ── */
+.rt-hybrid {
+  padding: 32px 40px; font-family: Arial, Helvetica, sans-serif; font-size: 10.5px; color: #111; line-height: 1.5;
 }
-.rt-t-timeline .rt-name { font-size: 26px; font-weight: 800; color: #064e3b; margin-bottom: 4px; }
-.rt-t-timeline .rt-contact { font-size: 10px; color: #64748b; margin-bottom: 22px; }
-.rt-t-timeline .rt-sec-h {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .08em; color: #059669; margin: 20px 0 12px;
+.rt-hybrid .rt-name { text-align: center; font-family: 'Source Serif 4', Georgia, serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.rt-hybrid .rt-contact { text-align: center; font-size: 9.5px; margin-bottom: 14px; color: #374151; }
+.rt-hybrid .rt-sec-h {
+  font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 11px;
+  letter-spacing: .06em; border-bottom: 1px solid #111; padding-bottom: 2px; margin: 14px 0 8px;
 }
-.rt-t-timeline .rt-timeline-entry {
-  border-left: 4px solid #34d399; padding-left: 16px; margin-left: 4px; margin-bottom: 14px;
-}
-.rt-t-timeline .rt-body { font-size: 10.5px; color: #374151; }
-
-/* ═══════════════════════════════════════
-   EXEC — Distinguished Classic (serif formal)
-   ═══════════════════════════════════════ */
-.rt-t-classic {
-  min-height: 1056px; padding: 44px 48px; font-family: 'Libre Baskerville', Georgia, serif;
-  font-size: 11px; line-height: 1.75; color: #292524;
-}
-.rt-t-classic .rt-name {
-  text-align: center; font-size: 30px; font-weight: 700; letter-spacing: .04em;
-  text-transform: uppercase; color: #1c1917; margin-bottom: 6px;
-}
-.rt-t-classic .rt-contact {
-  text-align: center; font-family: 'Inter', sans-serif; font-size: 9.5px;
-  color: #78716c; letter-spacing: .06em; margin-bottom: 24px;
-}
-.rt-t-classic .rt-ornament {
-  text-align: center; color: #a8a29e; font-size: 14px; margin-bottom: 20px; letter-spacing: .3em;
-}
-.rt-t-classic .rt-sec-h {
-  text-align: center; font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .12em; color: #44403c; margin: 22px 0 12px;
-}
-.rt-t-classic .rt-sec-h::before { content: '◆ '; color: #a8a29e; font-size: 9px; }
-.rt-t-classic .rt-body { font-size: 11px; }
+.rt-hybrid .rt-exp-head { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px; }
+.rt-hybrid .rt-exp-head .rt-r { font-weight: 700; }
+.rt-hybrid .rt-skills-line { font-style: italic; font-size: 10px; margin-bottom: 4px; }
+.rt-hybrid .rt-proj-head { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 4px; }
+.rt-hybrid .rt-skills-cat { margin-bottom: 4px; }
+.rt-hybrid .rt-skills-cat b { font-weight: 700; }
 
 /* Template picker */
-.tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 .tpl-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
   overflow: hidden; cursor: pointer; transition: transform .2s, border-color .2s, box-shadow .2s;
 }
 .tpl-card:hover { transform: translateY(-4px); border-color: var(--text); box-shadow: var(--shadow-sm); }
-.tpl-preview { height: 200px; overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
+.tpl-preview { height: 210px; overflow: hidden; background: #fff; border-bottom: 1px solid var(--border); }
 .tpl-meta { padding: 14px 16px; }
-.tpl-name { font-size: 14px; font-weight: 800; color: var(--text); }
-.tpl-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 6px 0 10px; font-weight: 500; }
-.tpl-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tpl-name { font-size: 13px; font-weight: 800; color: var(--text); }
+.tpl-desc { font-size: 11px; color: var(--muted); line-height: 1.45; margin: 6px 0 10px; font-weight: 500; }
+.tpl-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .tpl-badge {
-  font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: var(--radius-pill); border: 1px solid var(--border);
+  font-size: 8px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: var(--radius-pill); border: 1px solid var(--border);
 }
-.tpl-badge-student { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
-.tpl-badge-professional { background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; }
-.tpl-badge-executive { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
-.tpl-ats { font-size: 12px; font-weight: 800; color: var(--success); }
+.tpl-badge-student { background: #ede9fe; color: #5b21b6; }
+.tpl-badge-professional { background: #e0f2fe; color: #0369a1; }
+.tpl-badge-executive { background: #fef3c7; color: #92400e; }
+.tpl-ats { font-size: 11px; font-weight: 800; color: var(--success); }
