@@ -4,6 +4,8 @@
 
 **Live Demo →** [https://shirapti-nath.github.io/ai-careers-os/](https://shirapti-nath.github.io/ai-careers-os/)
 
+**Portfolio →** [https://shirapti-nath.github.io/ai-careers-os/portfolio/](https://shirapti-nath.github.io/ai-careers-os/portfolio/)
+
 > YC-inspired landing page with Multi-Agent Career Pipeline, Anti-Gravity physics mode, and algorithm-powered tools.
 
 ---
@@ -60,6 +62,7 @@ ai-career-os/
 ├── index.html              ← Landing page
 ├── demo.html               ← ResumeAI full demo
 ├── career-explorer.html    ← TechPath OS
+├── portfolio/              ← Personal portfolio site
 ├── frontend/               ← React app (full project)
 │   ├── src/
 │   └── package.json
