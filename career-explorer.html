@@ -40,6 +40,7 @@
   <a href="index.html" class="yc-nav-logo">AI CAREER OS</a>
   <div class="yc-nav-links">
     <span class="yc-pill" onclick="showLanding()">Paths</span>
+    <span class="yc-pill" onclick="document.querySelector('.ai-match-section').scrollIntoView({behavior:'smooth'})">AI Match</span>
     <span class="yc-pill" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">Search</span>
     <a href="demo.html?page=analyzer" class="yc-pill yc-pill-filled">Upload Resume</a>
   </div>
@@ -49,14 +50,14 @@
 <div id="page-landing">
   <div class="ticker-wrap">
     <div class="ticker-inner">
-      <span><b>12 career paths</b> with year-by-year roadmaps</span>
+      <span><b>48+ free certifications</b> with direct links</span>
+      <span>AI career matcher — find your best path</span>
       <span>Salary ranges from entry level to senior</span>
       <span>Skills, tools, and certifications per stage</span>
       <span>Syncs target role to ResumeAI analyzer</span>
       <span><b>12 career paths</b> with year-by-year roadmaps</span>
-      <span>Salary ranges from entry level to senior</span>
-      <span>Skills, tools, and certifications per stage</span>
-      <span>Syncs target role to ResumeAI analyzer</span>
+      <span><b>48+ free certifications</b> with direct links</span>
+      <span>AI career matcher — find your best path</span>
     </div>
   </div>
 
@@ -72,7 +73,28 @@
       <div class="hstat"><span class="hstat-val" data-target="12" data-suf="">0</span><div class="hstat-lbl">Career Paths</div></div>
       <div class="hstat"><span class="hstat-val" data-target="50" data-suf="+">0</span><div class="hstat-lbl">Skill Areas</div></div>
       <div class="hstat"><span class="hstat-val" data-target="80" data-suf=" LPA">0</span><div class="hstat-lbl">Max Salary ₹</div></div>
-      <div class="hstat"><span class="hstat-val" data-target="4" data-suf=" Yr">0</span><div class="hstat-lbl">Full Roadmap</div></div>
+      <div class="hstat"><span class="hstat-val" data-target="48" data-suf="+">0</span><div class="hstat-lbl">Free Certs</div></div>
+    </div>
+  </section>
+
+  <section class="ai-match-section">
+    <div class="ai-match-wrap">
+      <div class="ai-match-copy">
+        <div class="section-eyebrow-text" style="margin-bottom:12px">AI-powered</div>
+        <h2 class="ai-match-title">Find your career path</h2>
+        <p class="ai-match-sub">Type your skills, interests, or tools — our AI matcher ranks all 12 tech paths and links you to free certifications.</p>
+        <div class="ai-match-input-row">
+          <input id="ai-match-input" type="text" placeholder="e.g. Python, React, cybersecurity, data pipelines…" onkeydown="if(event.key==='Enter')runAIMatch()"/>
+          <button type="button" class="yc-pill yc-pill-filled" onclick="runAIMatch()">Match paths</button>
+        </div>
+        <div id="ai-match-result" class="ai-match-results"></div>
+      </div>
+      <div class="ai-match-terminal-wrap">
+        <div class="ai-terminal-head">CareerOS · AI matcher</div>
+        <div id="ai-match-terminal" class="ai-match-terminal">
+          <div class="ai-t-line"><span class="ai-t-prompt">&gt;</span> Ready. Enter skills to analyze fit across 12 paths.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -133,6 +155,7 @@
   </div>
 </div>
 
+<script src="assets/career-ai.js"></script>
 <script>
 // ═══════════════════════════════════════
 // CAREER DATA
@@ -868,6 +891,7 @@ function renderCards(){
         <span class="diff-text">${p.diffLabel}</span>
       </div>
       <div class="card-skills">${p.skills.map(s=>`<span class="skill-chip">${s}</span>`).join('')}</div>
+      <div class="card-free-certs">${(typeof FREE_CERTS!=='undefined'&&FREE_CERTS[p.id])?FREE_CERTS[p.id].length+' free certs':'4 free certs'}</div>
       <div class="card-footer">
         <span class="card-salary">↑ ${p.topSalary}</span>
         <span class="card-cta">EXPLORE →</span>
@@ -893,7 +917,9 @@ function renderDetail(p){
   document.getElementById('d-stats').innerHTML=p.stats.map(s=>`<div class="dstat" style="--accent:${p.color}"><span class="dstat-val">${s.val}</span><div class="dstat-lbl">${s.lbl}</div></div>`).join('');
   document.documentElement.style.setProperty('--accent',p.color);
   const content=document.getElementById('d-content');
-  content.innerHTML=p.sections.map((sec,idx)=>`
+  const panels = (typeof renderFreeCertPanel==='function'?renderFreeCertPanel(p.id):'') +
+    (typeof renderAIPathAdvisor==='function'?renderAIPathAdvisor(p):'');
+  content.innerHTML = panels + p.sections.map((sec,idx)=>`
     <div class="section-block reveal" id="sec-${idx}" style="--accent:${p.color}">
       <div class="section-header" onclick="toggleSec(${idx})">
         <div class="section-num">${idx+1}</div>
@@ -917,7 +943,7 @@ function renderSecBody(sec){
   if(b.responsibilities)html+=`<div class="sub-card"><div class="sub-card-title">📋 Responsibilities</div><ul>${b.responsibilities.map(r=>`<li>${r}</li>`).join('')}</ul></div>`;
   html+='</div>';
   if(b.focus)html+=`<div class="focus-box"><b style="color:var(--text)">🎯 FOCUS: </b>${b.focus}</div>`;
-  if(b.certs)html+=`<div style="margin-bottom:12px"><div style="font-family:'Orbitron',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#34d399;margin-bottom:8px">🏅 CERTIFICATIONS</div><div class="cert-list">${b.certs.map(c=>`<span class="cert-badge">✓ ${c}</span>`).join('')}</div></div>`;
+  if(b.certs)html+=`<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#34d399;margin-bottom:8px">🏅 CERTIFICATIONS</div><div class="cert-list">${b.certs.map(c=>{const free=typeof isFreeCertLabel==='function'&&isFreeCertLabel(c);return`<span class="cert-badge${free?' cert-badge-free':''}">${free?'FREE · ':''}${c}</span>`;}).join('')}</div></div>`;
   if(sec.salary)html+=`<div class="salary-range"><span style="font-size:1.2rem">💰</span><div class="salary-info"><div class="salary-label">${sec.salary.label}</div><div class="salary-amount">${sec.salary.amount}</div><div class="salary-bar-track"><div class="salary-bar-fill" style="--pct:${sec.salary.pct}"></div></div></div></div>`;
   if(b.progression)html+=`<div style="margin-top:14px"><div style="font-family:'Orbitron',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px">📈 CAREER PROGRESSION</div><div class="progression-track">${b.progression.map((l,i)=>`<div class="prog-node"><span class="prog-label">${l}</span>${i<b.progression.length-1?'<span class="prog-arrow">→</span>':''}</div>`).join('')}</div></div>`;
   if(b.salaryGrowth)html+=`<div style="margin-top:16px"><div style="font-family:'Orbitron',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px">📊 SALARY GROWTH</div><div class="salary-growth">${b.salaryGrowth.map(g=>`<div class="sg-col"><span class="sg-amount">${g.amount}</span><div class="sg-bar" style="--h:${g.h}"></div><div class="sg-label">${g.label.replace('\n','<br>')}</div></div>`).join('')}</div></div>`;
