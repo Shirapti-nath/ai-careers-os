@@ -7,11 +7,15 @@ export default function About() {
       <div className="grid items-center gap-8 md:grid-cols-[200px_1fr]">
         <Reveal>
           <div className="mx-auto w-48 md:mx-0">
-            <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-white shadow-soft-lg ring-2 ring-violet-200/60">
+            <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-white shadow-soft-lg ring-2 ring-violet-200/60 dark:border-violet-500/30 dark:ring-violet-500/30">
               <img
                 src={IMAGES.profile}
                 alt="Shirapti Nath"
                 className="h-full w-full object-cover object-top"
+                width={192}
+                height={192}
+                loading="eager"
+                decoding="async"
               />
             </div>
           </div>
@@ -19,7 +23,7 @@ export default function About() {
 
         <Reveal delay={1}>
           <div className="card-glass space-y-3 p-6 text-sm leading-relaxed text-muted md:p-7 md:text-base">
-            <p className="text-ink">
+            <p className="text-ink dark:text-slate-200">
               I&apos;m <strong>Shirapti Nath</strong> - a full-stack developer who builds products from
               database schema to deployed UI.
             </p>

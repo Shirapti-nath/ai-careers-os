@@ -47,7 +47,7 @@ export default function CodeBackground() {
           vx: rand(-0.12, 0.12),
           vy: rand(-0.12, 0.12),
           size: rand(10, 13),
-          baseAlpha: rand(0.04, 0.1),
+          baseAlpha: rand(0.12, 0.22),
         });
       }
     };
@@ -61,6 +61,7 @@ export default function CodeBackground() {
     const tick = () => {
       ctx.clearRect(0, 0, W, H);
       const t = Date.now() * 0.001;
+      const isDark = document.documentElement.classList.contains('dark');
 
       particles.forEach((p) => {
         p.vx += Math.sin(t * 0.4 + p.ox) * 0.004;
@@ -91,18 +92,21 @@ export default function CodeBackground() {
         let alpha = p.baseAlpha;
         if (mouse.active) {
           const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-          if (md < 150) alpha = Math.min(0.35, p.baseAlpha + (1 - md / 150) * 0.28);
+          if (md < 150) alpha = Math.min(0.55, p.baseAlpha + (1 - md / 150) * 0.38);
         }
 
+        const r = isDark ? 139 : 91;
+        const g = isDark ? 92 : 33;
+        const b = isDark ? 246 : 182;
         ctx.font = `${p.size}px "JetBrains Mono", ui-monospace, monospace`;
-        ctx.fillStyle = `rgba(124, 58, 237, ${alpha})`;
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.fillText(p.text, p.x, p.y);
       });
 
       if (mouse.active && !reduced) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 160);
-        g.addColorStop(0, 'rgba(236, 72, 153, 0.06)');
-        g.addColorStop(1, 'rgba(236, 72, 153, 0)');
+        g.addColorStop(0, isDark ? 'rgba(219, 39, 119, 0.12)' : 'rgba(219, 39, 119, 0.1)');
+        g.addColorStop(1, 'rgba(219, 39, 119, 0)');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, W, H);
       }
@@ -134,7 +138,7 @@ export default function CodeBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 -z-[5] opacity-70"
+      className="pointer-events-none fixed inset-0 -z-[5] opacity-90 dark:opacity-95"
       aria-hidden
     />
   );

@@ -26,7 +26,7 @@ export default function Skills() {
       id="skills"
       title="Technical Skills"
       subtitle="Languages, frontend, backend, databases, AI/ML, and DevOps."
-      className="bg-white/30"
+      className="bg-white/30 dark:bg-dusk-card/20"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SKILL_GROUPS.map((group, gi) => (
@@ -36,14 +36,14 @@ export default function Skills() {
             >
               <div className="mb-3 flex items-center gap-2">
                 <span className="text-lg">{group.icon}</span>
-                <h3 className="text-sm font-bold text-ink">{group.title}</h3>
+                <h3 className="text-sm font-bold text-ink dark:text-white">{group.title}</h3>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {group.skills.map((skill) => (
                   <motion.span
                     key={skill}
                     whileHover={{ scale: 1.04 }}
-                    className={`cursor-default rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1 text-xs text-muted transition ${tagHover[group.color]}`}
+                    className={`cursor-default rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1 text-xs text-muted transition dark:border-slate-600/60 dark:bg-slate-800/80 dark:text-slate-300 ${tagHover[group.color]}`}
                   >
                     {skill}
                   </motion.span>

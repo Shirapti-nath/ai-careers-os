@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="AI Career OS dashboard preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f3ff"/>
+      <stop offset="50%" stop-color="#fdf2f8"/>
+      <stop offset="100%" stop-color="#eff6ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect x="24" y="24" width="752" height="402" rx="16" fill="#fff" stroke="#e9d5ff" stroke-width="2"/>
+  <rect x="24" y="24" width="752" height="44" rx="16" fill="#faf5ff"/>
+  <circle cx="52" cy="46" r="6" fill="#f87171"/>
+  <circle cx="72" cy="46" r="6" fill="#fbbf24"/>
+  <circle cx="92" cy="46" r="6" fill="#34d399"/>
+  <rect x="320" y="36" width="160" height="20" rx="10" fill="#ede9fe"/>
+  <text x="400" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#6d28d9" font-weight="600">AI Career OS</text>
+  <rect x="48" y="92" width="200" height="300" rx="12" fill="#faf5ff" stroke="#e9d5ff"/>
+  <text x="68" y="120" font-family="system-ui,sans-serif" font-size="13" fill="#1e1b4b" font-weight="700">Resume Score</text>
+  <circle cx="148" cy="200" r="56" fill="none" stroke="#e9d5ff" stroke-width="10"/>
+  <circle cx="148" cy="200" r="56" fill="none" stroke="url(#accent)" stroke-width="10" stroke-dasharray="280" stroke-dashoffset="56" transform="rotate(-90 148 200)"/>
+  <text x="148" y="206" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" fill="#7c3aed" font-weight="800">82</text>
+  <text x="148" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">ATS Match</text>
+  <rect x="68" y="270" width="160" height="8" rx="4" fill="#e9d5ff"/>
+  <rect x="68" y="270" width="130" height="8" rx="4" fill="url(#accent)"/>
+  <text x="68" y="300" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Keywords matched</text>
+  <rect x="272" y="92" width="480" height="140" rx="12" fill="#fff" stroke="#e9d5ff"/>
+  <text x="292" y="120" font-family="system-ui,sans-serif" font-size="13" fill="#1e1b4b" font-weight="700">Career Paths</text>
+  <rect x="292" y="136" width="100" height="28" rx="14" fill="#ede9fe"/>
+  <rect x="402" y="136" width="110" height="28" rx="14" fill="#fce7f3"/>
+  <rect x="522" y="136" width="90" height="28" rx="14" fill="#e0f2fe"/>
+  <rect x="622" y="136" width="110" height="28" rx="14" fill="#fef3c7"/>
+  <text x="342" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#6d28d9">AI Engineer</text>
+  <text x="457" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#db2777">Full Stack</text>
+  <text x="567" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#0284c7">Data Science</text>
+  <text x="677" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#d97706">DevOps</text>
+  <rect x="272" y="252" width="480" height="140" rx="12" fill="#fff" stroke="#e9d5ff"/>
+  <text x="292" y="282" font-family="system-ui,sans-serif" font-size="13" fill="#1e1b4b" font-weight="700">AI Analysis</text>
+  <rect x="292" y="296" width="440" height="10" rx="5" fill="#f1f5f9"/>
+  <rect x="292" y="316" width="380" height="10" rx="5" fill="#f1f5f9"/>
+  <rect x="292" y="336" width="400" height="10" rx="5" fill="#f1f5f9"/>
+  <rect x="292" y="356" width="320" height="10" rx="5" fill="#f1f5f9"/>
+</svg>

@@ -1,15 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shirapti - Software Engineer | AI & Backend</title>
-    <meta name="description" content="Portfolio of Shirapti - Software Engineer building AI-driven systems. MSc AI & Data Science at BITS Pilani." />
+    <script>
+      try {
+        if (localStorage.getItem('portfolio-theme') !== 'light') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+    <title>Shirapti Nath — Software Engineer | AI &amp; Backend</title>
+    <meta name="description" content="Portfolio of Shirapti Nath — Software Engineer building AI-driven full-stack products. Gold Medal CSE graduate, MSc AI &amp; Data Science at BITS Pilani." />
+    <meta name="author" content="Shirapti Nath" />
+    <meta name="theme-color" content="#12101c" />
+    <link rel="canonical" href="https://shirapti-nath.github.io/ai-careers-os/portfolio/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shirapti-nath.github.io/ai-careers-os/portfolio/" />
+    <meta property="og:title" content="Shirapti Nath — Software Engineer | AI &amp; Backend" />
+    <meta property="og:description" content="Portfolio of Shirapti Nath — AI-driven full-stack developer. Gold Medal CSE, MSc AI at BITS Pilani. Open to SWE &amp; AI roles." />
+    <meta property="og:image" content="https://shirapti-nath.github.io/ai-careers-os/portfolio/images/profile.png" />
+    <meta property="og:site_name" content="Shirapti Nath Portfolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shirapti Nath — Software Engineer | AI &amp; Backend" />
+    <meta name="twitter:description" content="AI-driven full-stack developer. Gold Medal CSE, MSc AI at BITS Pilani." />
+    <meta name="twitter:image" content="https://shirapti-nath.github.io/ai-careers-os/portfolio/images/profile.png" />
+    <meta name="twitter:creator" content="@ShiraptiN" />
+
+    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="/ai-careers-os/portfolio/images/profile.png" as="image" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/ai-careers-os/portfolio/assets/index-xKOdN8DR.js"></script>
-    <link rel="stylesheet" crossorigin href="/ai-careers-os/portfolio/assets/index-CizrtntO.css">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shirapti Nath",
+      "jobTitle": "Software Engineer",
+      "description": "Software Engineer building AI-driven full-stack products. Gold Medal CSE graduate, MSc AI & Data Science at BITS Pilani.",
+      "url": "https://shirapti-nath.github.io/ai-careers-os/portfolio/",
+      "image": "https://shirapti-nath.github.io/ai-careers-os/portfolio/images/profile.png",
+      "email": "shirapti27@gmail.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/shirapti",
+        "https://github.com/Shirapti-nath",
+        "https://x.com/ShiraptiN"
+      ],
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "K.L.N College of Engineering" },
+        { "@type": "CollegeOrUniversity", "name": "BITS Pilani" }
+      ],
+      "knowsAbout": ["Artificial Intelligence", "Full Stack Development", "React", "Node.js", "LangGraph"]
+    }
+    </script>
+    <script type="module" crossorigin src="/ai-careers-os/portfolio/assets/index-C9kEkxP7.js"></script>
+    <link rel="stylesheet" crossorigin href="/ai-careers-os/portfolio/assets/index-CBEwqNSB.css">
   </head>
   <body>
     <div id="root"></div>
