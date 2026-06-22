@@ -16,6 +16,7 @@ export const CONTACT = {
 };
 
 export const AI_CERT_PDF = `${BASE}/certificates/ai-engineer-developer-associate.pdf`;
+export const AI_CERT_IMG = `${BASE}/certificates/ai-engineer-developer-associate.png`;
 export const GOOGLE_EDUCATOR_CERT = `${BASE}/certificates/google-certified-educator.png`;
 
 export const SKILL_GROUPS = [

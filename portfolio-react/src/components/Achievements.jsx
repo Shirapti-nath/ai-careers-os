@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
-import { ACHIEVEMENTS, AI_CERT_PDF, GOOGLE_EDUCATOR_CERT } from '../data/content';
+import { ACHIEVEMENTS, AI_CERT_PDF, AI_CERT_IMG, GOOGLE_EDUCATOR_CERT } from '../data/content';
 
 function CompactCert({ title, issuer, href, preview }) {
   return (
@@ -10,7 +10,7 @@ function CompactCert({ title, issuer, href, preview }) {
       rel="noopener noreferrer"
       className="group flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white p-2 transition hover:border-violet-300 hover:shadow-md"
     >
-      <div className="h-16 w-[4.5rem] shrink-0 overflow-hidden rounded-md border border-slate-100 bg-slate-50">
+      <div className="h-16 w-[4.5rem] shrink-0 overflow-hidden rounded-md border border-slate-100 bg-white">
         {preview}
       </div>
       <div className="min-w-0 flex-1">
@@ -80,10 +80,10 @@ export default function Achievements() {
             issuer="DataCamp Certification"
             href={AI_CERT_PDF}
             preview={
-              <iframe
-                src={`${AI_CERT_PDF}#toolbar=0&navpanes=0&view=FitH`}
-                title="DataCamp certificate preview"
-                className="pointer-events-none h-32 w-[200%] origin-top-left scale-50"
+              <img
+                src={AI_CERT_IMG}
+                alt="DataCamp AI Engineer certificate"
+                className="h-full w-full object-cover object-top"
               />
             }
           />
