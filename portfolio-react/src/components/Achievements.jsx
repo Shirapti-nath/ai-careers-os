@@ -4,7 +4,7 @@ import { ACHIEVEMENTS, AI_CERT_PDF, AI_CERT_THUMB, GOOGLE_EDUCATOR_CERT } from '
 
 function CertThumb({ children }) {
   return (
-    <div className="flex h-[4.25rem] w-[4.75rem] shrink-0 items-center justify-center overflow-hidden rounded-md border border-violet-400/[0.06] bg-[#fff9f2] p-0.5 dark:bg-[#fff9f2]">
+    <div className="flex h-[4.25rem] w-[4.75rem] shrink-0 items-center justify-center overflow-hidden rounded-md border border-slate-100 bg-[#fff9f2] p-0.5">
       {children}
     </div>
   );
@@ -16,15 +16,15 @@ function CompactCert({ title, issuer, href, preview }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group surface-card flex items-center gap-3 p-2.5 transition hover:border-violet-400/20"
+      className="group flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-2.5 transition hover:border-violet-300 hover:shadow-md"
     >
       <CertThumb>{preview}</CertThumb>
       <div className="min-w-0 flex-1">
-        <h3 className="text-[11px] font-semibold leading-tight text-ink group-hover:text-accent dark:text-slate-100 sm:text-xs">
+        <h3 className="text-[11px] font-bold leading-tight text-ink group-hover:text-accent sm:text-xs">
           {title}
         </h3>
-        <p className="mt-0.5 line-clamp-2 text-[10px] text-muted dark:text-dusk-muted">{issuer}</p>
-        <span className="mt-1 inline-block text-[10px] font-medium text-accent">View certificate →</span>
+        <p className="mt-0.5 line-clamp-2 text-[10px] text-muted">{issuer}</p>
+        <span className="mt-1 inline-block text-[10px] font-semibold text-accent">View certificate →</span>
       </div>
     </a>
   );
@@ -37,22 +37,22 @@ function AchievementCard({ item }) {
       target={item.link !== '#' ? '_blank' : undefined}
       rel={item.link !== '#' ? 'noopener noreferrer' : undefined}
       whileHover={{ y: -2 }}
-      className="group surface-card flex items-center gap-2.5 p-2.5 transition hover:border-violet-400/20"
+      className="group flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm transition hover:border-violet-300 hover:shadow-md"
       onClick={item.link === '#' ? (e) => e.preventDefault() : undefined}
     >
       {item.image ? (
-        <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-violet-400/[0.06] bg-dusk-elevated">
+        <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-slate-100 bg-white">
           <img src={item.image} alt="" className="h-full w-full object-cover object-center" loading="lazy" decoding="async" />
         </div>
       ) : (
-        <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-violet-400/[0.06] bg-dusk-elevated text-2xl">
+        <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-slate-100 bg-gradient-to-br from-slate-50 to-violet-50 text-2xl">
           {item.logo}
         </div>
       )}
       <div className="min-w-0 flex-1">
-        <h3 className="text-xs font-semibold text-ink group-hover:text-accent dark:text-slate-100">{item.title}</h3>
-        <p className="mt-0.5 line-clamp-3 text-[11px] leading-relaxed text-muted dark:text-dusk-muted">{item.issuer}</p>
-        {item.link !== '#' && <span className="mt-1 inline-block text-[10px] font-medium text-accent">View →</span>}
+        <h3 className="text-xs font-bold text-ink group-hover:text-accent">{item.title}</h3>
+        <p className="mt-0.5 line-clamp-3 text-[11px] leading-relaxed text-muted">{item.issuer}</p>
+        {item.link !== '#' && <span className="mt-1 inline-block text-[10px] font-semibold text-accent">View →</span>}
       </div>
     </motion.a>
   );

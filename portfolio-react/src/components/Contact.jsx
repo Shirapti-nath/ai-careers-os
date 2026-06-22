@@ -42,10 +42,10 @@ const items = [
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Let's Connect" className="bg-white/40 dark:bg-dusk-card/20">
+    <Section id="contact" title="Let's Connect" className="bg-white/30">
       <Reveal>
-        <div className="mb-4 rounded-xl border border-violet-200/50 bg-gradient-to-br from-white to-violet-50/80 p-4 text-center shadow-sm dark:border-violet-400/10 dark:from-dusk-card/90 dark:to-dusk-elevated/60">
-          <p className="text-sm font-semibold text-ink dark:text-slate-100">
+        <div className="mb-4 rounded-xl border border-violet-100 bg-gradient-to-br from-white to-violet-50/50 p-4 text-center shadow-sm">
+          <p className="text-sm font-semibold text-ink">
             Open to Software Engineer and AI Engineer opportunities.
           </p>
           <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -65,7 +65,7 @@ export default function Contact() {
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 aria-label={item.label}
                 title={item.label}
-                className={`surface-card flex h-12 w-12 items-center justify-center rounded-xl text-muted transition hover:-translate-y-0.5 hover:shadow-md dark:text-slate-400 ${item.color}`}
+                className={`flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-muted shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${item.color}`}
               >
                 <Icon />
               </a>
@@ -87,7 +87,7 @@ export default function Contact() {
             href={CONTACT.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-2.5 text-xs font-semibold text-ink transition hover:border-accent hover:text-accent dark:border-slate-600 dark:bg-slate-800/80 dark:text-violet-100"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-2.5 text-xs font-semibold text-ink transition hover:border-accent hover:text-accent"
           >
             Contribute on GitHub →
           </a>

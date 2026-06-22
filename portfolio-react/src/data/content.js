@@ -20,7 +20,6 @@ export const IMAGES = {
   klnCollege: `${BASE}/images/kln-college-cartoon.png`,
   bitsPilani: `${BASE}/images/bits-pilani-cartoon.png`,
   indianArmyEmblem: `${BASE}/images/indian-army-emblem.png`,
-  aiCareerOsPreview: `${BASE}/images/ai-career-os-preview.svg`,
 };
 
 export const CONTACT = {
@@ -106,8 +105,6 @@ export const PROJECTS = [
     github: 'https://github.com/shirapti-nath/ai-careers-os',
     demo: 'https://shirapti-nath.github.io/ai-careers-os/',
     featured: true,
-    caseStudyId: 'ai-career-os',
-    previewImage: IMAGES.aiCareerOsPreview,
   },
   {
     id: 'managify',
@@ -149,42 +146,6 @@ export const PROJECTS = [
     featured: true,
   },
 ];
-
-export const CASE_STUDIES = {
-  'ai-career-os': {
-    id: 'ai-career-os',
-    title: 'AI Resume Analyzer & Career OS',
-    tagline: 'Free career-tech platform for students and freshers',
-    demo: 'https://shirapti-nath.github.io/ai-careers-os/',
-    github: 'https://github.com/shirapti-nath/ai-careers-os',
-    previewImage: IMAGES.aiCareerOsPreview,
-    overview:
-      'AI Career OS is a full-stack platform I built to help students and freshers understand how their resume performs against ATS systems, explore realistic tech career paths, and export polished PDF resumes — without paid coaching.',
-    problem:
-      'Most job seekers lack actionable feedback on resume quality and career fit. Existing tools are either generic keyword checkers or expensive mentorship platforms that students cannot afford.',
-    solution:
-      'I designed and shipped an integrated system: client-side ATS scoring, structured career roadmaps for 12 tech roles, eight ATS-friendly resume templates, and an AI analysis layer — all accessible through a fast, colorful web experience.',
-    impact: [
-      'Shipped a production-ready platform deployed on GitHub Pages',
-      'ATS scoring engine with 0–100 compatibility feedback',
-      '12 curated career paths with skills, timelines, and salary context',
-      '8 exportable resume templates optimized for recruiter readability',
-    ],
-    architecture: [
-      { layer: 'Frontend', detail: 'React portfolio + vanilla JS career explorer with responsive, accessible UI' },
-      { layer: 'Analysis', detail: 'Client-side ATS keyword matching, section parsing, and scoring heuristics' },
-      { layer: 'AI Layer', detail: 'LLM API integration for resume insights and career recommendations' },
-      { layer: 'Content', detail: 'Structured JSON roadmaps, cert database, and resume template CSS system' },
-      { layer: 'Deploy', detail: 'GitHub Pages static hosting with optimized assets and lazy-loaded media' },
-    ],
-    decisions: [
-      'Chose static-first deployment so students can access the tool for free without server costs',
-      'Separated ATS scoring (deterministic) from AI analysis (generative) for transparent, trustworthy UX',
-      'Built eight distinct resume templates to demonstrate design systems thinking, not one-size-fits-all PDFs',
-    ],
-    stack: ['React', 'Vite', 'Node.js', 'Express', 'MongoDB', 'LLM APIs', 'Tailwind CSS', 'GitHub Pages'],
-  },
-};
 
 export const ACADEMIC = [
   {

@@ -3,12 +3,12 @@ import { Section, Reveal } from './Section';
 import { SKILL_GROUPS } from '../data/content';
 
 const colorMap = {
-  violet: 'from-violet-500/15 to-violet-100/70 border-violet-300/60 hover:border-violet-400 hover:shadow-soft',
-  pink: 'from-pink-500/15 to-pink-100/70 border-pink-300/60 hover:border-pink-400 hover:shadow-soft',
-  sky: 'from-sky-500/15 to-sky-100/70 border-sky-300/60 hover:border-sky-400 hover:shadow-soft',
-  indigo: 'from-indigo-500/15 to-indigo-100/70 border-indigo-300/60 hover:border-indigo-400 hover:shadow-soft',
-  rose: 'from-rose-500/15 to-rose-100/70 border-rose-300/60 hover:border-rose-400 hover:shadow-soft',
-  amber: 'from-amber-500/15 to-amber-100/70 border-amber-300/60 hover:border-amber-400 hover:shadow-soft',
+  violet: 'from-violet-500/10 to-violet-100/60 border-violet-200/80 hover:border-violet-400',
+  pink: 'from-pink-500/10 to-pink-100/60 border-pink-200/80 hover:border-pink-400',
+  sky: 'from-sky-500/10 to-sky-100/60 border-sky-200/80 hover:border-sky-400',
+  indigo: 'from-indigo-500/10 to-indigo-100/60 border-indigo-200/80 hover:border-indigo-400',
+  rose: 'from-rose-500/10 to-rose-100/60 border-rose-200/80 hover:border-rose-400',
+  amber: 'from-amber-500/10 to-amber-100/60 border-amber-200/80 hover:border-amber-400',
 };
 
 const tagHover = {
@@ -26,7 +26,7 @@ export default function Skills() {
       id="skills"
       title="Technical Skills"
       subtitle="Languages, frontend, backend, databases, AI/ML, and DevOps."
-      className="bg-white/40 dark:bg-dusk-card/20"
+      className="bg-white/30"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SKILL_GROUPS.map((group, gi) => (
@@ -36,14 +36,14 @@ export default function Skills() {
             >
               <div className="mb-3 flex items-center gap-2">
                 <span className="text-lg">{group.icon}</span>
-                <h3 className="text-sm font-bold text-ink dark:text-white">{group.title}</h3>
+                <h3 className="text-sm font-bold text-ink">{group.title}</h3>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {group.skills.map((skill) => (
                   <motion.span
                     key={skill}
                     whileHover={{ scale: 1.04 }}
-                    className={`cursor-default rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1 text-xs text-muted transition dark:border-slate-600/60 dark:bg-slate-800/80 dark:text-slate-300 ${tagHover[group.color]}`}
+                    className={`cursor-default rounded-full border border-slate-200/80 bg-white/90 px-2.5 py-1 text-xs text-muted transition ${tagHover[group.color]}`}
                   >
                     {skill}
                   </motion.span>

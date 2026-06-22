@@ -6,32 +6,11 @@
   html {
     scroll-behavior: smooth;
   }
-  html.dark {
-    color-scheme: dark;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
   body {
-    @apply bg-pearl text-ink antialiased;
-  }
-  html.dark body {
-    @apply bg-dusk text-slate-200;
+    @apply bg-cream text-ink antialiased;
   }
   ::selection {
     @apply bg-accent/20 text-ink;
-  }
-  html.dark ::selection {
-    @apply bg-violet-500/30 text-white;
   }
 }
 
@@ -40,15 +19,6 @@
     @apply bg-gradient-to-r from-accent via-accent-2 to-accent-3 bg-clip-text text-transparent;
   }
   .card-glass {
-    @apply rounded-xl border border-violet-200/50 bg-white/80 shadow-card backdrop-blur-md;
-  }
-  html.dark .card-glass {
-    @apply border-violet-400/15 bg-dusk-card/85 shadow-dusk-soft backdrop-blur-sm;
-  }
-  .surface-card {
-    @apply rounded-lg border border-violet-200/40 bg-white/90 shadow-sm;
-  }
-  html.dark .surface-card {
-    @apply border-violet-400/15 bg-dusk-card/90 shadow-dusk-soft;
+    @apply rounded-2xl border border-white/60 bg-white/70 shadow-card backdrop-blur-md;
   }
 }

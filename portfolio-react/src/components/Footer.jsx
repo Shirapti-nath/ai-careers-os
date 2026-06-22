@@ -1,17 +1,12 @@
-import { SITE_META } from '../data/content';
-
 export default function Footer() {
   return (
-    <footer className="border-t border-violet-200/50 py-8 dark:border-violet-400/10">
+    <footer className="border-t border-violet-100 py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-muted sm:flex-row">
         <p>
-          © {new Date().getFullYear()}{' '}
-          <span className="font-semibold text-ink dark:text-slate-100">Shirapti</span>. Built with React
+          © {new Date().getFullYear()} <span className="font-semibold text-ink">Shirapti</span>. Built with React
           &amp; Vite.
         </p>
-        <p className="text-xs font-medium text-accent">
-          Software Engineer · AI &amp; Backend · Updated {SITE_META.lastUpdated}
-        </p>
+        <p className="text-xs font-medium text-accent">Software Engineer · AI &amp; Backend</p>
       </div>
     </footer>
   );
