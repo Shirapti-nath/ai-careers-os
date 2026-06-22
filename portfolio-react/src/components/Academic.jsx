@@ -2,9 +2,14 @@ import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
 import { ACADEMIC } from '../data/content';
 
+const accentBar = {
+  amber: 'from-amber-400 to-orange-500',
+  violet: 'from-violet-500 to-purple-600',
+};
+
 const badgeColors = {
-  amber: 'bg-amber-500/90 text-white',
-  violet: 'bg-violet-500/90 text-white',
+  amber: 'bg-amber-100 text-amber-800 border-amber-200',
+  violet: 'bg-violet-100 text-violet-800 border-violet-200',
 };
 
 export default function Academic() {
@@ -15,31 +20,39 @@ export default function Academic() {
       subtitle="Strong CS fundamentals with a focus on AI and data science."
       className="bg-white/30"
     >
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         {ACADEMIC.map((item, i) => (
           <Reveal key={item.degree} delay={i}>
-            <motion.div
-              whileHover={{ y: -3 }}
-              className="relative min-h-[200px] overflow-hidden rounded-2xl border border-white/60 shadow-card transition hover:shadow-soft-lg"
+            <motion.article
+              whileHover={{ y: -4 }}
+              className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card transition hover:shadow-soft-lg"
             >
-              <img
-                src={item.bgImage}
-                alt=""
-                aria-hidden
-                className="absolute inset-0 h-full w-full scale-110 object-cover blur-md brightness-75"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/75 to-white/65 backdrop-blur-[2px]" />
-              <div className="relative flex h-full flex-col justify-end p-5 md:p-6">
+              {/* Clear campus photo - separate from text */}
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <img
+                  src={item.bgImage}
+                  alt={item.institution}
+                  className="h-full w-full object-cover object-center"
+                  loading="lazy"
+                />
+                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${accentBar[item.color]}`} />
+              </div>
+
+              {/* Text panel - solid background, no image overlap */}
+              <div className="border-t border-slate-100 bg-white p-5 md:p-6">
                 <span
-                  className={`mb-2 inline-block w-fit rounded-full px-3 py-1 text-xs font-bold shadow-sm ${badgeColors[item.color]}`}
+                  className={`mb-3 inline-block rounded-full border px-3 py-1 text-xs font-bold ${badgeColors[item.color]}`}
                 >
                   {item.highlight}
                 </span>
-                <h3 className="mb-1 text-lg font-bold text-ink">{item.degree}</h3>
-                <p className="text-sm font-medium text-ink/80">{item.institution}</p>
-                <p className="mt-1 font-mono text-xs text-muted">{item.period}</p>
+                <h3 className="mb-1.5 text-lg font-bold leading-snug text-ink">{item.degree}</h3>
+                <p className="text-sm font-semibold text-ink/90">{item.institution}</p>
+                <p className="mt-2 inline-flex items-center gap-1.5 font-mono text-xs text-muted">
+                  <span className={`inline-block h-1.5 w-1.5 rounded-full bg-gradient-to-r ${accentBar[item.color]}`} />
+                  {item.period}
+                </p>
               </div>
-            </motion.div>
+            </motion.article>
           </Reveal>
         ))}
       </div>
