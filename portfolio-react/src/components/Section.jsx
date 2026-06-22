@@ -1,37 +1,25 @@
 import { motion } from 'framer-motion';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-export function Section({ id, label, title, subtitle, children, className = '' }) {
+export function Section({ id, title, subtitle, children, className = '' }) {
   return (
-    <section id={id} className={`py-24 md:py-32 ${className}`}>
-      <div className="mx-auto max-w-6xl px-6">
-        {label && (
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent"
-          >
-            {label}
-          </motion.p>
-        )}
+    <section id={id} className={`py-10 md:py-14 ${className}`}>
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         {title && (
           <motion.h2
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            custom={1}
-            className="mb-4 text-3xl font-bold tracking-tight text-ink md:text-4xl"
+            viewport={{ once: true, margin: '-60px' }}
+            className="mb-2 text-2xl font-bold tracking-tight text-ink md:text-3xl"
           >
             {title}
           </motion.h2>
@@ -41,14 +29,14 @@ export function Section({ id, label, title, subtitle, children, className = '' }
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            custom={2}
-            className="mb-12 max-w-2xl text-base text-muted md:text-lg"
+            viewport={{ once: true, margin: '-60px' }}
+            custom={1}
+            className="mb-6 max-w-2xl text-sm text-muted md:text-base"
           >
             {subtitle}
           </motion.p>
         )}
-        {!subtitle && title && <div className="mb-12" />}
+        {!subtitle && title && <div className="mb-6" />}
         {children}
       </div>
     </section>
@@ -61,7 +49,7 @@ export function Reveal({ children, delay = 0, className = '' }) {
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
+      viewport={{ once: true, margin: '-40px' }}
       custom={delay}
       className={className}
     >

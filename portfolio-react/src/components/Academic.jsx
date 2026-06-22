@@ -2,33 +2,43 @@ import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
 import { ACADEMIC } from '../data/content';
 
-const colors = {
-  amber: 'from-amber-50 to-orange-50 border-amber-200 hover:border-amber-400',
-  violet: 'from-violet-50 to-purple-50 border-violet-200 hover:border-violet-400',
+const badgeColors = {
+  amber: 'bg-amber-500/90 text-white',
+  violet: 'bg-violet-500/90 text-white',
 };
 
 export default function Academic() {
   return (
     <Section
       id="academic"
-      label="04 — Education"
       title="Academic Highlights"
       subtitle="Strong CS fundamentals with a focus on AI and data science."
-      className="bg-white/40"
+      className="bg-white/30"
     >
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {ACADEMIC.map((item, i) => (
           <Reveal key={item.degree} delay={i}>
             <motion.div
-              whileHover={{ y: -4 }}
-              className={`h-full rounded-2xl border bg-gradient-to-br p-6 shadow-card transition hover:shadow-soft-lg ${colors[item.color]}`}
+              whileHover={{ y: -3 }}
+              className="relative min-h-[200px] overflow-hidden rounded-2xl border border-white/60 shadow-card transition hover:shadow-soft-lg"
             >
-              <span className="mb-3 inline-block rounded-full bg-white/80 px-3 py-1 text-xs font-bold text-accent shadow-sm">
-                {item.highlight}
-              </span>
-              <h3 className="mb-2 text-lg font-bold text-ink">{item.degree}</h3>
-              <p className="text-sm text-muted">{item.institution}</p>
-              <p className="mt-2 font-mono text-xs text-muted">{item.period}</p>
+              <img
+                src={item.bgImage}
+                alt=""
+                aria-hidden
+                className="absolute inset-0 h-full w-full scale-110 object-cover blur-md brightness-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/85 via-white/75 to-white/65 backdrop-blur-[2px]" />
+              <div className="relative flex h-full flex-col justify-end p-5 md:p-6">
+                <span
+                  className={`mb-2 inline-block w-fit rounded-full px-3 py-1 text-xs font-bold shadow-sm ${badgeColors[item.color]}`}
+                >
+                  {item.highlight}
+                </span>
+                <h3 className="mb-1 text-lg font-bold text-ink">{item.degree}</h3>
+                <p className="text-sm font-medium text-ink/80">{item.institution}</p>
+                <p className="mt-1 font-mono text-xs text-muted">{item.period}</p>
+              </div>
             </motion.div>
           </Reveal>
         ))}
