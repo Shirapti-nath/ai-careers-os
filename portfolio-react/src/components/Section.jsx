@@ -11,7 +11,7 @@ const fadeUp = {
 
 export function Section({ id, title, subtitle, children, className = '' }) {
   return (
-    <section id={id} className={`py-10 md:py-14 ${className}`}>
+    <section id={id} className={`py-6 md:py-8 ${className}`}>
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         {title && (
           <motion.h2
@@ -19,7 +19,7 @@ export function Section({ id, title, subtitle, children, className = '' }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
-            className="mb-2 text-2xl font-bold tracking-tight text-ink md:text-3xl"
+            className="mb-1 text-xl font-bold tracking-tight text-ink md:text-2xl"
           >
             {title}
           </motion.h2>
@@ -31,12 +31,12 @@ export function Section({ id, title, subtitle, children, className = '' }) {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
             custom={1}
-            className="mb-6 max-w-2xl text-sm text-muted md:text-base"
+            className="mb-4 max-w-2xl text-sm text-muted"
           >
             {subtitle}
           </motion.p>
         )}
-        {!subtitle && title && <div className="mb-6" />}
+        {!subtitle && title && <div className="mb-4" />}
         {children}
       </div>
     </section>

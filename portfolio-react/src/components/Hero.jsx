@@ -3,8 +3,8 @@ import { RESUME_PDF } from '../data/content';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative flex min-h-[88vh] items-center pt-16">
-      <div className="mx-auto max-w-6xl px-5 py-12 sm:px-6">
+    <section id="home" className="relative flex min-h-0 items-center pt-14 pb-6">
+      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}

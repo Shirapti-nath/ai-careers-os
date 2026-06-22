@@ -20,37 +20,33 @@ export default function Academic() {
       subtitle="Strong CS fundamentals with a focus on AI and data science."
       className="bg-white/30"
     >
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {ACADEMIC.map((item, i) => (
           <Reveal key={item.degree} delay={i}>
             <motion.article
-              whileHover={{ y: -4 }}
-              className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card transition hover:shadow-soft-lg"
+              whileHover={{ y: -3 }}
+              className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-soft-lg"
             >
-              {/* Clear campus photo - separate from text */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+              {/* College banner - full width, sharp, no text overlap */}
+              <div className="relative h-44 overflow-hidden bg-slate-200 sm:h-48 md:h-52">
                 <img
                   src={item.bgImage}
-                  alt={item.institution}
+                  alt={`${item.institution} campus`}
                   className="h-full w-full object-cover object-center"
                   loading="lazy"
                 />
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${accentBar[item.color]}`} />
               </div>
 
-              {/* Text panel - solid background, no image overlap */}
-              <div className="border-t border-slate-100 bg-white p-5 md:p-6">
+              {/* Degree details - separate block below banner */}
+              <div className="border-t border-slate-100 bg-white px-4 py-4">
                 <span
-                  className={`mb-3 inline-block rounded-full border px-3 py-1 text-xs font-bold ${badgeColors[item.color]}`}
+                  className={`mb-2 inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${badgeColors[item.color]}`}
                 >
                   {item.highlight}
                 </span>
-                <h3 className="mb-1.5 text-lg font-bold leading-snug text-ink">{item.degree}</h3>
-                <p className="text-sm font-semibold text-ink/90">{item.institution}</p>
-                <p className="mt-2 inline-flex items-center gap-1.5 font-mono text-xs text-muted">
-                  <span className={`inline-block h-1.5 w-1.5 rounded-full bg-gradient-to-r ${accentBar[item.color]}`} />
-                  {item.period}
-                </p>
+                <h3 className="mb-1 text-base font-bold leading-snug text-ink">{item.degree}</h3>
+                <p className="text-sm font-medium text-ink/85">{item.institution}</p>
+                <p className="mt-1.5 font-mono text-xs text-muted">{item.period}</p>
               </div>
             </motion.article>
           </Reveal>

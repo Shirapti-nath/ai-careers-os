@@ -149,15 +149,11 @@ export const ACHIEVEMENTS = [
     link: `${BASE}/certificates/nptel-discipline-star.png`,
   },
   {
-    title: 'Best Outgoing Student',
-    issuer: 'Among 120 students in CS branch (2021-2025)',
-    logo: '⭐',
-    link: '#',
-  },
-  {
-    title: 'Gold Medal - Computer Science',
-    issuer: 'B.E. CSE, K.L.N College of Engineering',
-    logo: '🥇',
+    title: 'Gold Medal & Best Outgoing Student',
+    issuer:
+      'Gold Medal in Computer Science · Best Outgoing Student among 120 students in CS branch (2021-2025) at K.L.N College of Engineering',
+    combined: true,
+    logos: ['🥇', '⭐'],
     link: '#',
   },
 ];
