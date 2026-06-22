@@ -5,6 +5,7 @@ export const IMAGES = {
   profile: `${BASE}/images/profile.png`,
   klnCollege: `${BASE}/images/kln-college-cartoon.png`,
   bitsPilani: `${BASE}/images/bits-pilani-cartoon.png`,
+  indianArmyEmblem: `${BASE}/images/indian-army-emblem.png`,
 };
 
 export const CONTACT = {
@@ -154,14 +155,14 @@ export const ACHIEVEMENTS = [
     title: 'Indian Army SSB Interview',
     issuer:
       'Completed the SSB interview process - evaluated on leadership, problem-solving, and psychological resilience across five days',
-    logo: '🎖️',
+    image: IMAGES.indianArmyEmblem,
     link: '#',
   },
   {
+    title: 'Gold Medal & Best Outgoing Student',
     issuer:
       'Gold Medal in Computer Science · Best Outgoing Student among 120 students in CS branch (2021-2025) at K.L.N College of Engineering',
-    combined: true,
-    logos: ['🥇', '⭐'],
+    logo: '🥇',
     link: '#',
   },
 ];

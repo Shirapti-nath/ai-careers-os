@@ -31,7 +31,7 @@ export default function About() {
             <p>
               Right now I&apos;m focused on career-tech and AI systems:{' '}
               <strong className="text-accent">AI Career OS</strong>, a free platform for resume analysis,
-              career path exploration, and interview prep - live on GitHub Pages.
+              career path exploration, and interview prep.
             </p>
           </div>
         </Reveal>

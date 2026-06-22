@@ -49,16 +49,8 @@ function ProjectCard({ project, index }) {
           ))}
         </ul>
 
-        <div className="flex flex-wrap gap-3">
-          <a
-            href={project.github}
-            target={project.github.startsWith('http') ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            className="text-xs font-semibold text-ink transition hover:text-accent hover:underline"
-          >
-            GitHub ↗
-          </a>
-          {project.demo !== '#' && (
+        {project.demo !== '#' && (
+          <div className="flex flex-wrap gap-3">
             <a
               href={project.demo}
               target="_blank"
@@ -67,8 +59,8 @@ function ProjectCard({ project, index }) {
             >
               Live Demo ↗
             </a>
-          )}
-        </div>
+          </div>
+        )}
       </motion.article>
     </Reveal>
   );

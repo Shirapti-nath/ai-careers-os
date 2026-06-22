@@ -25,39 +25,21 @@ function CompactCert({ title, issuer, href, preview }) {
 }
 
 function AchievementCard({ item }) {
-  if (item.combined) {
-    return (
-      <motion.div
-        whileHover={{ y: -2 }}
-        className="col-span-full flex items-center gap-3 rounded-lg border border-amber-200 bg-gradient-to-r from-amber-50 to-white p-3 shadow-sm"
-      >
-        <div className="flex shrink-0 gap-2 text-2xl">
-          {item.logos.map((logo) => (
-            <span key={logo}>{logo}</span>
-          ))}
-        </div>
-        <div className="min-w-0">
-          <h3 className="text-xs font-bold text-ink sm:text-sm">{item.title}</h3>
-          <p className="mt-0.5 text-[11px] leading-relaxed text-muted sm:text-xs">{item.issuer}</p>
-        </div>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.a
       href={item.link}
       target={item.link !== '#' ? '_blank' : undefined}
-      rel="noopener noreferrer"
+      rel={item.link !== '#' ? 'noopener noreferrer' : undefined}
       whileHover={{ y: -2 }}
       className="group flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm transition hover:border-violet-300 hover:shadow-md"
+      onClick={item.link === '#' ? (e) => e.preventDefault() : undefined}
     >
       {item.image ? (
-        <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-slate-100">
-          <img src={item.image} alt="" className="h-full w-full object-cover object-top" />
+        <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-slate-100 bg-white">
+          <img src={item.image} alt="" className="h-full w-full object-cover object-center" />
         </div>
       ) : (
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-slate-50 to-violet-50 text-2xl">
+        <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-slate-100 bg-gradient-to-br from-slate-50 to-violet-50 text-2xl">
           {item.logo}
         </div>
       )}
@@ -106,7 +88,7 @@ export default function Achievements() {
 
       <div className="grid gap-2 sm:grid-cols-2">
         {ACHIEVEMENTS.map((item, i) => (
-          <Reveal key={item.title} delay={i} className={item.combined ? 'sm:col-span-2' : ''}>
+          <Reveal key={item.title} delay={i}>
             <AchievementCard item={item} />
           </Reveal>
         ))}
