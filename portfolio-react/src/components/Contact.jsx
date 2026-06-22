@@ -42,9 +42,9 @@ const items = [
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Let's Connect" className="bg-white/30 dark:bg-dusk-card/20">
+    <Section id="contact" title="Let's Connect" className="bg-white/40 dark:bg-dusk-card/20">
       <Reveal>
-        <div className="mb-4 rounded-xl border border-violet-100 bg-gradient-to-br from-white to-violet-50/50 p-4 text-center shadow-sm dark:border-violet-400/10 dark:from-dusk-card/90 dark:to-dusk-elevated/60">
+        <div className="mb-4 rounded-xl border border-violet-200/50 bg-gradient-to-br from-white to-violet-50/80 p-4 text-center shadow-sm dark:border-violet-400/10 dark:from-dusk-card/90 dark:to-dusk-elevated/60">
           <p className="text-sm font-semibold text-ink dark:text-slate-100">
             Open to Software Engineer and AI Engineer opportunities.
           </p>

@@ -47,7 +47,7 @@ export default function CodeBackground() {
           vx: rand(-0.12, 0.12),
           vy: rand(-0.12, 0.12),
           size: rand(10, 13),
-          baseAlpha: rand(0.12, 0.22),
+          baseAlpha: rand(0.06, 0.14),
         });
       }
     };
@@ -92,12 +92,12 @@ export default function CodeBackground() {
         let alpha = p.baseAlpha;
         if (mouse.active) {
           const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-          if (md < 150) alpha = Math.min(0.55, p.baseAlpha + (1 - md / 150) * 0.38);
+          if (md < 150) alpha = Math.min(0.38, p.baseAlpha + (1 - md / 150) * 0.28);
         }
 
-        const r = isDark ? 139 : 91;
-        const g = isDark ? 92 : 33;
-        const b = isDark ? 246 : 182;
+        const r = isDark ? 167 : 124;
+        const g = isDark ? 139 : 58;
+        const b = isDark ? 250 : 237;
         ctx.font = `${p.size}px "JetBrains Mono", ui-monospace, monospace`;
         ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         ctx.fillText(p.text, p.x, p.y);
@@ -138,7 +138,7 @@ export default function CodeBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 -z-[5] opacity-90 dark:opacity-95"
+      className="pointer-events-none fixed inset-0 -z-[5] opacity-75 dark:opacity-85"
       aria-hidden
     />
   );

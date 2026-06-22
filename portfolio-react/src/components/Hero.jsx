@@ -46,14 +46,14 @@ export default function Hero() {
             </a>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-full border border-violet-400/15 bg-dusk-card/80 px-5 py-2.5 text-sm font-medium text-slate-200 transition hover:border-accent/40 hover:text-accent"
+              className="inline-flex items-center gap-2 rounded-full border border-violet-300/60 bg-white/70 px-5 py-2.5 text-sm font-semibold text-ink shadow-sm backdrop-blur transition hover:border-accent hover:text-accent dark:border-violet-400/20 dark:bg-dusk-card/80 dark:text-slate-200"
             >
               View Projects
             </a>
             <a
               href={RESUME_PDF}
               download
-              className="inline-flex items-center gap-2 rounded-full border border-violet-400/10 bg-dusk-elevated/60 px-5 py-2.5 text-sm font-medium text-dusk-muted transition hover:border-accent-3/40 hover:text-accent-3"
+              className="inline-flex items-center gap-2 rounded-full border border-violet-200/80 bg-white/50 px-5 py-2.5 text-sm font-medium text-muted transition hover:border-accent-3 hover:text-accent-3 dark:border-violet-400/15 dark:bg-dusk-elevated/60 dark:text-dusk-muted"
             >
               ↓ Download Resume
             </a>

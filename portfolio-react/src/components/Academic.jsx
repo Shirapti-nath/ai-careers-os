@@ -9,7 +9,7 @@ const ringColors = {
 
 export default function Academic() {
   return (
-    <Section id="academic" title="Education" className="bg-white/20 dark:bg-dusk-card/15">
+    <Section id="academic" title="Education" className="bg-white/35 dark:bg-dusk-card/15">
       <div className="grid gap-2.5 sm:grid-cols-2">
         {ACADEMIC.map((item, i) => (
           <Reveal key={item.degree} delay={i}>

@@ -22,13 +22,13 @@
     }
   }
   body {
-    @apply bg-cream text-ink antialiased;
+    @apply bg-pearl text-ink antialiased;
   }
   html.dark body {
     @apply bg-dusk text-slate-200;
   }
   ::selection {
-    @apply bg-accent/25 text-ink;
+    @apply bg-accent/20 text-ink;
   }
   html.dark ::selection {
     @apply bg-violet-500/30 text-white;
@@ -40,15 +40,15 @@
     @apply bg-gradient-to-r from-accent via-accent-2 to-accent-3 bg-clip-text text-transparent;
   }
   .card-glass {
-    @apply rounded-xl border border-white/70 bg-white/75 shadow-card backdrop-blur-md;
+    @apply rounded-xl border border-violet-200/50 bg-white/80 shadow-card backdrop-blur-md;
   }
   html.dark .card-glass {
-    @apply rounded-xl border border-violet-400/[0.08] bg-dusk-card/80 shadow-dusk-soft backdrop-blur-sm;
+    @apply border-violet-400/15 bg-dusk-card/85 shadow-dusk-soft backdrop-blur-sm;
   }
   .surface-card {
-    @apply rounded-lg border border-slate-200/80 bg-white/95 shadow-sm;
+    @apply rounded-lg border border-violet-200/40 bg-white/90 shadow-sm;
   }
   html.dark .surface-card {
-    @apply rounded-lg border border-violet-400/[0.08] bg-dusk-card/90 shadow-dusk-soft;
+    @apply border-violet-400/15 bg-dusk-card/90 shadow-dusk-soft;
   }
 }

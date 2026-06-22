@@ -3,12 +3,12 @@ import { Section, Reveal } from './Section';
 import { SKILL_GROUPS } from '../data/content';
 
 const colorMap = {
-  violet: 'from-violet-500/10 to-violet-100/60 border-violet-200/80 hover:border-violet-400',
-  pink: 'from-pink-500/10 to-pink-100/60 border-pink-200/80 hover:border-pink-400',
-  sky: 'from-sky-500/10 to-sky-100/60 border-sky-200/80 hover:border-sky-400',
-  indigo: 'from-indigo-500/10 to-indigo-100/60 border-indigo-200/80 hover:border-indigo-400',
-  rose: 'from-rose-500/10 to-rose-100/60 border-rose-200/80 hover:border-rose-400',
-  amber: 'from-amber-500/10 to-amber-100/60 border-amber-200/80 hover:border-amber-400',
+  violet: 'from-violet-500/15 to-violet-100/70 border-violet-300/60 hover:border-violet-400 hover:shadow-soft',
+  pink: 'from-pink-500/15 to-pink-100/70 border-pink-300/60 hover:border-pink-400 hover:shadow-soft',
+  sky: 'from-sky-500/15 to-sky-100/70 border-sky-300/60 hover:border-sky-400 hover:shadow-soft',
+  indigo: 'from-indigo-500/15 to-indigo-100/70 border-indigo-300/60 hover:border-indigo-400 hover:shadow-soft',
+  rose: 'from-rose-500/15 to-rose-100/70 border-rose-300/60 hover:border-rose-400 hover:shadow-soft',
+  amber: 'from-amber-500/15 to-amber-100/70 border-amber-300/60 hover:border-amber-400 hover:shadow-soft',
 };
 
 const tagHover = {
@@ -26,7 +26,7 @@ export default function Skills() {
       id="skills"
       title="Technical Skills"
       subtitle="Languages, frontend, backend, databases, AI/ML, and DevOps."
-      className="bg-white/30 dark:bg-dusk-card/20"
+      className="bg-white/40 dark:bg-dusk-card/20"
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SKILL_GROUPS.map((group, gi) => (

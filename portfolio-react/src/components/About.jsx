@@ -7,7 +7,7 @@ export default function About() {
       <div className="grid items-center gap-8 md:grid-cols-[200px_1fr]">
         <Reveal>
           <div className="mx-auto w-48 md:mx-0">
-            <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-white shadow-soft-lg ring-2 ring-violet-200/60 dark:border-violet-500/30 dark:ring-violet-500/30">
+            <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-white shadow-soft-lg ring-2 ring-violet-300/50 dark:border-violet-500/30 dark:ring-violet-500/30">
               <img
                 src={IMAGES.profile}
                 alt="Shirapti Nath"

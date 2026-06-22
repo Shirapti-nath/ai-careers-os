@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => {} });
+const ThemeContext = createContext({ theme: 'light', toggleTheme: () => {} });
 
 function applyTheme(theme) {
   document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -8,11 +8,11 @@ function applyTheme(theme) {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     const stored = localStorage.getItem('portfolio-theme');
-    const initial = stored === 'light' ? 'light' : 'dark';
+    const initial = stored === 'dark' ? 'dark' : 'light';
     setTheme(initial);
     applyTheme(initial);
   }, []);
