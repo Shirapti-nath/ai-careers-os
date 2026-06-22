@@ -27,18 +27,18 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl' : 'bg-transparent'
+        scrolled ? 'border-b border-violet-100 bg-white/80 shadow-sm backdrop-blur-xl' : 'bg-transparent'
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#home" className="font-mono text-sm font-semibold text-white">
+        <a href="#home" className="text-sm font-bold text-ink">
           shirapti<span className="text-accent">.</span>dev
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="text-sm text-zinc-400 transition-colors hover:text-accent">
+              <a href={l.href} className="text-sm font-medium text-muted transition-colors hover:text-accent">
                 {l.label}
               </a>
             </li>
@@ -46,31 +46,28 @@ export default function Navbar() {
           <li>
             <a
               href={RESUME_PDF}
-              className="rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent transition hover:bg-accent/20"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-1.5 text-sm font-semibold text-white shadow-soft transition hover:shadow-soft-lg"
             >
               Resume
             </a>
           </li>
         </ul>
 
-        <button
-          type="button"
-          className="md:hidden text-zinc-300"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
+        <button type="button" className="text-ink md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? '✕' : '☰'}
         </button>
       </nav>
 
       {open && (
-        <div className="border-t border-white/5 bg-[#0a0a0f]/95 px-6 py-4 md:hidden">
+        <div className="border-t border-violet-100 bg-white/95 px-6 py-4 md:hidden">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block py-2 text-sm text-zinc-400 hover:text-accent"
+              className="block py-2 text-sm font-medium text-muted hover:text-accent"
             >
               {l.label}
             </a>

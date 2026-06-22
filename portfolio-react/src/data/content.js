@@ -1,4 +1,5 @@
-export const RESUME_PDF = '#resume-pdf-placeholder';
+export const BASE = '/ai-careers-os/portfolio';
+export const RESUME_PDF = `${BASE}/resume.pdf`;
 
 export const CONTACT = {
   email: 'shirapti27@gmail.com',
@@ -11,22 +12,20 @@ export const SKILL_GROUPS = [
   {
     title: 'Languages',
     icon: '💻',
+    color: 'violet',
     skills: ['Python', 'C++', 'JavaScript'],
-  },
-  {
-    title: 'AI/ML & Agents',
-    icon: '🤖',
-    skills: ['LangGraph', 'Computer Vision (OpenCV)', 'LLM-based agent systems'],
   },
   {
     title: 'Backend & Web',
     icon: '⚡',
-    skills: ['Node.js', 'Express.js', 'React', 'MongoDB (MERN)', 'REST APIs'],
+    color: 'sky',
+    skills: ['Node.js', 'Express.js', 'React', 'MongoDB (MERN)', 'REST APIs', 'LangGraph'],
   },
   {
     title: 'Tools',
     icon: '🛠️',
-    skills: ['Git', 'GitHub', 'Cursor AI', 'Postman'],
+    color: 'rose',
+    skills: ['Git', 'GitHub', 'Cursor AI', 'Postman', 'OpenCV'],
   },
 ];
 
@@ -82,36 +81,21 @@ export const PROJECTS = [
     demo: '#',
   },
   {
-    id: 'multi-agent-support',
-    title: 'Multi-Agent Customer Support Platform',
+    id: 'orchestrate-triage',
+    title: 'Multi-Domain Support Triage Challenge',
     description:
-      'An 11-agent LangGraph-based customer support system that automates complex support workflows.',
+      'Orchestrate 2026 hackathon submission — an AI agent system for multi-domain customer support ticket triage and resolution.',
     problem:
-      'Customer support teams face repetitive, multi-step queries that need coordinated AI handling.',
+      'Support teams need intelligent routing and automated handling across diverse ticket domains without manual triage bottlenecks.',
     stack: ['Python', 'LangGraph', 'LLM APIs'],
     features: [
-      '11 specialized agents with defined roles',
-      'Orchestrated multi-step workflow',
-      'Automated query resolution pipeline',
+      'Multi-domain support ticket classification',
+      'AI agent orchestration pipeline',
+      'Ranked 290th of 1,547 teams at HackerRank Orchestrate',
     ],
-    github: '#',
+    github: 'https://github.com/Shirapti-nath/Multi-domain-support-triage-challenge',
     demo: '#',
-  },
-  {
-    id: 'insurance-cv',
-    title: 'CV-Based Insurance Claims Pipeline',
-    description:
-      'A computer vision pipeline for processing insurance claims with automated visual assessment.',
-    problem:
-      'Manual review of claim images is slow, inconsistent, and expensive for insurers.',
-    stack: ['Python', 'OpenCV', 'scikit-learn'],
-    features: [
-      'Automated image-based claim verification',
-      'Reduced manual review time',
-      'Structured damage assessment pipeline',
-    ],
-    github: '#',
-    demo: '#',
+    featured: true,
   },
 ];
 
@@ -121,40 +105,40 @@ export const ACADEMIC = [
     highlight: 'Gold Medal',
     institution: 'K L N College of Engineering',
     period: 'Graduated',
+    color: 'amber',
   },
   {
     degree: 'MSc Artificial Intelligence & Data Science',
     highlight: 'In Progress',
     institution: 'BITS Pilani',
     period: '2024 – Present',
-  },
-  {
-    degree: 'Microsoft Learn Student Ambassador',
-    highlight: 'Contributor',
-    institution: 'Microsoft Learn Program',
-    period: 'Active',
+    color: 'violet',
   },
 ];
 
 export const ACHIEVEMENTS = [
   {
-    title: 'AI Engineer for Data Science Associate',
-    issuer: 'DataCamp',
-    type: 'certification',
-    logo: '🎓',
-    link: '#',
+    title: 'AI Engineer for Developer Associate',
+    issuer: 'DataCamp Certification',
+    image: `${BASE}/certificates/ai-engineer-developer-associate.pdf`,
+    link: `${BASE}/certificates/ai-engineer-developer-associate.pdf`,
+    isPdf: true,
   },
   {
-    title: 'Orchestrate Hackathon',
-    issuer: 'Ranked 291 / 1547',
-    type: 'hackathon',
-    logo: '🏆',
-    link: '#',
+    title: 'HackerRank Orchestrate 2026',
+    issuer: 'Certificate of Excellence — 290th of 1,547 teams',
+    image: `${BASE}/certificates/orchestrate-hackerrank.png`,
+    link: `${BASE}/certificates/orchestrate-hackerrank.png`,
+  },
+  {
+    title: 'NPTEL Discipline Star',
+    issuer: 'Computer Science Engineering — Recognized at IIT Madras',
+    image: `${BASE}/certificates/nptel-discipline-star.png`,
+    link: `${BASE}/certificates/nptel-discipline-star.png`,
   },
   {
     title: 'Gold Medal — Computer Science',
-    issuer: 'B.E. CSE',
-    type: 'award',
+    issuer: 'B.E. CSE, K L N College of Engineering',
     logo: '🥇',
     link: '#',
   },

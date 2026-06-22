@@ -7,33 +7,33 @@ function ProjectCard({ project, index }) {
     <Reveal delay={index}>
       <motion.article
         whileHover={{ y: -6 }}
-        className={`group relative overflow-hidden rounded-2xl border bg-card/90 p-6 backdrop-blur transition-all duration-300 md:p-8 ${
+        className={`group relative overflow-hidden rounded-2xl border bg-white/80 p-6 shadow-card backdrop-blur transition-all duration-300 md:p-8 ${
           project.featured
-            ? 'border-accent/30 shadow-glow hover:shadow-glow-lg'
-            : 'border-white/8 hover:border-accent/25 hover:shadow-glow'
+            ? 'border-violet-200 hover:border-violet-400 hover:shadow-soft-lg'
+            : 'border-slate-200 hover:border-accent-3/50 hover:shadow-soft'
         }`}
       >
         {project.featured && (
-          <span className="absolute right-4 top-4 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
+          <span className="absolute right-4 top-4 rounded-full bg-gradient-to-r from-accent to-accent-2 px-3 py-1 text-xs font-bold text-white">
             Featured
           </span>
         )}
 
-        <h3 className="mb-2 text-xl font-bold text-white group-hover:text-accent transition-colors">
+        <h3 className="mb-2 text-xl font-bold text-ink transition-colors group-hover:text-accent">
           {project.title}
         </h3>
-        <p className="mb-4 text-sm leading-relaxed text-zinc-400">{project.description}</p>
+        <p className="mb-4 text-sm leading-relaxed text-muted">{project.description}</p>
 
-        <div className="mb-4 rounded-xl border border-white/5 bg-white/[0.02] p-4">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-zinc-500">Problem</p>
-          <p className="text-sm text-zinc-300">{project.problem}</p>
+        <div className="mb-4 rounded-xl border border-violet-100 bg-violet-50/50 p-4">
+          <p className="mb-1 text-xs font-bold uppercase tracking-wider text-accent">Problem</p>
+          <p className="text-sm text-ink/80">{project.problem}</p>
         </div>
 
         <div className="mb-4 flex flex-wrap gap-2">
           {project.stack.map((t) => (
             <span
               key={t}
-              className="rounded-md border border-accent/20 bg-accent/5 px-2.5 py-1 font-mono text-xs text-accent"
+              className="rounded-md border border-sky-200 bg-sky-50 px-2.5 py-1 font-mono text-xs text-sky-700"
             >
               {t}
             </span>
@@ -42,8 +42,8 @@ function ProjectCard({ project, index }) {
 
         <ul className="mb-6 space-y-1.5">
           {project.features.map((f) => (
-            <li key={f} className="flex gap-2 text-sm text-zinc-400">
-              <span className="text-accent">▸</span>
+            <li key={f} className="flex gap-2 text-sm text-muted">
+              <span className="text-accent-2">▸</span>
               {f}
             </li>
           ))}
@@ -54,18 +54,20 @@ function ProjectCard({ project, index }) {
             href={project.github}
             target={project.github.startsWith('http') ? '_blank' : undefined}
             rel="noopener noreferrer"
-            className="text-sm font-medium text-zinc-300 underline-offset-4 transition hover:text-accent hover:underline"
+            className="text-sm font-semibold text-ink underline-offset-4 transition hover:text-accent hover:underline"
           >
             GitHub ↗
           </a>
-          <a
-            href={project.demo}
-            target={project.demo.startsWith('http') ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-accent underline-offset-4 transition hover:underline"
-          >
-            Live Demo ↗
-          </a>
+          {project.demo !== '#' && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-accent underline-offset-4 transition hover:underline"
+            >
+              Live Demo ↗
+            </a>
+          )}
         </div>
       </motion.article>
     </Reveal>
@@ -74,13 +76,7 @@ function ProjectCard({ project, index }) {
 
 export default function Projects() {
   return (
-    <Section
-      id="projects"
-      label="03 — Projects"
-      title="Selected Work"
-      subtitle="Backend services, AI platforms, and systems I've built — with real problems and production-minded architecture."
-      className="bg-surface/50"
-    >
+    <Section id="projects" label="03 — Projects" title="Projects">
       <div className="grid gap-6 lg:grid-cols-2">
         {PROJECTS.map((p, i) => (
           <ProjectCard key={p.id} project={p} index={i} />

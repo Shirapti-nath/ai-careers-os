@@ -7,15 +7,18 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-[#0a0a0f] text-zinc-100 antialiased;
+    @apply bg-cream text-ink antialiased;
   }
   ::selection {
-    @apply bg-accent/30 text-white;
+    @apply bg-accent/20 text-ink;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-accent to-cyan-300 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent via-accent-2 to-accent-3 bg-clip-text text-transparent;
+  }
+  .card-glass {
+    @apply rounded-2xl border border-white/60 bg-white/70 shadow-card backdrop-blur-md;
   }
 }

@@ -19,7 +19,7 @@ export function Section({ id, label, title, subtitle, children, className = '' }
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent"
+            className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent"
           >
             {label}
           </motion.p>
@@ -31,7 +31,7 @@ export function Section({ id, label, title, subtitle, children, className = '' }
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             custom={1}
-            className="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl"
+            className="mb-4 text-3xl font-bold tracking-tight text-ink md:text-4xl"
           >
             {title}
           </motion.h2>
@@ -43,11 +43,12 @@ export function Section({ id, label, title, subtitle, children, className = '' }
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             custom={2}
-            className="mb-12 max-w-2xl text-base text-zinc-400 md:text-lg"
+            className="mb-12 max-w-2xl text-base text-muted md:text-lg"
           >
             {subtitle}
           </motion.p>
         )}
+        {!subtitle && title && <div className="mb-12" />}
         {children}
       </div>
     </section>

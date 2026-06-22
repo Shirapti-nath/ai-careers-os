@@ -9,26 +9,46 @@ export default function Achievements() {
       label="05 — Achievements"
       title="Achievements & Certifications"
       subtitle="Certifications, hackathons, and academic recognition."
-      className="bg-surface/50"
     >
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2">
         {ACHIEVEMENTS.map((item, i) => (
           <Reveal key={item.title} delay={i}>
             <motion.a
               href={item.link}
-              whileHover={{ y: -6, boxShadow: '0 0 40px rgba(34,211,238,0.2)' }}
-              className="group flex h-full flex-col rounded-2xl border border-white/8 bg-card/90 p-6 transition hover:border-accent/35"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -6 }}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white/80 shadow-card transition hover:border-violet-300 hover:shadow-soft-lg"
             >
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-3xl">
-                {item.logo}
+              {item.image ? (
+                <div className="relative h-44 overflow-hidden border-b border-slate-100 bg-slate-50">
+                  {item.isPdf ? (
+                    <div className="flex h-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-violet-50 to-pink-50">
+                      <span className="text-4xl">🎓</span>
+                      <span className="text-xs font-bold uppercase tracking-wider text-accent">DataCamp Certificate</span>
+                    </div>
+                  ) : (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover object-top transition group-hover:scale-105"
+                    />
+                  )}
+                </div>
+              ) : (
+                <div className="flex h-20 items-center justify-center border-b border-slate-100 bg-gradient-to-r from-amber-50 to-yellow-50 text-4xl">
+                  {item.logo}
+                </div>
+              )}
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-1 font-bold text-ink group-hover:text-accent transition-colors">
+                  {item.title}
+                </h3>
+                <p className="mb-4 flex-1 text-sm text-muted">{item.issuer}</p>
+                <span className="text-sm font-semibold text-accent">
+                  View Certificate →
+                </span>
               </div>
-              <h3 className="mb-1 font-bold text-white group-hover:text-accent transition-colors">
-                {item.title}
-              </h3>
-              <p className="mb-4 flex-1 text-sm text-zinc-400">{item.issuer}</p>
-              <span className="text-sm font-semibold text-accent opacity-0 transition group-hover:opacity-100">
-                View Certificate →
-              </span>
             </motion.a>
           </Reveal>
         ))}
