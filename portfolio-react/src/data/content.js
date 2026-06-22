@@ -3,8 +3,8 @@ export const RESUME_PDF = `${BASE}/resume.pdf`;
 
 export const IMAGES = {
   profile: `${BASE}/images/profile.png`,
-  klnCollege: `${BASE}/images/kln-college.jpg`,
-  bitsPilani: `${BASE}/images/bits-pilani.jpg`,
+  klnCollege: `${BASE}/images/kln-college-cartoon.png`,
+  bitsPilani: `${BASE}/images/bits-pilani-cartoon.png`,
 };
 
 export const CONTACT = {

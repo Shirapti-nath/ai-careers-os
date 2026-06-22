@@ -2,51 +2,45 @@ import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
 import { ACADEMIC } from '../data/content';
 
-const accentBar = {
-  amber: 'from-amber-400 to-orange-500',
-  violet: 'from-violet-500 to-purple-600',
+const badgeColors = {
+  amber: 'bg-amber-100 text-amber-800',
+  violet: 'bg-violet-100 text-violet-800',
 };
 
-const badgeColors = {
-  amber: 'bg-amber-100 text-amber-800 border-amber-200',
-  violet: 'bg-violet-100 text-violet-800 border-violet-200',
+const ringColors = {
+  amber: 'ring-amber-200',
+  violet: 'ring-violet-200',
 };
 
 export default function Academic() {
   return (
-    <Section
-      id="academic"
-      title="Academic Highlights"
-      subtitle="Strong CS fundamentals with a focus on AI and data science."
-      className="bg-white/30"
-    >
-      <div className="grid gap-4 md:grid-cols-2">
+    <Section id="academic" title="Education" className="bg-white/20">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         {ACADEMIC.map((item, i) => (
           <Reveal key={item.degree} delay={i}>
             <motion.article
-              whileHover={{ y: -3 }}
-              className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition hover:shadow-soft-lg"
+              whileHover={{ scale: 1.01 }}
+              className="flex items-center gap-3 rounded-lg border border-slate-200/90 bg-white/95 p-2.5 shadow-sm transition hover:shadow-md"
             >
-              {/* College banner - full width, sharp, no text overlap */}
-              <div className="relative h-44 overflow-hidden bg-slate-200 sm:h-48 md:h-52">
+              <div
+                className={`h-16 w-20 shrink-0 overflow-hidden rounded-md ring-2 ${ringColors[item.color]}`}
+              >
                 <img
                   src={item.bgImage}
-                  alt={`${item.institution} campus`}
+                  alt={item.institution}
                   className="h-full w-full object-cover object-center"
                   loading="lazy"
                 />
               </div>
-
-              {/* Degree details - separate block below banner */}
-              <div className="border-t border-slate-100 bg-white px-4 py-4">
-                <span
-                  className={`mb-2 inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-bold ${badgeColors[item.color]}`}
-                >
-                  {item.highlight}
-                </span>
-                <h3 className="mb-1 text-base font-bold leading-snug text-ink">{item.degree}</h3>
-                <p className="text-sm font-medium text-ink/85">{item.institution}</p>
-                <p className="mt-1.5 font-mono text-xs text-muted">{item.period}</p>
+              <div className="min-w-0 flex-1">
+                <div className="mb-1 flex flex-wrap items-center gap-1.5">
+                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${badgeColors[item.color]}`}>
+                    {item.highlight}
+                  </span>
+                  <span className="font-mono text-[10px] text-muted">{item.period}</span>
+                </div>
+                <h3 className="truncate text-xs font-bold text-ink sm:text-[13px]">{item.degree}</h3>
+                <p className="truncate text-[11px] font-medium text-muted">{item.institution}</p>
               </div>
             </motion.article>
           </Reveal>
