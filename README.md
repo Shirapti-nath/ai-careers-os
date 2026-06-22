@@ -62,7 +62,10 @@ ai-career-os/
 ├── index.html              ← Landing page
 ├── demo.html               ← ResumeAI full demo
 ├── career-explorer.html    ← TechPath OS
-├── portfolio/              ← Personal portfolio site
+├── portfolio/              ← Built portfolio (deployed to GitHub Pages)
+├── portfolio-react/        ← React portfolio source (Vite + Tailwind)
+│   ├── src/
+│   └── package.json
 ├── frontend/               ← React app (full project)
 │   ├── src/
 │   └── package.json
@@ -88,6 +91,10 @@ cd backend && npm install && npm run dev
 
 # Full project — Frontend
 cd frontend && npm install && npm run dev
+
+# Portfolio (React)
+cd portfolio-react && npm install && npm run dev
+cd portfolio-react && npm run build   # outputs to ../portfolio/
 ```
 
 ---
