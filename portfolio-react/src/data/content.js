@@ -12,6 +12,7 @@ export const CONTACT = {
   phone: '9842644796',
   linkedin: 'https://www.linkedin.com/in/shirapti',
   github: 'https://github.com/Shirapti-nath',
+  twitter: 'https://x.com/ShiraptiN',
 };
 
 export const AI_CERT_PDF = `${BASE}/certificates/ai-engineer-developer-associate.pdf`;
@@ -149,7 +150,13 @@ export const ACHIEVEMENTS = [
     link: `${BASE}/certificates/nptel-discipline-star.png`,
   },
   {
-    title: 'Gold Medal & Best Outgoing Student',
+    title: 'Indian Army SSB Interview',
+    issuer:
+      'Completed the SSB interview process - evaluated on leadership, problem-solving, and psychological resilience across five days',
+    logo: '🎖️',
+    link: '#',
+  },
+  {
     issuer:
       'Gold Medal in Computer Science · Best Outgoing Student among 120 students in CS branch (2021-2025) at K.L.N College of Engineering',
     combined: true,

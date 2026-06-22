@@ -2,40 +2,25 @@ import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
 import { ACHIEVEMENTS, AI_CERT_PDF, GOOGLE_EDUCATOR_CERT } from '../data/content';
 
-function CertShowcase({ title, issuer, bgImage, pdfUrl, children }) {
+function CompactCert({ title, issuer, href, preview }) {
   return (
-    <Reveal>
-      <div className="relative overflow-hidden rounded-xl border border-violet-200/80 bg-white shadow-soft">
-        {bgImage && (
-          <>
-            <img
-              src={bgImage}
-              alt=""
-              aria-hidden
-              className="absolute inset-0 h-full w-full object-cover object-top opacity-30 blur-[1px]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/92 via-white/88 to-violet-50/80" />
-          </>
-        )}
-        <div className="relative p-4 md:p-5">
-          <div className="mb-3">
-            <h3 className="text-base font-bold text-ink">{title}</h3>
-            <p className="text-xs text-muted">{issuer}</p>
-          </div>
-          {children}
-          {pdfUrl && (
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-block text-xs font-semibold text-accent hover:underline"
-            >
-              Open full certificate →
-            </a>
-          )}
-        </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white p-2 transition hover:border-violet-300 hover:shadow-md"
+    >
+      <div className="h-16 w-[4.5rem] shrink-0 overflow-hidden rounded-md border border-slate-100 bg-slate-50">
+        {preview}
       </div>
-    </Reveal>
+      <div className="min-w-0 flex-1">
+        <h3 className="text-[11px] font-bold leading-tight text-ink group-hover:text-accent sm:text-xs">
+          {title}
+        </h3>
+        <p className="mt-0.5 line-clamp-2 text-[10px] text-muted">{issuer}</p>
+        <span className="mt-1 inline-block text-[10px] font-semibold text-accent">View certificate →</span>
+      </div>
+    </a>
   );
 }
 
@@ -43,19 +28,17 @@ function AchievementCard({ item }) {
   if (item.combined) {
     return (
       <motion.div
-        whileHover={{ y: -3 }}
-        className="col-span-full flex h-full flex-col overflow-hidden rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-yellow-50 shadow-sm transition hover:shadow-soft"
+        whileHover={{ y: -2 }}
+        className="col-span-full flex items-center gap-3 rounded-lg border border-amber-200 bg-gradient-to-r from-amber-50 to-white p-3 shadow-sm"
       >
-        <div className="flex items-center justify-center gap-4 border-b border-amber-100 bg-amber-50/80 py-4">
+        <div className="flex shrink-0 gap-2 text-2xl">
           {item.logos.map((logo) => (
-            <span key={logo} className="text-4xl">
-              {logo}
-            </span>
+            <span key={logo}>{logo}</span>
           ))}
         </div>
-        <div className="flex flex-1 flex-col p-4">
-          <h3 className="mb-2 text-base font-bold text-ink">{item.title}</h3>
-          <p className="text-sm leading-relaxed text-muted">{item.issuer}</p>
+        <div className="min-w-0">
+          <h3 className="text-xs font-bold text-ink sm:text-sm">{item.title}</h3>
+          <p className="mt-0.5 text-[11px] leading-relaxed text-muted sm:text-xs">{item.issuer}</p>
         </div>
       </motion.div>
     );
@@ -66,28 +49,22 @@ function AchievementCard({ item }) {
       href={item.link}
       target={item.link !== '#' ? '_blank' : undefined}
       rel="noopener noreferrer"
-      whileHover={{ y: -3 }}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-violet-300 hover:shadow-soft"
+      whileHover={{ y: -2 }}
+      className="group flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white p-2.5 shadow-sm transition hover:border-violet-300 hover:shadow-md"
     >
       {item.image ? (
-        <div className="h-28 overflow-hidden border-b border-slate-100">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="h-full w-full object-cover object-top transition group-hover:scale-[1.02]"
-          />
+        <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-slate-100">
+          <img src={item.image} alt="" className="h-full w-full object-cover object-top" />
         </div>
       ) : (
-        <div className="flex h-14 items-center justify-center border-b border-slate-100 bg-gradient-to-r from-amber-50 to-yellow-50 text-2xl">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-slate-50 to-violet-50 text-2xl">
           {item.logo}
         </div>
       )}
-      <div className="flex flex-1 flex-col p-3">
-        <h3 className="mb-1 text-sm font-bold text-ink group-hover:text-accent transition-colors">
-          {item.title}
-        </h3>
-        <p className="flex-1 text-xs leading-relaxed text-muted">{item.issuer}</p>
-        {item.link !== '#' && <span className="mt-1.5 text-xs font-semibold text-accent">View →</span>}
+      <div className="min-w-0 flex-1">
+        <h3 className="text-xs font-bold text-ink group-hover:text-accent">{item.title}</h3>
+        <p className="mt-0.5 line-clamp-3 text-[11px] leading-relaxed text-muted">{item.issuer}</p>
+        {item.link !== '#' && <span className="mt-1 inline-block text-[10px] font-semibold text-accent">View →</span>}
       </div>
     </motion.a>
   );
@@ -95,50 +72,41 @@ function AchievementCard({ item }) {
 
 export default function Achievements() {
   return (
-    <Section
-      id="achievements"
-      title="Achievements & Certifications"
-      subtitle="Certifications, hackathons, and academic recognition."
-    >
-      <div className="mb-4 grid gap-3 lg:grid-cols-2">
-        <CertShowcase
-          title="AI Engineer for Developer Associate"
-          issuer="DataCamp Certification"
-          pdfUrl={AI_CERT_PDF}
-        >
-          <div className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-inner">
-            <iframe
-              src={`${AI_CERT_PDF}#toolbar=0&navpanes=0`}
-              title="AI Engineer for Developer Associate Certificate"
-              className="h-[280px] w-full md:h-[320px]"
-            />
-          </div>
-        </CertShowcase>
-
-        <CertShowcase
-          title="Google Certified Educator, Level 1"
-          issuer="Google for Education · Valid through Jan 2029"
-          bgImage={GOOGLE_EDUCATOR_CERT}
-          pdfUrl={GOOGLE_EDUCATOR_CERT}
-        >
-          <a
+    <Section id="achievements" title="Achievements & Certifications">
+      <div className="mb-3 grid gap-2 sm:grid-cols-2">
+        <Reveal>
+          <CompactCert
+            title="AI Engineer for Developer Associate"
+            issuer="DataCamp Certification"
+            href={AI_CERT_PDF}
+            preview={
+              <iframe
+                src={`${AI_CERT_PDF}#toolbar=0&navpanes=0&view=FitH`}
+                title="DataCamp certificate preview"
+                className="pointer-events-none h-32 w-[200%] origin-top-left scale-50"
+              />
+            }
+          />
+        </Reveal>
+        <Reveal delay={1}>
+          <CompactCert
+            title="Google Certified Educator, Level 1"
+            issuer="Google for Education · Valid through Jan 2029"
             href={GOOGLE_EDUCATOR_CERT}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block overflow-hidden rounded-lg border border-slate-200 shadow-inner transition hover:shadow-md"
-          >
-            <img
-              src={GOOGLE_EDUCATOR_CERT}
-              alt="Google Certified Educator Level 1"
-              className="w-full object-cover object-top"
-            />
-          </a>
-        </CertShowcase>
+            preview={
+              <img
+                src={GOOGLE_EDUCATOR_CERT}
+                alt="Google Certified Educator"
+                className="h-full w-full object-cover object-top"
+              />
+            }
+          />
+        </Reveal>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-2 sm:grid-cols-2">
         {ACHIEVEMENTS.map((item, i) => (
-          <Reveal key={item.title} delay={i}>
+          <Reveal key={item.title} delay={i} className={item.combined ? 'sm:col-span-2' : ''}>
             <AchievementCard item={item} />
           </Reveal>
         ))}

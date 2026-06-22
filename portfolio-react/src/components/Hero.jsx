@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import { RESUME_PDF } from '../data/content';
 
+const quickFacts = [
+  { label: 'Gold Medal · CSE', href: '#academic' },
+  { label: 'MSc AI · BITS Pilani', href: '#academic' },
+  { label: '2 Live Projects', href: '#projects' },
+  { label: 'Open to SWE & AI roles', href: '#contact' },
+];
+
 export default function Hero() {
   return (
     <section id="home" className="relative flex min-h-0 items-center pt-14 pb-6">
@@ -33,6 +40,18 @@ export default function Hero() {
               I learn by building, breaking, and iterating until the system actually works for users -
               not just in a demo.
             </p>
+          </div>
+
+          <div className="mb-6 flex flex-wrap gap-2">
+            {quickFacts.map((f) => (
+              <a
+                key={f.label}
+                href={f.href}
+                className="rounded-full border border-violet-200/80 bg-white/80 px-3 py-1 text-[11px] font-semibold text-ink shadow-sm transition hover:border-accent hover:text-accent"
+              >
+                {f.label}
+              </a>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-3">
