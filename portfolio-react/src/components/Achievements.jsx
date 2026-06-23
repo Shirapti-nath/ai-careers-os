@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Section, Reveal } from './Section';
-import { ACHIEVEMENTS, AI_CERT_PDF, AI_CERT_THUMB, GOOGLE_EDUCATOR_CERT } from '../data/content';
+import { ACHIEVEMENTS, AI_CERT_PDF, AI_CERT_THUMB, GOOGLE_EDUCATOR_CERT, ORACLE_CERT_PDF, ORACLE_CERT_THUMB } from '../data/content';
 
 function CertThumb({ children }) {
   return (
@@ -61,7 +61,7 @@ function AchievementCard({ item }) {
 export default function Achievements() {
   return (
     <Section id="achievements" title="Achievements & Certifications">
-      <div className="mb-3 grid gap-2 sm:grid-cols-2">
+      <div className="mb-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         <Reveal>
           <CompactCert
             title="AI Engineer for Developer Associate"
@@ -87,6 +87,22 @@ export default function Achievements() {
               <img
                 src={GOOGLE_EDUCATOR_CERT}
                 alt="Google Certified Educator"
+                className="max-h-full max-w-full object-contain object-top"
+                loading="lazy"
+                decoding="async"
+              />
+            }
+          />
+        </Reveal>
+        <Reveal delay={2}>
+          <CompactCert
+            title="Oracle Certified Foundations Associate"
+            issuer="Agentic AI · Oracle University · June 2026"
+            href={ORACLE_CERT_PDF}
+            preview={
+              <img
+                src={ORACLE_CERT_THUMB}
+                alt="Oracle Certified Foundations Associate"
                 className="max-h-full max-w-full object-contain object-top"
                 loading="lazy"
                 decoding="async"

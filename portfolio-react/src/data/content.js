@@ -34,6 +34,8 @@ export const AI_CERT_PDF = `${BASE}/certificates/ai-engineer-developer-associate
 export const AI_CERT_IMG = `${BASE}/certificates/ai-engineer-developer-associate.png`;
 export const AI_CERT_THUMB = `${BASE}/certificates/ai-engineer-developer-associate-thumb.png`;
 export const GOOGLE_EDUCATOR_CERT = `${BASE}/certificates/google-certified-educator.png`;
+export const ORACLE_CERT_PDF = `${BASE}/certificates/oracle-certified.pdf`;
+export const ORACLE_CERT_THUMB = `${BASE}/certificates/oracle-certified-thumb.png`;
 
 export const SKILL_GROUPS = [
   { title: 'Languages', icon: '💻', color: 'violet', skills: ['Python', 'C++', 'JavaScript'] },
